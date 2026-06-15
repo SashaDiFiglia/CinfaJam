@@ -152,5 +152,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TrapCycleController
   trap: {fileID: 11400000, guid: 8e81efc3541c6834db56ef6c889921fd, type: 2}
-  waitTime: 3
-  activeTime: 2
+  timeBeforeActivation: 1
+  timeBeforeDeactivation: 1

@@ -445,7 +445,7 @@ PrefabInstance:
       objectReference: {fileID: 11400000, guid: d251f520223d25745bc51fd9dc5fee88, type: 2}
     - target: {fileID: 4265943311275965768, guid: f488c330cb3a8bd4aa7c3f89c32818c9, type: 3}
       propertyPath: timeBeforeActivation
-      value: 1
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 4862882007285618986, guid: f488c330cb3a8bd4aa7c3f89c32818c9, type: 3}
       propertyPath: m_Enabled
@@ -467,30 +467,6 @@ PrefabInstance:
     - target: {fileID: 755888111913006319, guid: bbfb3ec8195d4604aac532f3274c27f2, type: 3}
       propertyPath: m_Name
       value: Wall
-      objectReference: {fileID: 0}
-    - target: {fileID: 755888111913006319, guid: bbfb3ec8195d4604aac532f3274c27f2, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3982949109717156405, guid: bbfb3ec8195d4604aac532f3274c27f2, type: 3}
-      propertyPath: trap
-      value: 
-      objectReference: {fileID: 11400000, guid: 8e81efc3541c6834db56ef6c889921fd, type: 2}
-    - target: {fileID: 3982949109717156405, guid: bbfb3ec8195d4604aac532f3274c27f2, type: 3}
-      propertyPath: waitTime
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3982949109717156405, guid: bbfb3ec8195d4604aac532f3274c27f2, type: 3}
-      propertyPath: activeTime
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3982949109717156405, guid: bbfb3ec8195d4604aac532f3274c27f2, type: 3}
-      propertyPath: timeBeforeActivation
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3982949109717156405, guid: bbfb3ec8195d4604aac532f3274c27f2, type: 3}
-      propertyPath: timeBeforeDeactivation
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4475205218561174413, guid: bbfb3ec8195d4604aac532f3274c27f2, type: 3}
       propertyPath: m_LocalPosition.x

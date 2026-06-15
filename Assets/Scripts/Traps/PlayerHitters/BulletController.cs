@@ -17,8 +17,11 @@ public class BulletController : MonoBehaviour
             _damage = damage;
             _lifetime = lifetime;
             _speed = speed;
+            
+            StopMoving();
             _isMoving = true;
             _moveC = StartCoroutine(Move());
+           
             StartCoroutine(DestroyAfterLifetime());
         }
     #endregion
@@ -26,14 +29,16 @@ public class BulletController : MonoBehaviour
     #region Movement controller
         private IEnumerator Move()
         {
-            while (_isMoving) { transform.Translate(Vector2.up * (_speed * Time.deltaTime)); }
-            yield return null;
+            while (_isMoving)
+            {
+                transform.Translate(Vector2.up * (_speed * Time.deltaTime));
+                yield return null;
+            }
         }
         public void StopMoving() { _isMoving = false; if (_moveC != null) { StopCoroutine(_moveC); _moveC = null; } }
     #endregion
 
-    void OnCollisionEnter2D(Collision2D col) 
-    { Hit(col.gameObject); }
+    void OnCollisionEnter2D(Collision2D col) { Hit(col.gameObject); }
 
     #region Hit/Self-Destruct
         void Hit(GameObject other)

@@ -141,7 +141,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TrapCycleController
   trap: {fileID: 11400000, guid: d251f520223d25745bc51fd9dc5fee88, type: 2}
-  timeBeforeActivation: 0
+  timeBeforeActivation: 1.5
   timeBeforeDeactivation: 0
 --- !u!1 &3546510411437245781
 GameObject:

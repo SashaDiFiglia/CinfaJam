@@ -1,5 +1,4 @@
 using System.Collections;
-using Sirenix.OdinInspector;
 using UnityEngine;
 
 public class SpikeController : MonoBehaviour
@@ -31,7 +30,6 @@ public class SpikeController : MonoBehaviour
     #region Setup
         public void Setup(float value, float delayBetweenHits)
         {
-            Debug.Log("Setup Spikes");
             _damage = value;
             _delay = delayBetweenHits;
             _canHit = true;
@@ -118,5 +116,4 @@ public class SpikeController : MonoBehaviour
         { if (_hitDelayC != null) { StopCoroutine(_hitDelayC); _hitDelayC = null; _canHit = true; } }
     #endregion
     
-
 }
