@@ -30,7 +30,7 @@ public class BracierInstance : MonoBehaviour
     private void SetLightRadius()
     {
 
-        Vector3 targetScale = _lightObj.localScale;
+        Vector3 targetScale = new Vector3(_bracierData.lightRadius, _bracierData.lightRadius, _bracierData.lightRadius);
         
         _lightObj.localScale = Vector3.zero;
 
@@ -68,6 +68,8 @@ public class BracierInstance : MonoBehaviour
     
     /////////////////////// EVENTS
 
+    
+    //Evento da Chiamare i braciers
     [Button]
     public void LightUp()
     {
