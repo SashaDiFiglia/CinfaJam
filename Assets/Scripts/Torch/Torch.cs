@@ -1,4 +1,6 @@
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Numerics;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -20,7 +22,8 @@ public class Torch : MonoBehaviour
 
     [SerializeField] private float _reductionForTick;
     [SerializeField] private float _reductionMultiplier;
-    [SerializeField, Unity.Collections.ReadOnly] private float _time;
+    [SerializeField] private float _time;
+    [SerializeField] private float scaleLerpSpeed = 5f;
 
     public TorchData TorchData
     {
@@ -75,22 +78,20 @@ public class Torch : MonoBehaviour
         }
     }
 
+
+
     private void SetLightRadius(float duration)
     {
-        
-        if (duration <= 0)
-        {
-            _lightObj.localScale = Vector3.zero;
-            return;
-        }
-        float _reductionDimension = duration * _reductionMultiplier;
-            
-        _lightObj.localScale = new Vector3(_reductionDimension,
-            _reductionDimension, _reductionDimension);
-            
-        
-        //Bounce o lerp da attuale posizione alla scale a cui deve arrivare
+        float reductionDimension = duration <= 0
+            ? 0f
+            : duration * _reductionMultiplier;
 
+        Vector3 targetScale = Vector3.one * reductionDimension;
+
+        if (scaleCoroutine != null)
+            StopCoroutine(scaleCoroutine);
+
+        scaleCoroutine = StartCoroutine(LerpScale(targetScale, 0.2f));
     }
 
     private void SetTorchParticleEmission(float duration)
@@ -98,14 +99,29 @@ public class Torch : MonoBehaviour
          _torchFireParticles.emissionRate = duration;
 
     }
+    //////////////////////////////// COROUTINES
     
-    // private void CheckTorchTreshHold()
-    // {
-    //     switch (_torchData.duration)
-    //     {
-    //         case 
-    //     }
-    // }
+    
+    private Coroutine scaleCoroutine;
+
+
+    private IEnumerator LerpScale(Vector3 targetScale, float duration)
+    {
+        Vector3 startScale = _lightObj.localScale;
+        float elapsed = 0f;
+
+        while (elapsed < duration)
+        {
+            elapsed += Time.deltaTime;
+            float t = elapsed / duration;
+
+            _lightObj.localScale = Vector3.Lerp(startScale, targetScale, t);
+
+            yield return null;
+        }
+
+        _lightObj.localScale = targetScale;
+    }
     
     /////////////////////////////////// EVENTS
     //Collegare Evento Jasbon
@@ -113,6 +129,9 @@ public class Torch : MonoBehaviour
     public void ReduceTorchDurationOnUse()
     {
         _torchData.duration -= _torchData.costForUse;
+        SetLightRadius(_torchData.duration);
+        SetTorchParticleEmission(_torchData.duration);
+        _time = 0;
     }
 
     [Button]
@@ -122,6 +141,7 @@ public class Torch : MonoBehaviour
         SetLightRadius(_torchData.duration);
         SetTorchParticleEmission(_torchData.duration);
 
+        _time = 0;
 
     }
 
