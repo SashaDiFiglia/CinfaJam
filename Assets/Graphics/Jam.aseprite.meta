@@ -488,7 +488,7 @@ ScriptedImporter:
   tileSetImportData:
   - name: Layer 1
     originalName: 
-    pivot: {x: 0.72727275, y: 1.3473685}
+    pivot: {x: 0.72727275, y: 1.3617021}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
@@ -497,7 +497,7 @@ ScriptedImporter:
       x: 0
       y: 0
       width: 176
-      height: 95
+      height: 94
     spriteID: 13e674d3e17f6cb4195cd8e78a25804c
     spriteBone: []
     spriteOutline: []
@@ -525,9 +525,9 @@ ScriptedImporter:
       additiveSortOrder: 0
       cellRect:
         x: 0
-        y: 161
+        y: 162
         width: 176
-        height: 95
+        height: 94
       spriteId: 13e674d3e17f6cb4195cd8e78a25804c
     linkedCells: []
     tileCells: []
