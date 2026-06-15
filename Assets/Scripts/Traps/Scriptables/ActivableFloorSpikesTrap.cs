@@ -6,18 +6,23 @@ public class ActivableFloorSpikesTrap: AActivableTrap
 {
     [SerializeField] private Sprite inactiveSprite;
     [SerializeField] private Sprite activeSprite;
-    [SerializeField] private GameObject collider;
-    
-    
+    [SerializeField] private GameObject colliderObj;
+    private GameObject _currentCollider;
+
+    protected override void OnSetup()
+    { _currentCollider = Instantiate(colliderObj, trapController.transform.position, Quaternion.identity); }
+    protected override void OnClear()
+    { Destroy(_currentCollider); _currentCollider = null; }
+
     public override void ActivateTrap()
     {
         trapController.GetComponent<Image>().sprite = activeSprite;
-        collider.SetActive(true);
+        _currentCollider.SetActive(true);
     }
 
     public override void DeactivateTrap()
     {
         trapController.GetComponent<Image>().sprite = inactiveSprite;
-        collider.SetActive(false);
+        _currentCollider.SetActive(false);
     }
 }
