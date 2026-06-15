@@ -1,23 +1,22 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-[CreateAssetMenu(fileName = "New Activable Wall", menuName = "Traps/Activable Wall")]
-public class ActivableFloorTrap: AActivableTrap
+[CreateAssetMenu(fileName = "New Activable Wall", menuName = "Traps/Activable Floor - Hole")]
+public class ActivableFloorHoleTrap: AActivableTrap
 {
     [SerializeField] private Sprite inactiveSprite;
     [SerializeField] private Sprite activeSprite;
-    [SerializeField] private GameObject collider;
     
     
     public override void ActivateTrap()
     {
         trapController.GetComponent<Image>().sprite = activeSprite;
-        collider.SetActive(true);
+        trapController.GetComponent<Collider2D>().enabled = false;
     }
 
     public override void DeactivateTrap()
     {
         trapController.GetComponent<Image>().sprite = inactiveSprite;
-        collider.SetActive(false);
+        trapController.GetComponent<Collider2D>().enabled = true;
     }
 }
