@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using UnityEngine;
 
@@ -27,7 +26,7 @@ public class Spikes : MonoBehaviour
     }
     private void OnTriggerStay(Collider other)
     {
-        if (!_canHit) return;
+        if (!_canHit) { return; }
         Hit(other.gameObject);
     }
 
