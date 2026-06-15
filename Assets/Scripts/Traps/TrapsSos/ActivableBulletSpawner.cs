@@ -13,15 +13,12 @@ public class ActivableBulletSpawner: AActivableTrap
     private Transform _spawnPoint;
 
     protected override void OnSetup()
-    {
-        _spawnPoint = trapController.gameObject.transform.GetChild(0);
-    }
+    { _spawnPoint = trapController.gameObject.transform.GetChild(0); }
     
     
     public override void ActivateTrap()
     {
         GameObject bullet = Instantiate(bulletPrefab, _spawnPoint.transform.position, _spawnPoint.transform.rotation);
-        
         bullet.GetComponent<Bullet>().Setup(bulletSpeed, bulletDamage, bulletLifetime);
     }
 

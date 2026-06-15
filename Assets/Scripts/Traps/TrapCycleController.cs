@@ -8,7 +8,6 @@ public class TrapCycleController: MonoBehaviour
     [SerializeField] private float waitTime;
     [SerializeField] private float activeTime;
     
-    
     private bool _isActive;
     private Coroutine _c;
 
@@ -36,7 +35,9 @@ public class TrapCycleController: MonoBehaviour
         }
     }
     
-    [Button] public void Setup()          { Clear(); trap.Setup(this); }
-    [Button] public void ActivateTrap()   { trap.ActivateTrap(); }
-    [Button] public void DeactivateTrap() { trap.DeactivateTrap(); }
+    #region Odin Buttons
+        [Button] public void Setup()          { Clear(); trap.Setup(this); }
+        [Button] public void ActivateTrap()   { trap.ActivateTrap(); }
+        [Button] public void DeactivateTrap() { trap.DeactivateTrap(); }
+    #endregion
 }

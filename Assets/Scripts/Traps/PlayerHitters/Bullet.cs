@@ -17,34 +17,21 @@ public class Bullet : MonoBehaviour
 
     void Update() { transform.Translate(Vector2.up * (_speed * Time.deltaTime)); }
 
-    void OnCollisionEnter2D(Collision2D col)
-    {
-        Hit(col.gameObject);
-        DestroySelf();
-    }
+    void OnCollisionEnter2D(Collision2D col) 
+    { Hit(col.gameObject); }
 
 
     void Hit(GameObject other)
     {
-        Debug.Log($"Bullet hit {other.name}...");
-        if (other.CompareTag("Player"))
-        {
-            Debug.Log($"...for {_damage} damage");
-            other.GetComponent<CharacterHealth>().TakeDamage(_damage);
-        }
+        if (other.CompareTag("Player")) 
+        { other.GetComponent<CharacterHealth>()?.TakeDamage(_damage); }
         DestroySelf();
     }
-    void DestroySelf()
-    {
-        Debug.Log($"Destroying bullet");
-        Destroy(gameObject);
-    }
+    void DestroySelf() 
+    { Destroy(gameObject); }
 
     private IEnumerator DestroyAfterLifetime()
-    {
-        yield return new WaitForSeconds(_lifetime);
-        DestroySelf();
-    }
+    { yield return new WaitForSeconds(_lifetime); DestroySelf(); }
     
 
 }

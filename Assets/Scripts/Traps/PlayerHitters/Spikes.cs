@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using UnityEngine;
 
@@ -23,7 +22,6 @@ public class Spikes : MonoBehaviour
     {
         gameObject.GetComponent<SpriteRenderer>().enabled = activating;
         gameObject.GetComponent<Collider2D>().enabled = activating;
-
     }
 
     void OnTriggerEnter2D(Collider2D other)

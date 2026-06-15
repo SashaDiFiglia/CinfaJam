@@ -11,7 +11,6 @@ public class DisappearingSurface: AActivableTrap
     {
         Debug.Log("Setup");
         _wallSprite = trapController.GetComponent<SpriteRenderer>().sprite;
-        
     }
     
     public override void ActivateTrap()
