@@ -130,8 +130,8 @@ GameObject:
   - component: {fileID: 11813630}
   - component: {fileID: 11813632}
   - component: {fileID: 11813631}
-  - component: {fileID: 11813633}
   - component: {fileID: 11813634}
+  - component: {fileID: 11813633}
   m_Layer: 0
   m_Name: Character
   m_TagString: Untagged
@@ -192,13 +192,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c7b8b14a5e34fbc831a85a0f7999245, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerCombat
-  _attackSound:
+  m_weapon: {fileID: 11400000, guid: e9d8fb2e873e3b74c8f098ded99a1471, type: 2}
+  _attackSoundReference:
     Guid:
       Data1: -1373367548
       Data2: 1276273112
       Data3: -152412514
       Data4: -1654486187
     Path: event:/CharacterAttacks
+  _weaponBreakReference:
+    Guid:
+      Data1: 1980141442
+      Data2: 1111399605
+      Data3: 587038863
+      Data4: 687746975
+    Path: event:/ah-yuch
 --- !u!114 &11813634
 MonoBehaviour:
   m_ObjectHideFlags: 0

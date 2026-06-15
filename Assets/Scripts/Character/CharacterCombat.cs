@@ -1,19 +1,82 @@
+using System;
 using FMOD.Studio;
 using FMODUnity;
 using UnityEngine;
 
 public class CharacterCombat : MonoBehaviour
 {
-    public EventReference _attackSound;
-    public EventInstance _attack;
+    [Header("Weapon")]
+    [SerializeField] private Weapon m_weapon;
+
+    public Weapon Weapon
+    {
+        get => m_weapon;
+
+        set
+        {
+            m_weapon = value;
+
+            if (value != null)
+            {
+                _currentDurability = value.MaxDurability;
+            }
+        }
+    }
+
+    [Header("Sound")]
+    public EventReference _attackSoundReference;
+
+    public EventReference _weaponBreakReference;
+
+    private EventInstance _attackSoundInstance;
+    private EventInstance _weaponBreakInstance;
+
+    private float _currentDurability;
+
+    public float CurrentDurability => _currentDurability;
+
+    public event Action OnAttackWithNoWeapon;
+    public event Action OnWeaponBreak;
 
     private void Awake()
     {
-        _attack = RuntimeManager.CreateInstance(_attackSound);
+        _attackSoundInstance = RuntimeManager.CreateInstance(_attackSoundReference);
+        _weaponBreakInstance = RuntimeManager.CreateInstance(_weaponBreakReference);
     }
 
-    public void Attack()
+    private void Start()
     {
-        _attack.start();
+        if (Weapon != null)
+        {
+            _currentDurability = Weapon.MaxDurability;
+        }
+    }
+
+    public void TryAttack()
+    {
+        if (Weapon == null)
+        {
+            OnAttackWithNoWeapon?.Invoke();
+
+            return;
+        }
+
+        _attackSoundInstance.start();
+
+        if (!Weapon.Attack())
+        {
+            return;
+        }
+
+        _currentDurability--;
+
+        if (_currentDurability <= 0)
+        {
+            _weaponBreakInstance.start();
+
+            OnWeaponBreak?.Invoke();
+
+            Weapon = null;
+        }
     }
 }
