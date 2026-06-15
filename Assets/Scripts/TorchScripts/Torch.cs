@@ -23,8 +23,8 @@ public class TorchInstance : MonoBehaviour
     [SerializeField] private float _reductionForTick;
     [SerializeField] private float _reductionMultiplier;
     [SerializeField] private float _time;
-    [SerializeField] private float scaleLerpSpeed = 5f;
 
+    // [Header("Events,Action ecc")] private Action _onTorchCheck;//nome temporaneo
     public TorchData TorchData
     {
         get { return _torchData; }
@@ -52,6 +52,8 @@ public class TorchInstance : MonoBehaviour
         {
             _lightObj = FindAnyObjectByType<LightIdentifier>().GetComponent<Transform>();
         }
+
+        // _onTorchCheck += SetTorchState;
     }
 
 
@@ -60,6 +62,7 @@ public class TorchInstance : MonoBehaviour
         _torchData.duration = Mathf.Clamp(_torchData.duration, 0, _torchData.maxDuration);
         // CheckTorchTreshHold();
         Timer();
+        SetTorchState();
     }
 
     private void Timer()
@@ -99,6 +102,12 @@ public class TorchInstance : MonoBehaviour
          _torchFireParticles.emissionRate = duration;
 
     }
+
+    private void SetTorchState()
+    {
+        _torchData.torchState = _torchData.duration > 0 ? TorchData.TorchState.Lit : TorchData.TorchState.TurnedOff;
+    }
+    
     //////////////////////////////// COROUTINES
     
     
@@ -124,7 +133,8 @@ public class TorchInstance : MonoBehaviour
     }
     
     /////////////////////////////////// EVENTS
-    //Collegare Evento Jasbon
+    //
+    //Collegare Evento Jasbon dai collega dai collega dai collega dai collega dai collega
     [Button]
     public void ReduceTorchDurationOnUse()
     {
@@ -143,6 +153,12 @@ public class TorchInstance : MonoBehaviour
 
         _time = 0;
 
+    }
+    
+    //Getters
+    public TorchData.TorchState GetTorchState()
+    {
+        return _torchData.torchState;
     }
 
 }

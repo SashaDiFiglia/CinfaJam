@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BracierDataSO
   dataToInject:
     hasBeenLit: 1
-    lightRadius: 5
+    lightRadius: 1.5
     lightIntensity: 2
     timeToLightUp: 0.01

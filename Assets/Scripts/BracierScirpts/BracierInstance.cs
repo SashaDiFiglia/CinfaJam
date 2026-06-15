@@ -69,7 +69,7 @@ public class BracierInstance : MonoBehaviour
     /////////////////////// EVENTS
 
     
-    //Evento da Chiamare i braciers
+    //Evento da Chiamare per accendere
     [Button]
     public void LightUp()
     {
