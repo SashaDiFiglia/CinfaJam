@@ -22,8 +22,5 @@ public class ActivableBulletSpawner: AActivableTrap
         bullet.GetComponent<BulletController>().Setup(bulletSpeed, bulletDamage, bulletLifetime);
     }
 
-    public override void DeactivateTrap()
-    {
-        //no need to deactivate anything here.
-    }
+    public override void DeactivateTrap() { } //no need to deactivate anything here.
 }

@@ -9,34 +9,38 @@ public class TrapCycleController: MonoBehaviour
     [Header("Time Settings")]
     public float timeBeforeActivation;
     public float timeBeforeDeactivation;
-
     
     private bool _isActive;
     private Coroutine _c;
 
-    void Start()     { trap.Setup(this); Clear(); ToggleTrap();}
-    void OnDestroy() { Clear(); trap.Clear(); }
-    void OnDisable() { Clear(); trap.Clear(); }
+    #region Start/Destroy
+        void Start()     { trap.Setup(this); Clear(); ToggleTrapCycle();}
+        void OnDestroy() { Clear(); trap.Clear(); }
+        void OnDisable() { Clear(); trap.Clear(); }
+    #endregion
     
-    void Clear() { _isActive = false; if (_c != null) { StopCoroutine(_c); _c = null;} }
-    
-    public void ToggleTrap()
-    {
-        _isActive = !_isActive;
-        if (_isActive && _c == null) { _c = StartCoroutine(TrapCycle()); }
-        else if (_c != null)         { StopCoroutine(_c); _c = null; trap.DeactivateTrap(); }
-    }
-
-    private IEnumerator TrapCycle()
-    {
-        while (_isActive)
+    #region Trap Cycle
+        private IEnumerator TrapCycle()
         {
-            yield return new WaitForSeconds(timeBeforeActivation);
-            trap.ActivateTrap();
-            yield return new WaitForSeconds(timeBeforeDeactivation);
-            trap.DeactivateTrap();
+            while (_isActive)
+            {
+                yield return new WaitForSeconds(timeBeforeActivation);
+                trap.ActivateTrap();
+                yield return new WaitForSeconds(timeBeforeDeactivation);
+                trap.DeactivateTrap();
+            }
         }
-    }
+        
+        [Button]
+        public void ToggleTrapCycle()
+        {
+            _isActive = !_isActive;
+            if (_isActive && _c == null) { _c = StartCoroutine(TrapCycle()); }
+            else if (_c != null)         { StopCoroutine(_c); _c = null; trap.DeactivateTrap(); }
+        }
+        
+        void Clear() { _isActive = false; if (_c != null) { StopCoroutine(_c); _c = null;} }
+    #endregion
     
     #region Odin Buttons
         [Button] public void Setup()          { Clear(); trap.Setup(this); }

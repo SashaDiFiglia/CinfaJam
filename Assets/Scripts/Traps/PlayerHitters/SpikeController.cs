@@ -5,7 +5,6 @@ using UnityEngine;
 public class SpikeController : MonoBehaviour
 {
     [SerializeField]  private Sprite _deactivatedSpikeSprite;
-    private bool _isTrapActive;
     
     #region VARIABLES - SPIKE
         private float _damage;
@@ -29,15 +28,17 @@ public class SpikeController : MonoBehaviour
         private bool _isFlickering;
     #endregion  
     
-    public void Setup(float value, float delayBetweenHits)
-    {
-        Debug.Log("Setup Spikes");
-        _damage = value;
-        _delay = delayBetweenHits;
-        _canHit = true;
-        _col = gameObject.GetComponent<Collider2D>(); 
-        _anim = gameObject.GetComponent<Animator>();
-    }
+    #region Setup
+        public void Setup(float value, float delayBetweenHits)
+        {
+            Debug.Log("Setup Spikes");
+            _damage = value;
+            _delay = delayBetweenHits;
+            _canHit = true;
+            _col = gameObject.GetComponent<Collider2D>(); 
+            _anim = gameObject.GetComponent<Animator>();
+        }
+    #endregion
     
     public void ToggleSpikes(bool activating)
     {
@@ -86,14 +87,11 @@ public class SpikeController : MonoBehaviour
     #region Hit Detection
         void OnTriggerEnter2D(Collider2D other)
         {
-            if (!_isTrapActive) { return; }
             if (!other.CompareTag("Player")) { return; }
             ClearCoroutine(); Hit(other.gameObject);
         }
         private void OnTriggerStay(Collider other)
         {
-            if (!_isTrapActive) { return; }
-    
             if (!other.CompareTag("Player")) { return; }
             if (!_canHit) { return; } Hit(other.gameObject);
         }
@@ -120,23 +118,5 @@ public class SpikeController : MonoBehaviour
         { if (_hitDelayC != null) { StopCoroutine(_hitDelayC); _hitDelayC = null; _canHit = true; } }
     #endregion
     
-    #region Odin Buttons
-        [Button]
-        private void StopSpikes()
-        {
-            _isTrapActive = false;
-            _anim.enabled = false;
-            gameObject.GetComponent<SpriteRenderer>().sprite = _deactivatedSpikeSprite;
-            gameObject.GetComponent<Collider2D>().enabled = false;
-        }
-        
-        [Button]
-        private void StartSpikes()
-        {
-            _isTrapActive = true;
-            _anim.enabled = true;
-            // MoveSpikes(false);
-            gameObject.GetComponent<Collider2D>().enabled = true;
-        }
-    #endregion
+
 }
