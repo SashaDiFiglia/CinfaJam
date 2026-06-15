@@ -11,10 +11,12 @@ public class EnemyData : ScriptableObject
     [SerializeField] private float _walkSpeed;
     [SerializeField] private float _attackRate;
     [SerializeField] private float _aggroRadius;
-
+    [SerializeField] private Weapon _weapon;
+    
     public BehaviorGraph BehaviorGraph => _behaviorGraph;
     public float MaxHealth => _maxHealth;
     public float WalkSpeed => _walkSpeed;
     public float AttackRate => _attackRate;
     public float AggroRadius => _aggroRadius;
+    public Weapon Weapon => _weapon;
 }
