@@ -1,15 +1,17 @@
 using System;
 using UnityEngine;
 using TorchDatas;
+using UnityEngine.Serialization;
+
 public class TorchManager : MonoBehaviour
 {
-    [SerializeField] private Torch _torch;
+    [FormerlySerializedAs("_torch")] [SerializeField] private TorchInstance _torchInstance;
     [SerializeField] private TorchData _torchData;
 
 
     private void Awake()
     {
-        _torch = _torch ?? gameObject.GetComponent<Torch>();
-        _torchData = _torch.TorchData;
+        _torchInstance = _torchInstance ?? gameObject.GetComponent<TorchInstance>();
+        _torchData = _torchInstance.TorchData;
     }
 }

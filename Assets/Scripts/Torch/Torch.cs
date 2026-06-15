@@ -8,7 +8,7 @@ using UnityEngine.Serialization;
 using TorchDatas;
 using Vector3 = UnityEngine.Vector3;
 
-public class Torch : MonoBehaviour
+public class TorchInstance : MonoBehaviour
 {
     [Header("Core Settings")] [SerializeField]
     private TorchDataSO _dataSO;
