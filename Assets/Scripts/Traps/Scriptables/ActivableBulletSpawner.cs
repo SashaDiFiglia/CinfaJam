@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 
-public class ActivableWallBullet: AActivableTrap
+[ CreateAssetMenu(fileName = "New Activable Wall Bullet", menuName = "Traps/Activable Bullet Spawner")]
+public class ActivableBulletSpawner: AActivableTrap
 {
     [SerializeField] private GameObject bulletPrefab;
     [SerializeField] private float bulletSpeed;
@@ -13,6 +14,6 @@ public class ActivableWallBullet: AActivableTrap
 
     public override void DeactivateTrap()
     {
-        //no need to deactivate here.
+        //no need to deactivate anything here.
     }
 }

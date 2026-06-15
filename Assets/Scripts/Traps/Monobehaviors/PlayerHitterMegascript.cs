@@ -1,12 +1,14 @@
 using System;
+using System.Collections;
 using System.Linq;
 using UnityEngine;
 
-public class PlayerHitter : MonoBehaviour
+public class PlayerHitterMegascript : MonoBehaviour
 {
     [SerializeField] private HitType[] hitTypes;
     [SerializeField] private float damage;
-    
+    [SerializeField] private bool _canDestroySelf;
+    [SerializeField] private float _destructionTime = 5f;
     public enum HitType
     {
         TriggerEnter,
@@ -16,6 +18,10 @@ public class PlayerHitter : MonoBehaviour
         CollisionExit,
         CollisionStay,
     }
+    
+    
+    void Start() { if (_canDestroySelf) StartCoroutine(DestroySelf()); }
+    private IEnumerator DestroySelf() { yield return new WaitForSeconds(_destructionTime); Destroy(gameObject);}
     
     private void OnTriggerEnter2D(Collider2D other)
     {
