@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 6840416198099912413}
   - component: {fileID: 3927321166608068869}
   - component: {fileID: 2312904918818134068}
+  - component: {fileID: 5113227902089369517}
   m_Layer: 0
   m_Name: Spikes
   m_TagString: Untagged
@@ -132,7 +133,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.53846157, y: -0.16666667}
-    oldSize: {x: 0.13, y: 0.12}
+    oldSize: {x: 0.8125, y: 0.75}
     newSize: {x: 0.01, y: 0.01}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -167,3 +168,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7cd5c9f8dfa00e849ad90bdf0e0d320a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Spikes
+--- !u!95 &5113227902089369517
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8854298827173425279}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 64d190b7fa5db6b45842a5d7ccd5626d, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0

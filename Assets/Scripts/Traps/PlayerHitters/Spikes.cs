@@ -9,12 +9,15 @@ public class Spikes : MonoBehaviour
     private bool _canHit;
     private Coroutine _hitDelayC;
     
+    private Animator _anim;
+    
     
     public void Setup(float value, float delayBetweenHits)
     {
         _damage = value;
         _delay = delayBetweenHits;
         _canHit = true;
+        _anim = gameObject.GetComponent<Animator>();
         ToggleSpikes(false);
     }
     
