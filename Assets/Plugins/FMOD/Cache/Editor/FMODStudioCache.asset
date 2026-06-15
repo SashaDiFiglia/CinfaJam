@@ -23,7 +23,7 @@ MonoBehaviour:
   StringsBanks:
   - {fileID: 268868991924784217}
   cacheVersion: 131859
-  cacheTime: 639168562394005730
+  cacheTime: 639168584824458027
   SerializableEventsDict:
   - key: event:/ah-yuch
     index: 0
@@ -42,7 +42,7 @@ MonoBehaviour:
   Path: FMod_Project/Build/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 639168562394005730
+  lastModified: 639168584824458027
   FileSizes:
   - Name: Desktop
     Value: 768
@@ -89,7 +89,7 @@ MonoBehaviour:
   Path: FMod_Project/Build/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 639168562393990470
+  lastModified: 639168584824458027
   FileSizes:
   - Name: Desktop
     Value: 8768
