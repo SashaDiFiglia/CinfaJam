@@ -6,6 +6,7 @@ public class PlayerHitter : MonoBehaviour
 {
     [SerializeField] private HitType[] hitTypes;
     [SerializeField] private float damage;
+    
     public enum HitType
     {
         TriggerEnter,
