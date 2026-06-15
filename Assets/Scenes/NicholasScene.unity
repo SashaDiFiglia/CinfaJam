@@ -170,11 +170,6 @@ MonoBehaviour:
       Data3: 587038863
       Data4: 687746975
     Path: event:/ah-yuch
---- !u!4 &59389222 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 6226959114158122221, guid: b4ae6db500e73904ea2363d821c5ec8c, type: 3}
-  m_PrefabInstance: {fileID: 300823934}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &300823934
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -185,11 +180,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 625086411942505986, guid: b4ae6db500e73904ea2363d821c5ec8c, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 2.03
+      value: -6.08
       objectReference: {fileID: 0}
     - target: {fileID: 625086411942505986, guid: b4ae6db500e73904ea2363d821c5ec8c, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 7.47
+      value: 2.23
       objectReference: {fileID: 0}
     - target: {fileID: 625086411942505986, guid: b4ae6db500e73904ea2363d821c5ec8c, type: 3}
       propertyPath: m_LocalPosition.z
@@ -223,25 +218,22 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3943699725926587037, guid: b4ae6db500e73904ea2363d821c5ec8c, type: 3}
+      propertyPath: _dataSO
+      value: 
+      objectReference: {fileID: 11400000, guid: ac2eeb01f81c1d542aa133eea925a740, type: 2}
+    - target: {fileID: 3943699725926587037, guid: b4ae6db500e73904ea2363d821c5ec8c, type: 3}
+      propertyPath: _bracierFireParticle
+      value: 
+      objectReference: {fileID: 789486673}
     - target: {fileID: 5262954105047780740, guid: b4ae6db500e73904ea2363d821c5ec8c, type: 3}
       propertyPath: m_Name
       value: Brazer
       objectReference: {fileID: 0}
-    - target: {fileID: 5874958354022670672, guid: b4ae6db500e73904ea2363d821c5ec8c, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8872440395000273287, guid: b4ae6db500e73904ea2363d821c5ec8c, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 5262954105047780740, guid: b4ae6db500e73904ea2363d821c5ec8c, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 819053101}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b4ae6db500e73904ea2363d821c5ec8c, type: 3}
 --- !u!1001 &327017155
 PrefabInstance:
@@ -253,11 +245,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 625086411942505986, guid: b4ae6db500e73904ea2363d821c5ec8c, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 2.87
+      value: -0.47
       objectReference: {fileID: 0}
     - target: {fileID: 625086411942505986, guid: b4ae6db500e73904ea2363d821c5ec8c, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 6.07
+      value: 4.6
       objectReference: {fileID: 0}
     - target: {fileID: 625086411942505986, guid: b4ae6db500e73904ea2363d821c5ec8c, type: 3}
       propertyPath: m_LocalPosition.z
@@ -291,29 +283,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2063751612987774042, guid: b4ae6db500e73904ea2363d821c5ec8c, type: 3}
-      propertyPath: playOnAwake
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 5262954105047780740, guid: b4ae6db500e73904ea2363d821c5ec8c, type: 3}
       propertyPath: m_Name
       value: Brazer (1)
       objectReference: {fileID: 0}
-    - target: {fileID: 5874958354022670672, guid: b4ae6db500e73904ea2363d821c5ec8c, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8872440395000273287, guid: b4ae6db500e73904ea2363d821c5ec8c, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 5262954105047780740, guid: b4ae6db500e73904ea2363d821c5ec8c, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1257829759}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b4ae6db500e73904ea2363d821c5ec8c, type: 3}
 --- !u!1 &410087039
 GameObject:
@@ -544,31 +521,6 @@ ParticleSystem:
   m_CorrespondingSourceObject: {fileID: 2063751612987774042, guid: b4ae6db500e73904ea2363d821c5ec8c, type: 3}
   m_PrefabInstance: {fileID: 300823934}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &819053099 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5262954105047780740, guid: b4ae6db500e73904ea2363d821c5ec8c, type: 3}
-  m_PrefabInstance: {fileID: 300823934}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &819053101
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 819053099}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 51ba8684dcfc401c93bde04860dc1196, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::BracierInstance
-  _dataSO: {fileID: 11400000, guid: ac2eeb01f81c1d542aa133eea925a740, type: 2}
-  _bracierData:
-    hasBeenLit: 0
-    lightRadius: 0
-    lightIntensity: 0
-    timeToLightUp: 0
-  _bracierFireParticle: {fileID: 789486673}
-  _lightObj: {fileID: 59389222}
 --- !u!1 &832575517
 GameObject:
   m_ObjectHideFlags: 0
@@ -679,36 +631,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f1c04e51f0f471d4abd7a64274bfaf82, type: 3}
---- !u!1 &1257829758 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5262954105047780740, guid: b4ae6db500e73904ea2363d821c5ec8c, type: 3}
-  m_PrefabInstance: {fileID: 327017155}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1257829759
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1257829758}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 51ba8684dcfc401c93bde04860dc1196, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::BracierInstance
-  _dataSO: {fileID: 11400000, guid: b5ce3f5ca17e67944bd2c7387f97f638, type: 2}
-  _bracierData:
-    hasBeenLit: 0
-    lightRadius: 0
-    lightIntensity: 0
-    timeToLightUp: 0
-  _bracierFireParticle: {fileID: 0}
-  _lightObj: {fileID: 1429713014}
---- !u!4 &1429713014 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 6226959114158122221, guid: b4ae6db500e73904ea2363d821c5ec8c, type: 3}
-  m_PrefabInstance: {fileID: 327017155}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1720209105
 GameObject:
   m_ObjectHideFlags: 0

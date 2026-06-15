@@ -100,6 +100,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 625086411942505986}
+  - component: {fileID: 3943699725926587037}
   m_Layer: 0
   m_Name: Brazer
   m_TagString: Untagged
@@ -125,6 +126,26 @@ Transform:
   - {fileID: 6226959114158122221}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3943699725926587037
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5262954105047780740}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 51ba8684dcfc401c93bde04860dc1196, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BracierInstance
+  _dataSO: {fileID: 11400000, guid: b5ce3f5ca17e67944bd2c7387f97f638, type: 2}
+  _bracierData:
+    hasBeenLit: 0
+    lightRadius: 0
+    lightIntensity: 0
+    timeToLightUp: 0
+  _bracierFireParticle: {fileID: 2063751612987774042}
+  _lightObj: {fileID: 6226959114158122221}
 --- !u!1 &5874958354022670672
 GameObject:
   m_ObjectHideFlags: 0
@@ -141,7 +162,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &6226959114158122221
 Transform:
   m_ObjectHideFlags: 0

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -10,9 +11,22 @@ public class BracierInstance : MonoBehaviour
     [SerializeField] private BracierData _bracierData;
     [SerializeField] private ParticleSystem _bracierFireParticle;
     [SerializeField] private Transform _lightObj;
-    
-    
-    
+
+
+    private void Awake()
+    {
+        _bracierData.CopyFrom(_dataSO.dataToInject);
+        
+        
+        
+        
+        
+        
+        if(!_bracierData.hasBeenLit){return;}
+        LightUp();
+
+    }
+
     private void SetLightRadius()
     {
 
@@ -60,6 +74,7 @@ public class BracierInstance : MonoBehaviour
         _lightObj.gameObject.SetActive(true);
         SetLightRadius();
         _bracierFireParticle.Play();
+        _bracierData.hasBeenLit = true;
         
     }
 }

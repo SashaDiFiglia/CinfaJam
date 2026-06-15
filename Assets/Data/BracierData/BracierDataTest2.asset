@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b22fb37421784b9dbc6a28393cb9537e, type: 3}
   m_Name: BracierDataTest2
   m_EditorClassIdentifier: Assembly-CSharp::BracierDataSO
-  data:
+  dataToInject:
     hasBeenLit: 0
-    lightRadius: 3
-    lightIntensity: 3
-    timeToLightUp: 3
+    lightRadius: 5
+    lightIntensity: 1
+    timeToLightUp: 0.7

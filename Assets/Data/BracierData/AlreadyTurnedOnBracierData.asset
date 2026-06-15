@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b22fb37421784b9dbc6a28393cb9537e, type: 3}
-  m_Name: BracierDataTest1
+  m_Name: AlreadyTurnedOnBracierData
   m_EditorClassIdentifier: Assembly-CSharp::BracierDataSO
-  data:
+  dataToInject:
     hasBeenLit: 1
-    lightRadius: 3
-    lightIntensity: 3
-    timeToLightUp: 1.5
+    lightRadius: 5
+    lightIntensity: 2
+    timeToLightUp: 0.01
