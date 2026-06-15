@@ -16,9 +16,10 @@ public class Torch : MonoBehaviour
     [SerializeField] private Transform _lightObj;
 
     [Header("Timer Settings")] [SerializeField]
-    private float _tick = 1;
+    private float _tick = 3;
 
     [SerializeField] private float _reductionForTick;
+    [SerializeField] private float _reductionMultiplier;
     [SerializeField, Unity.Collections.ReadOnly] private float _time;
 
     public TorchData TorchData
@@ -53,14 +54,7 @@ public class Torch : MonoBehaviour
 
     private void Update()
     {
-        if (_torchData.duration >= _torchData.maxDuration)
-        {
-            _torchData.duration = _torchData.maxDuration;
-        }
-        if (_torchData.duration <= 0)
-        {
-            _torchData.duration = 0;
-        }
+        _torchData.duration = Mathf.Clamp(_torchData.duration, 0, _torchData.maxDuration);
         // CheckTorchTreshHold();
         Timer();
     }
@@ -84,15 +78,19 @@ public class Torch : MonoBehaviour
     private void SetLightRadius(float duration)
     {
         
-            float _reductionDimension = duration * 0.3f;
+        if (duration <= 0)
+        {
+            _lightObj.localScale = Vector3.zero;
+            return;
+        }
+        float _reductionDimension = duration * _reductionMultiplier;
             
-            _lightObj.localScale = new Vector3(_reductionDimension,
-                _reductionDimension, _reductionDimension);
+        _lightObj.localScale = new Vector3(_reductionDimension,
+            _reductionDimension, _reductionDimension);
             
-            if (_lightObj.localScale == Vector3.zero)
-            {
-                _lightObj.localScale = Vector3.zero;
-            }
+        
+        //Bounce o lerp da attuale posizione alla scale a cui deve arrivare
+
     }
 
     private void SetTorchParticleEmission(float duration)
@@ -121,6 +119,10 @@ public class Torch : MonoBehaviour
     public void RegainTorchDuration(float value)
     {
         _torchData.duration += value;
+        SetLightRadius(_torchData.duration);
+        SetTorchParticleEmission(_torchData.duration);
+
+
     }
 
 }

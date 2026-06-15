@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: TorchDataSO
   m_EditorClassIdentifier: Assembly-CSharp::TorchDatas.TorchDataSO
   dataToInject:
-    duration: 10
-    maxDuration: 15
+    duration: 5
+    maxDuration: 10
     costForUse: 1
     maxThreshold: 15
     halfThreshold: 7
