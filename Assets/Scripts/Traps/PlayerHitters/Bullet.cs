@@ -29,11 +29,11 @@ public class Bullet : MonoBehaviour
     void Hit(GameObject other)
     {
         Debug.Log($"Bullet hit {other.name}...");
-        //if other is player
+        if (other.CompareTag("Player"))
         {
-            Debug.Log($"for {_damage} damage");
+            Debug.Log($"...for {_damage} damage");
+            other.GetComponent<CharacterHealth>().TakeDamage(_damage);
         }
-        //destroy in any case
         DestroySelf();
     }
     void DestroySelf()

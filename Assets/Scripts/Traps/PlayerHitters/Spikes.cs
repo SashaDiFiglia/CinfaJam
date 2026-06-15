@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -20,29 +21,32 @@ public class Spikes : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        ClearCoroutine();
-        _canHit = true;
-        Hit(other.gameObject);
+        if (!other.CompareTag("Player")) { return; }
+        ClearCoroutine(); Hit(other.gameObject);
     }
     private void OnTriggerStay(Collider other)
     {
-        if (!_canHit) { return; }
-        Hit(other.gameObject);
+        if (!other.CompareTag("Player")) { return; }
+        if (!_canHit) { return; } Hit(other.gameObject);
     }
 
-    void Hit(GameObject other)
+    private void OnTriggerExit2D(Collider2D other)
     {
-        Debug.Log($"Spikes hit {other.name} for {_damage} damage");
+        if (!other.CompareTag("Player")) { return; } 
+        ClearCoroutine(); 
+    }
+
+    void Hit(GameObject player)
+    {
         _canHit = false;
+        player.GetComponent<CharacterHealth>()?.TakeDamage(_damage);
+        Debug.Log($"Spikes hit {player.name} for {_damage} damage");
         StartCoroutine(Delay());
     }
 
     private IEnumerator Delay()
-    {
-        yield return new WaitForSeconds(_delay);
-        _canHit = true;
-    }
+    { yield return new WaitForSeconds(_delay); _canHit = true; }
     private void ClearCoroutine()
-    { if (_hitDelayC != null) { StopCoroutine(_hitDelayC); _hitDelayC = null; } }
+    { if (_hitDelayC != null) { StopCoroutine(_hitDelayC); _hitDelayC = null; _canHit = true; } }
 
 }
