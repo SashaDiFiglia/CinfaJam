@@ -7,31 +7,21 @@ public class ActivableFloorSpikesTrap: AActivableTrap
     [Header("Trap Properties")]
     [SerializeField] private Sprite inactiveSprite;
     [SerializeField] private Sprite activeSprite;
-    [SerializeField] private GameObject colliderPrefab;
     
     [Header("Spikes Properties")]
     [SerializeField] private float damage;
     [SerializeField] private float delayBetweenHits;
 
-    private GameObject _currentCol;
+    private Spikes _spikesController;
 
     protected override void OnSetup()
     {
-        _currentCol = Instantiate(colliderPrefab, trapController.transform.position, Quaternion.identity);
-        _currentCol.GetComponent<Spikes>().Setup(damage, delayBetweenHits);
+        _spikesController = trapController.GetComponent<Spikes>();
+        _spikesController.Setup(damage, delayBetweenHits);
     }
     protected override void OnClear()
-    { Destroy(_currentCol); _currentCol = null; }
+    { Destroy(_spikesController.gameObject); _spikesController = null; }
 
-    public override void ActivateTrap()
-    {
-        trapController.GetComponent<Image>().sprite = activeSprite;
-        _currentCol.SetActive(true);
-    }
-
-    public override void DeactivateTrap()
-    {
-        trapController.GetComponent<Image>().sprite = inactiveSprite;
-        _currentCol.SetActive(false);
-    }
+    public override void ActivateTrap() { _spikesController.ToggleSpikes(true); }
+    public override void DeactivateTrap() { _spikesController.ToggleSpikes(false); }
 }

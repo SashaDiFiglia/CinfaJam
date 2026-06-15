@@ -1,4 +1,5 @@
 using System.Collections;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 public class TrapCycleController: MonoBehaviour
@@ -12,19 +13,19 @@ public class TrapCycleController: MonoBehaviour
     private Coroutine _c;
 
     void Start()     { trap.Setup(this); Clear(); ToggleTrap();}
-    void OnDestroy() { StopCoroutine(_c); trap.Clear(); }
-    void OnDisable() { StopCoroutine(_c); trap.Clear(); }
+    void OnDestroy() { Clear(); trap.Clear(); }
+    void OnDisable() { Clear(); trap.Clear(); }
     
-    void Clear() { _isActive = false; StopCoroutine(_c); }
+    void Clear() { _isActive = false; if (_c != null) { StopCoroutine(_c); _c = null;} }
     
     public void ToggleTrap()
     {
         _isActive = !_isActive;
-        if (_isActive && _c == null) { _c = StartCoroutine(ActivateTrap()); }
+        if (_isActive && _c == null) { _c = StartCoroutine(TrapCycle()); }
         else if (_c != null)         { StopCoroutine(_c); _c = null; trap.DeactivateTrap(); }
     }
 
-    private IEnumerator ActivateTrap()
+    private IEnumerator TrapCycle()
     {
         while (_isActive)
         {
@@ -34,4 +35,8 @@ public class TrapCycleController: MonoBehaviour
             trap.DeactivateTrap();
         }
     }
+    
+    [Button] public void Setup()          { Clear(); trap.Setup(this); }
+    [Button] public void ActivateTrap()   { trap.ActivateTrap(); }
+    [Button] public void DeactivateTrap() { trap.DeactivateTrap(); }
 }

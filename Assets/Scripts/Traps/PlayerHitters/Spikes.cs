@@ -16,8 +16,15 @@ public class Spikes : MonoBehaviour
         _damage = value;
         _delay = delayBetweenHits;
         _canHit = true;
+        ToggleSpikes(false);
     }
+    
+    public void ToggleSpikes(bool activating)
+    {
+        gameObject.GetComponent<SpriteRenderer>().enabled = activating;
+        gameObject.GetComponent<Collider2D>().enabled = activating;
 
+    }
 
     void OnTriggerEnter2D(Collider2D other)
     {

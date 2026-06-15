@@ -10,13 +10,19 @@ public class ActivableBulletSpawner: AActivableTrap
     [Header("Bullet Properties")]
     [SerializeField] private float bulletDamage;
     [SerializeField] private float bulletLifetime;
+    private Transform _spawnPoint;
+
+    protected override void OnSetup()
+    {
+        _spawnPoint = trapController.gameObject.transform.GetChild(0);
+    }
     
     
     public override void ActivateTrap()
     {
-        GameObject bullet = Instantiate(bulletPrefab, trapController.transform.position, Quaternion.identity);
-        bullet.GetComponent<Rigidbody2D>().linearVelocity = trapController.transform.forward * bulletSpeed;
-        bullet.GetComponent<Bullet>().Setup(bulletDamage, bulletLifetime);
+        GameObject bullet = Instantiate(bulletPrefab, _spawnPoint.transform.position, _spawnPoint.transform.rotation);
+        
+        bullet.GetComponent<Bullet>().Setup(bulletSpeed, bulletDamage, bulletLifetime);
     }
 
     public override void DeactivateTrap()
