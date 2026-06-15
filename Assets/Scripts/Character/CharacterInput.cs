@@ -5,12 +5,12 @@ public class CharacterInput : MonoBehaviour
     private PlayerInput _input;
 
     private CharacterController _controller;
-    private PlayerCombat _combat;
+    private CharacterCombat _combat;
 
     private void Awake()
     {
         _controller = GetComponent<CharacterController>();
-        _combat = GetComponent<PlayerCombat>();
+        _combat = GetComponent<CharacterCombat>();
 
         _input = new PlayerInput();
         _input.Enable();

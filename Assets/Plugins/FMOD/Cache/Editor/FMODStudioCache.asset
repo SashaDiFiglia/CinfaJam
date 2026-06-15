@@ -1,5 +1,32 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-8460945625425662520
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/CharacterAttacks
+  m_EditorClassIdentifier: FMODUnityEditor::FMODUnity.EditorEventRef
+  Path: event:/CharacterAttacks
+  Guid:
+    Data1: -1373367548
+    Data2: 1276273112
+    Data3: -152412514
+    Data4: -1654486187
+  Banks:
+  - {fileID: 5056144996197592920}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15,18 +42,23 @@ MonoBehaviour:
   EditorBanks:
   - {fileID: 268868991924784217}
   - {fileID: 3563369651920667728}
+  - {fileID: 5056144996197592920}
+  - {fileID: 685248144689334141}
   EditorEvents:
   - {fileID: 3047822350932607347}
+  - {fileID: -8460945625425662520}
   EditorParameters: []
   MasterBanks:
   - {fileID: 3563369651920667728}
   StringsBanks:
   - {fileID: 268868991924784217}
   cacheVersion: 131859
-  cacheTime: 639168584824458027
+  cacheTime: 639171196519612038
   SerializableEventsDict:
   - key: event:/ah-yuch
     index: 0
+  - key: event:/CharacterAttacks
+    index: 1
 --- !u!114 &268868991924784217
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -42,10 +74,30 @@ MonoBehaviour:
   Path: FMod_Project/Build/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 639168584824458027
+  lastModified: 639171196519597097
   FileSizes:
   - Name: Desktop
-    Value: 768
+    Value: 980
+  Exists: 1
+--- !u!114 &685248144689334141
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/UI.bank
+  m_EditorClassIdentifier: FMODUnityEditor::FMODUnity.EditorBankRef
+  Path: FMod_Project/Build/Desktop/UI.bank
+  Name: UI
+  StudioPath: bank:/UI
+  lastModified: 639171196519612038
+  FileSizes:
+  - Name: Desktop
+    Value: 506
   Exists: 1
 --- !u!114 &3047822350932607347
 MonoBehaviour:
@@ -89,8 +141,28 @@ MonoBehaviour:
   Path: FMod_Project/Build/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 639168584824458027
+  lastModified: 639171196519587158
   FileSizes:
   - Name: Desktop
-    Value: 8768
+    Value: 9120
+  Exists: 1
+--- !u!114 &5056144996197592920
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/SFX.bank
+  m_EditorClassIdentifier: FMODUnityEditor::FMODUnity.EditorBankRef
+  Path: FMod_Project/Build/Desktop/SFX.bank
+  Name: SFX
+  StudioPath: bank:/SFX
+  lastModified: 639171196519597097
+  FileSizes:
+  - Name: Desktop
+    Value: 14336
   Exists: 1
