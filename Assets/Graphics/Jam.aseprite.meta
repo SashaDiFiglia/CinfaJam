@@ -33,7 +33,7 @@ ScriptedImporter:
     sRGBTexture: 1
     spriteMode: 2
     spriteExtrude: 1
-    spriteMeshType: 1
+    spriteMeshType: 0
     alignment: 0
     spritePivot: {x: 0.5, y: 0.5}
     spritePixelsToUnits: 16
@@ -102,7 +102,7 @@ ScriptedImporter:
     generateIndividualEvents: 1
     generateSpriteAtlas: 1
   importFileNodeState: 1
-  platformSettingsDirtyTick: 639171142882635915
+  platformSettingsDirtyTick: 639171219205350199
   textureAssetName: 
   singleSpriteImportData:
   - name: 
@@ -488,7 +488,7 @@ ScriptedImporter:
   tileSetImportData:
   - name: Layer 1
     originalName: 
-    pivot: {x: 1, y: 4.129032}
+    pivot: {x: 0.6666667, y: 2.7234042}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
@@ -496,8 +496,8 @@ ScriptedImporter:
       serializedVersion: 2
       x: 0
       y: 0
-      width: 128
-      height: 31
+      width: 192
+      height: 47
     spriteID: 13e674d3e17f6cb4195cd8e78a25804c
     spriteBone: []
     spriteOutline: []
@@ -525,9 +525,9 @@ ScriptedImporter:
       additiveSortOrder: 0
       cellRect:
         x: 0
-        y: 225
-        width: 128
-        height: 31
+        y: 209
+        width: 192
+        height: 47
       spriteId: 13e674d3e17f6cb4195cd8e78a25804c
     linkedCells: []
     tileCells: []
@@ -559,8 +559,8 @@ ScriptedImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     androidETC2FallbackOverride: 0
-  generatePhysicsShape: 0
+  generatePhysicsShape: 1
   secondarySpriteTextures: []
   spritePackingTag: 
   canvasSize: {x: 256, y: 256}
-  previousTextureSize: {x: 128, y: 32}
+  previousTextureSize: {x: 256, y: 64}
