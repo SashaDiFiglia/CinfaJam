@@ -16,3 +16,4 @@ MonoBehaviour:
     hasBeenLit: 0
     lightRadius: 3
     lightIntensity: 3
+    timeToLightUp: 3

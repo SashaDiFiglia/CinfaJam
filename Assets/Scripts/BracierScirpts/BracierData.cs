@@ -6,6 +6,7 @@ public struct BracierData
     public bool hasBeenLit;
     public float lightRadius;
     public float lightIntensity;
+    public float timeToLightUp;
     
     
     
@@ -14,6 +15,7 @@ public struct BracierData
         hasBeenLit = other.hasBeenLit;
         lightRadius = other.lightRadius;
         lightIntensity = other.lightIntensity;
+        timeToLightUp = other.timeToLightUp;
     }
     
 }

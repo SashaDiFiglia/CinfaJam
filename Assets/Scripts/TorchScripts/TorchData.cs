@@ -10,16 +10,11 @@ namespace TorchDatas
         [Header("Torch Timer Variables")] public float duration;
         public float maxDuration;
         public float costForUse;
-
-        [Header("TreshHold Variables")] public float maxThreshold;
-        public float halfThreshold;
-        public float minThreshold;
         
-        public enum TorchState //Settare a Runtime
+        
+        public enum TorchState
         {
             Lit,
-            HalfLit,
-            QuarterLit,
             TurnedOff
         };
         public TorchState torchState;
@@ -30,9 +25,6 @@ namespace TorchDatas
             duration = other.duration;
             maxDuration = other.maxDuration;
             costForUse = other.costForUse;
-            maxThreshold = other.maxThreshold;
-            halfThreshold = other.halfThreshold;
-            minThreshold = other.minThreshold;
             torchState = other.torchState;
         }
 
