@@ -1,36 +1,40 @@
 using System;
+using System.Numerics;
+using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.Serialization;
 using TorchDatas;
-using Unity.Collections;
+using Vector3 = UnityEngine.Vector3;
 
 public class Torch : MonoBehaviour
 {
-    [Header("Core Settings")]
-    [SerializeField] private TorchDataSO _dataSO; 
+    [Header("Core Settings")] [SerializeField]
+    private TorchDataSO _dataSO;
+
     [SerializeField] private TorchData _torchData;
     [SerializeField] private ParticleSystem _torchFireParticles;
     [SerializeField] private Transform _lightObj;
-    
-    [Header("Timer Settings")]
-    [SerializeField] private float _tick = 1;
+
+    [Header("Timer Settings")] [SerializeField]
+    private float _tick = 1;
+
     [SerializeField] private float _reductionForTick;
-    [SerializeField, ReadOnly] private float _time;
+    [SerializeField, Unity.Collections.ReadOnly] private float _time;
 
     public TorchData TorchData
     {
         get { return _torchData; }
     }
 
-    [Header("GameplayTestingSettings")]
-    [SerializeField] private bool _isStartingAtMaxDuration;
+    [Header("GameplayTestingSettings")] [SerializeField]
+    private bool _isStartingAtMaxDuration;
 
 
     private void Start()
     {
         _torchData.CopyFrom(_dataSO.dataToInject);
-        
-        if(_isStartingAtMaxDuration)
+
+        if (_isStartingAtMaxDuration)
         {
             _torchData.duration = _torchData.maxDuration;
         }
@@ -39,6 +43,7 @@ public class Torch : MonoBehaviour
         {
             _torchFireParticles = FindAnyObjectByType<TorchParticleIdentifier>().GetComponent<ParticleSystem>();
         }
+
         if (_lightObj == null)
         {
             _lightObj = FindAnyObjectByType<LightIdentifier>().GetComponent<Transform>();
@@ -48,16 +53,16 @@ public class Torch : MonoBehaviour
 
     private void Update()
     {
-        CheckTorchTreshHold();
+        if (_torchData.duration >= _torchData.maxDuration)
+        {
+            _torchData.duration = _torchData.maxDuration;
+        }
+        if (_torchData.duration <= 0)
+        {
+            _torchData.duration = 0;
+        }
+        // CheckTorchTreshHold();
         Timer();
-        //change aumetare e ridurre dimensione
-    }
-
-
-    //Collegare Evento Jasbon
-    public void ReduceTorchDurationOnUse()
-    {
-        _torchData.duration -= _torchData.costForUse;
     }
 
     private void Timer()
@@ -68,19 +73,54 @@ public class Torch : MonoBehaviour
         {
             _torchData.duration -= _reductionForTick;
             //reduce sound
-            _lightObj.localScale = new Vector3(_lightObj.localScale.x - _reductionForTick, _lightObj.localScale.y- _reductionForTick, _lightObj.localScale.z- _reductionForTick);
+            
+            SetLightRadius(_torchData.duration);
+            SetTorchParticleEmission(_torchData.duration);
+            
             _time = 0;
         }
     }
 
-
-    private void CheckTorchTreshHold()
+    private void SetLightRadius(float duration)
     {
-        switch (_torchData.duration)
-        {
-            case 
-        }
+        
+            float _reductionDimension = duration * 0.3f;
+            
+            _lightObj.localScale = new Vector3(_reductionDimension,
+                _reductionDimension, _reductionDimension);
+            
+            if (_lightObj.localScale == Vector3.zero)
+            {
+                _lightObj.localScale = Vector3.zero;
+            }
+    }
+
+    private void SetTorchParticleEmission(float duration)
+    {
+         _torchFireParticles.emissionRate = duration;
+
     }
     
+    // private void CheckTorchTreshHold()
+    // {
+    //     switch (_torchData.duration)
+    //     {
+    //         case 
+    //     }
+    // }
     
+    /////////////////////////////////// EVENTS
+    //Collegare Evento Jasbon
+    [Button]
+    public void ReduceTorchDurationOnUse()
+    {
+        _torchData.duration -= _torchData.costForUse;
+    }
+
+    [Button]
+    public void RegainTorchDuration(float value)
+    {
+        _torchData.duration += value;
+    }
+
 }
