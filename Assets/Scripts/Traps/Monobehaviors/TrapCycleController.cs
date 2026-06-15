@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-public class TimedTrapTimeCycle: MonoBehaviour
+public class TrapCycleController: MonoBehaviour
 {
     [SerializeField] private AActivableTrap trap;
     [SerializeField] private float waitTime;

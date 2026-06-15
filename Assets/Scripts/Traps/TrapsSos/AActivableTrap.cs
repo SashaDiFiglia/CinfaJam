@@ -2,8 +2,8 @@
 
 public abstract class AActivableTrap : ScriptableObject
 {
-    protected TimedTrapTimeCycle trapController;
-    public void Setup(TimedTrapTimeCycle trapTimeCycle) { trapController = trapTimeCycle; OnSetup(); }
+    protected TrapCycleController trapController;
+    public void Setup(TrapCycleController trapCycleController) { trapController = trapCycleController; OnSetup(); }
     public void Clear() { trapController = null; OnClear();}
     protected virtual void OnSetup() {}
     protected virtual void OnClear() {}

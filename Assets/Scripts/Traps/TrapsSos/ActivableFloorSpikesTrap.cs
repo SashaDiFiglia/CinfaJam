@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-[CreateAssetMenu(fileName = "New Activable Floor", menuName = "Traps/Activable Floor - Spikes")]
+[CreateAssetMenu(fileName = "New Activable Spikes", menuName = "Traps/Activable Floor - Spikes")]
 public class ActivableFloorSpikesTrap: AActivableTrap
 {
     [SerializeField] private Sprite inactiveSprite;

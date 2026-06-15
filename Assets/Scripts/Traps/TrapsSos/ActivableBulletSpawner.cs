@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-[ CreateAssetMenu(fileName = "New Activable Wall Bullet", menuName = "Traps/Activable Bullet Spawner")]
+[ CreateAssetMenu(fileName = "New Bullet Spawner", menuName = "Traps/Activable Bullet Spawner")]
 public class ActivableBulletSpawner: AActivableTrap
 {
     [SerializeField] private GameObject bulletPrefab;

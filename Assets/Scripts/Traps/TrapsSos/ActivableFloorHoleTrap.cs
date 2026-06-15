@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-[CreateAssetMenu(fileName = "New Activable Wall", menuName = "Traps/Activable Floor - Hole")]
+[CreateAssetMenu(fileName = "New Activable Hole", menuName = "Traps/Activable Floor - Hole")]
 public class ActivableFloorHoleTrap: AActivableTrap
 {
     [SerializeField] private Sprite holeSprite;
