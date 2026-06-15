@@ -19,7 +19,7 @@ public class ActivableBulletSpawner: AActivableTrap
     public override void ActivateTrap()
     {
         GameObject bullet = Instantiate(bulletPrefab, _spawnPoint.transform.position, _spawnPoint.transform.rotation);
-        bullet.GetComponent<Bullet>().Setup(bulletSpeed, bulletDamage, bulletLifetime);
+        bullet.GetComponent<BulletController>().Setup(bulletSpeed, bulletDamage, bulletLifetime);
     }
 
     public override void DeactivateTrap()

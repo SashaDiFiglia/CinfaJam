@@ -8,16 +8,16 @@ public class ActivableFloorSpikesTrap: AActivableTrap
     [SerializeField] private float damage;
     [SerializeField] private float delayBetweenHits;
 
-    private Spikes _spikesController;
+    private SpikeController _spikesController;
 
     protected override void OnSetup()
     {
-        _spikesController = trapController.GetComponent<Spikes>();
+        _spikesController = trapController.GetComponent<SpikeController>();
         _spikesController.Setup(damage, delayBetweenHits);
     }
     protected override void OnClear()
-    { Destroy(_spikesController.gameObject); _spikesController = null; }
+    { if (_spikesController != null) { Destroy(_spikesController);} }
 
     public override void ActivateTrap() { _spikesController.ToggleSpikes(true); }
-    public override void DeactivateTrap() { _spikesController.ToggleSpikes(false); }
+    public override void DeactivateTrap() {  _spikesController.ToggleSpikes(false); }
 }

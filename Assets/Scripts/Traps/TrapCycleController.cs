@@ -5,8 +5,11 @@ using UnityEngine;
 public class TrapCycleController: MonoBehaviour
 {
     [SerializeField] private AActivableTrap trap;
-    [SerializeField] private float waitTime;
-    [SerializeField] private float activeTime;
+    
+    [Header("Time Settings")]
+    public float timeBeforeActivation;
+    public float timeBeforeDeactivation;
+
     
     private bool _isActive;
     private Coroutine _c;
@@ -28,9 +31,9 @@ public class TrapCycleController: MonoBehaviour
     {
         while (_isActive)
         {
-            yield return new WaitForSeconds(waitTime);
+            yield return new WaitForSeconds(timeBeforeActivation);
             trap.ActivateTrap();
-            yield return new WaitForSeconds(activeTime);
+            yield return new WaitForSeconds(timeBeforeDeactivation);
             trap.DeactivateTrap();
         }
     }
