@@ -15,6 +15,8 @@ public partial class CheckDistanceAction : Action
 
     protected override Status OnStart()
     {
-        return Status.Success;
+        return Vector3.Distance(Self.Value.transform.position, Target.Value.transform.position) <= Distance.Value
+            ? Status.Success
+            : Status.Failure;
     }
 }

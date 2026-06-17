@@ -2,6 +2,7 @@ using Unity.Behavior;
 using UnityEngine;
 using Action = System.Action;
 
+[RequireComponent(typeof(BehaviorGraphAgent))]
 public class Enemy : MonoBehaviour, IHealth
 {
     [SerializeField] private EnemyData _enemyData;
@@ -16,17 +17,9 @@ public class Enemy : MonoBehaviour, IHealth
     {
         get
         {
-            if (_behaviourAgent == null)
-            {
-                _behaviourAgent = GetComponent<BehaviorGraphAgent>();
-            }
-
-            if (_behaviourAgent == null)
-            {
-                _behaviourAgent = gameObject.AddComponent<BehaviorGraphAgent>();
-            }
-
-            return _behaviourAgent;
+            return _behaviourAgent ??= TryGetComponent<BehaviorGraphAgent>(out var agent)
+                ? agent
+                : gameObject.AddComponent<BehaviorGraphAgent>();
         }
     }
 
