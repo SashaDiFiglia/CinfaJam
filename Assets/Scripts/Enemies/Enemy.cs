@@ -1,4 +1,5 @@
 using System;
+using Sirenix.OdinInspector;
 using Unity.Behavior;
 using UnityEngine;
 using Action = System.Action;
@@ -6,21 +7,20 @@ using Action = System.Action;
 [RequireComponent(typeof(BehaviorGraphAgent))]
 public class Enemy : MonoBehaviour, IHealth
 {
+    private static readonly int AttackKey = Animator.StringToHash("Attack");
+
     [SerializeField] private EnemyData _enemyData;
-    public Transform aggroRange;
-    public Transform closeRange;
+    [SerializeField] private Animator _animator;
+    public Transform debugAggroRange;
+    public Transform debugCloseRange;
 
     private BehaviorGraphAgent _behaviourAgent;
+    private Rigidbody2D _rigidbody2D;
 
-    private float _currentHealth;
+    [ShowInInspector] private float _currentHealth;
     private bool _isDead;
 
     public event Action OnDeath;
-
-    /// <summary>
-    /// <param name="float"> Cooldown time</param>
-    /// </summary>
-    public event Action<float> OnAttackCooldownStarted;
 
     public BehaviorGraphAgent BehaviourAgent
     {
@@ -30,6 +30,11 @@ public class Enemy : MonoBehaviour, IHealth
                 ? agent
                 : gameObject.AddComponent<BehaviorGraphAgent>();
         }
+    }
+
+    private void Awake()
+    {
+        _rigidbody2D = GetComponent<Rigidbody2D>();
     }
 
     private void Start()
@@ -47,14 +52,24 @@ public class Enemy : MonoBehaviour, IHealth
         BehaviourAgent.BlackboardReference.SetVariableValue("WalkSpeed", _enemyData.WalkSpeed);
         BehaviourAgent.BlackboardReference.SetVariableValue("CloseRange", _enemyData.Weapon.Range);
         BehaviourAgent.BlackboardReference.SetVariableValue("AttackCooldown", _enemyData.AttackCooldown);
+        BehaviourAgent.BlackboardReference.SetVariableValue("Enemy", this);
 
-        aggroRange.localScale = Vector3.one * _enemyData.AggroRadius * 2;
-        closeRange.localScale = Vector3.one * _enemyData.Weapon.Range * 2;
+        debugAggroRange.localScale = Vector3.one * _enemyData.AggroRadius * 2;
+        debugCloseRange.localScale = Vector3.one * _enemyData.Weapon.Range * 2;
+        BehaviourAgent.Start();
     }
 
     public void Attack()
     {
-        Debug.Log("Attacking");
+        if (_animator)
+        {
+            _animator.SetTrigger(AttackKey);
+        }
+    }
+
+    private void FixedUpdate()
+    {
+        BehaviourAgent.Update();
     }
 
     public void TakeDamage(float damage)
@@ -73,5 +88,10 @@ public class Enemy : MonoBehaviour, IHealth
 
         _isDead = true;
         OnDeath?.Invoke();
+    }
+    
+    public void Move(Vector2 newPosition)
+    {
+        _rigidbody2D.MovePosition(newPosition);
     }
 }

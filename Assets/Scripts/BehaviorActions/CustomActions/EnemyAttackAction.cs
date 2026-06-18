@@ -11,7 +11,6 @@ public partial class EnemyAttackAction : Action
 {
     [SerializeReference] public BlackboardVariable<GameObject> Self;
 
-
     protected override Status OnStart()
     {
         if (!Self.Value.TryGetComponent<Enemy>(out var enemy))

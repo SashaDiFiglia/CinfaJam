@@ -5,7 +5,7 @@ using UnityEngine;
 using Action = Unity.Behavior.Action;
 
 [Serializable, GeneratePropertyBag]
-[NodeDescription(name: "Check distance", story: "Checks [Distance] between [Self] and [Target]", category: "Action",
+[NodeDescription(name: "Check distance", story: "Checks if distance between [Self] and [Target] <= [Distance]", category: "Action",
     id: "2c749044ee2e481dcdb79d4d5c90717f")]
 public partial class CheckDistanceAction : Action
 {

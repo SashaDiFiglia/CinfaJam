@@ -23,7 +23,7 @@ public class CustomTimerAction : Modifier
         }
 
         m_Timer = Duration.Value;
-        _elapsed += Time.deltaTime;
+        _elapsed += Time.fixedDeltaTime;
 
         if (_elapsed < m_Timer)
         {
