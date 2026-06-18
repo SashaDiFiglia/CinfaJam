@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyData
   _behaviorGraph: {fileID: 634605795074197726, guid: 761c2ef3aa33e8241a798f8f66a72b87, type: 2}
   _maxHealth: 20
-  _walkSpeed: 5
-  _attackRate: 0.5
-  _aggroRadius: 2
+  _walkSpeed: 2
+  _attackCooldown: 1
+  _aggroRadius: 5
   _weapon: {fileID: 11400000, guid: e9d8fb2e873e3b74c8f098ded99a1471, type: 2}

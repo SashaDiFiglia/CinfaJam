@@ -396,6 +396,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Enemy
   _enemyData: {fileID: 11400000, guid: c409a493c82d01449954c90d1b63c3b4, type: 2}
+  aggroRange: {fileID: 1616412490}
+  closeRange: {fileID: 10833703}
 --- !u!114 &739609845
 MonoBehaviour:
   m_ObjectHideFlags: 0
