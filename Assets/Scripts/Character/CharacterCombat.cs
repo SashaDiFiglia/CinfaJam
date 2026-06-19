@@ -69,6 +69,8 @@ public class CharacterCombat : MonoBehaviour
             return;
         }
 
+        Debug.Log("Emico copito.");
+
         _currentDurability -= hitNumber;
 
         if (_currentDurability <= 0)
