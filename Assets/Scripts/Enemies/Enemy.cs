@@ -1,7 +1,5 @@
-using System;
 using Sirenix.OdinInspector;
 using Unity.Behavior;
-using UnityEditor;
 using UnityEngine;
 using Action = System.Action;
 
@@ -53,6 +51,14 @@ public class Enemy : MonoBehaviour, IHealth
         BehaviourAgent.Graph = _enemyData.BehaviorGraph;
 
         BehaviourAgent.Init();
+
+        var controller = FindFirstObjectByType<CharacterController>();
+
+        if (controller)
+        {
+            BehaviourAgent.BlackboardReference.SetVariableValue("Target", controller.transform);
+        }
+
         BehaviourAgent.BlackboardReference.SetVariableValue("AggroRange", _enemyData.AggroRadius);
         BehaviourAgent.BlackboardReference.SetVariableValue("WalkSpeed", _enemyData.WalkSpeed);
         BehaviourAgent.BlackboardReference.SetVariableValue("CloseRange", _enemyData.Weapon.hitRadius);
@@ -106,7 +112,7 @@ public class Enemy : MonoBehaviour, IHealth
 
         CurrentDirection = direction;
         _previousPosition = newPosition;
-        
+
         _rigidbody2D.MovePosition(newPosition);
     }
 }
