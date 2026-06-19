@@ -18,4 +18,4 @@ MonoBehaviour:
   hitRadius: 0.5
   LayerMask:
     serializedVersion: 2
-    m_Bits: 8
+    m_Bits: 64
