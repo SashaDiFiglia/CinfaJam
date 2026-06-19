@@ -1,6 +1,5 @@
 using System;
 using Unity.Behavior;
-using UnityEngine;
 using Composite = Unity.Behavior.Composite;
 using Unity.Properties;
 
