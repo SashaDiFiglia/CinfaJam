@@ -1,10 +1,11 @@
 ﻿using System;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 public class CharacterHealth : MonoBehaviour, IHealth
 {
     public float MaxHealth;
-    public float CurrentHealth;
+    [ReadOnly] public float CurrentHealth;
 
     public event Action OnDeath;
 

@@ -1,6 +1,7 @@
 using System;
 using FMOD.Studio;
 using FMODUnity;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 public class CharacterCombat : MonoBehaviour
@@ -31,7 +32,7 @@ public class CharacterCombat : MonoBehaviour
     private EventInstance _attackSoundInstance;
     private EventInstance _weaponBreakInstance;
 
-    private float _currentDurability;
+    [ShowInInspector, ReadOnly] private float _currentDurability;
 
     public float CurrentDurability => _currentDurability;
 
@@ -63,12 +64,12 @@ public class CharacterCombat : MonoBehaviour
 
         _attackSoundInstance.start();
 
-        if (!Weapon.Attack())
+        if (!Weapon.Attack(transform, out var hitNumber))
         {
             return;
         }
 
-        _currentDurability--;
+        _currentDurability -= hitNumber;
 
         if (_currentDurability <= 0)
         {
@@ -77,6 +78,14 @@ public class CharacterCombat : MonoBehaviour
             OnWeaponBreak?.Invoke();
 
             Weapon = null;
+        }
+    }
+
+    private void OnDrawGizmos()
+    {
+        if (Weapon != null)
+        {
+            Weapon.DrawGizmos(transform);
         }
     }
 }
