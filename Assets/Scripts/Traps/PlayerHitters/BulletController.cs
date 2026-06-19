@@ -9,6 +9,8 @@ public class BulletController : MonoBehaviour
         private float _lifetime;
         private float _speed;
         private bool _isMoving;
+        private bool _canExplode;
+        private bool _canHitEnemies;
         private Coroutine _moveC;
         
         private Animator _animator;
@@ -18,11 +20,13 @@ public class BulletController : MonoBehaviour
     #endregion
     
     #region Setup
-        public void Setup(float speed, float damage, float lifetime)
+        public void Setup(float speed, float damage, float lifetime, bool canExplode, bool hitsEnemies)
         {
             _damage = damage;
             _lifetime = lifetime;
             _speed = speed;
+            _canExplode = canExplode;
+            _canHitEnemies = hitsEnemies;
             
             _animator = gameObject.GetComponent<Animator>();
             if (_animator == null) { Debug.LogWarning($"No animator on {gameObject.name}, animations will not be played"); }
@@ -75,14 +79,30 @@ public class BulletController : MonoBehaviour
             { other.GetComponent<CharacterHealth>()?.TakeDamage(_damage); }
             DestroySelf();
         }
-        void DestroySelf() 
-        { Destroy(gameObject); }
+        void Explode() //deals damage in area.
+        { 
+            Collider2D col = gameObject.GetComponent<Collider2D>();
+            Collider2D[] cols = Physics2D.OverlapCircleAll(col.bounds.center, col.bounds.extents.x);
+            foreach (Collider2D c in cols)
+            {
+                if (c.CompareTag("Player")) { c.GetComponent<CharacterHealth>()?.TakeDamage(_damage); }
+                if (_canHitEnemies) { Debug.Log("Hit");}
+            }
+
+        }
+
+        void DestroySelf()
+        {
+            if (_canExplode) {Explode();}
+            Destroy(gameObject);
+        }
 
         private IEnumerator DestroyAfterLifetime()
         { yield return new WaitForSeconds(_lifetime); DestroySelf(); }
     #endregion
     
     #region Odin Buttons
-        [Button] public void StartFlicker(float speed, float damage, float lifetime) { Setup(speed, damage, lifetime); }
+        [Button] public void StartFlicker(float speed, float damage, float lifetime, bool canExplode, bool hitsEnemies) 
+        { Setup(speed, damage, lifetime, canExplode, hitsEnemies); }
     #endregion
 }
