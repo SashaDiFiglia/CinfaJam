@@ -4,7 +4,7 @@ using UnityEngine.UI;
 [CreateAssetMenu(fileName = "New Activable Spikes", menuName = "Traps/Activable Floor - Spikes")]
 public class ActivableFloorHazard: AActivableTrap
 {
-    [Header("Spikes Properties")]
+    [Header("Hazard Properties")]
     [SerializeField] private float damage;
     [SerializeField] private float delayBetweenHits;
     [SerializeField] private bool dealsDamageOverTime;

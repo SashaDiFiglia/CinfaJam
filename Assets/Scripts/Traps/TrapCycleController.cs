@@ -21,17 +21,6 @@ public class TrapCycleController: MonoBehaviour
     #endregion
     
     #region Trap Cycle
-        private IEnumerator TrapCycle()
-        {
-            while (_isActive)
-            {
-                yield return new WaitForSeconds(timeBeforeActivation);
-                trap.ActivateTrap();
-                yield return new WaitForSeconds(timeBeforeDeactivation);
-                trap.DeactivateTrap();
-            }
-        }
-        
         [Button]
         public void ToggleTrapCycleMaster()
         {
@@ -53,6 +42,17 @@ public class TrapCycleController: MonoBehaviour
             else if (_c != null)         { StopCoroutine(_c); _c = null; trap.DeactivateTrap(); }
         }
   
+        private IEnumerator TrapCycle()
+        {
+            while (_isActive)
+            {
+                yield return new WaitForSeconds(timeBeforeActivation);
+                trap.ActivateTrap();
+                yield return new WaitForSeconds(timeBeforeDeactivation);
+                trap.DeactivateTrap();
+            }
+        }
+        
         void Clear() { _isActive = false; if (_c != null) { StopCoroutine(_c); _c = null;} }
     #endregion
     

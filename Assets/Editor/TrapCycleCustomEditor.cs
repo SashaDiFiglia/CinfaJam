@@ -4,10 +4,6 @@ using UnityEngine;
 [CustomEditor(typeof(TrapCycleController))]
 public class TrapCycleCustomEditor : Editor
 {
-    #region VARIABLES
-        private bool _isTimeBased;
-    #endregion
-    
     #region PROPERTIES
         private SerializedProperty trapProperty;
         private SerializedProperty isTimeBasedProperty;
@@ -38,8 +34,10 @@ public class TrapCycleCustomEditor : Editor
         
         EditorGUILayout.BeginHorizontal();
         GUILayout.Label("Trap Data", GUILayout.Width(Screen.width/5f));
-        trapProperty.objectReferenceValue = EditorGUILayout.ObjectField(trapProperty.objectReferenceValue, typeof(AActivableTrap), false, GUILayout.Width(Screen.width/2f + Screen.width/15f));
+        trapProperty.objectReferenceValue = EditorGUILayout.ObjectField(trapProperty.objectReferenceValue, typeof(AActivableTrap), false, GUILayout.Width(Screen.width/3f));
         EditorGUILayout.EndHorizontal();
+        
+        EditorGUILayout.Space();
         
         EditorGUILayout.BeginHorizontal();
         GUILayout.Label("Is Time Based",  GUILayout.Width(Screen.width/5f));

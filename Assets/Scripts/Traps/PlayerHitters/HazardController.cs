@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class HazardController : MonoBehaviour
 {
-    #region VARIABLES - SPIKE
+    #region VARIABLES - HAZARD
         private bool _dealsDamageOverTime;
         
         private float _damage;
@@ -40,7 +40,7 @@ public class HazardController : MonoBehaviour
             
             _anim = gameObject.GetComponent<Animator>();
             if (_anim == null) 
-            { Debug.LogWarning($"No Animator on hazard {gameObject.name}, animations will not be played"); }
+            { Debug.LogWarning($"No animator on {gameObject.name}, animations will not be played"); }
         }
     #endregion
     
