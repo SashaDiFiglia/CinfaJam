@@ -13,7 +13,7 @@ public class Enemy : MonoBehaviour, IHealth
     public Transform debugAggroRange;
     public Transform debugCloseRange;
 
-    private BehaviorGraphAgent _behaviourAgent;
+    private BehaviorGraphAgent m_behaviourAgent;
     private Rigidbody2D _rigidbody2D;
 
     private Vector2 _previousPosition;
@@ -29,7 +29,7 @@ public class Enemy : MonoBehaviour, IHealth
     {
         get
         {
-            return _behaviourAgent ??= TryGetComponent<BehaviorGraphAgent>(out var agent)
+            return m_behaviourAgent ??= TryGetComponent<BehaviorGraphAgent>(out var agent)
                 ? agent
                 : gameObject.AddComponent<BehaviorGraphAgent>();
         }
