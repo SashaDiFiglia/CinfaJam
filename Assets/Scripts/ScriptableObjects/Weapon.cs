@@ -14,13 +14,18 @@ public class Weapon : ScriptableObject
     public float hitRadius = 0.5f;
     public LayerMask LayerMask;
 
-    public bool Attack(Transform user)
+    public bool Attack(Transform user, out int enemyCount)
     {
         var attackPoint = user.position + user.forward * attackOffset;
+
+        attackPoint += Vector3.up;
+
         var colliders = Physics.OverlapSphere(attackPoint, hitRadius, LayerMask);
 
         if (colliders.Length <= 0)
         {
+            enemyCount = 0;
+
             return false;
         }
 
@@ -33,12 +38,16 @@ public class Weapon : ScriptableObject
             }
         }
 
+        enemyCount = colliders.Length;
+
         return true;
     }
 
     public void DrawGizmos(Transform user)
     {
         var attackPoint = user.position + user.forward * attackOffset;
+
+        attackPoint += Vector3.up;
 
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(attackPoint, hitRadius);

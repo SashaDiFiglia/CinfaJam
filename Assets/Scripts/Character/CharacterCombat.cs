@@ -64,12 +64,12 @@ public class CharacterCombat : MonoBehaviour
 
         _attackSoundInstance.start();
 
-        if (!Weapon.Attack(transform))
+        if (!Weapon.Attack(transform, out var hitNumber))
         {
             return;
         }
 
-        _currentDurability--;
+        _currentDurability -= hitNumber;
 
         if (_currentDurability <= 0)
         {
