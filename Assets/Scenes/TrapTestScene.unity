@@ -393,11 +393,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1769040150355153932, guid: f488c330cb3a8bd4aa7c3f89c32818c9, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1.5
+      value: -2.5
       objectReference: {fileID: 0}
     - target: {fileID: 1769040150355153932, guid: f488c330cb3a8bd4aa7c3f89c32818c9, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.5
+      value: -0.5
       objectReference: {fileID: 0}
     - target: {fileID: 1769040150355153932, guid: f488c330cb3a8bd4aa7c3f89c32818c9, type: 3}
       propertyPath: m_LocalPosition.z
@@ -435,22 +435,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: BulletSpawner
       objectReference: {fileID: 0}
-    - target: {fileID: 1787960772296364572, guid: f488c330cb3a8bd4aa7c3f89c32818c9, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4265943311275965768, guid: f488c330cb3a8bd4aa7c3f89c32818c9, type: 3}
-      propertyPath: trap
-      value: 
-      objectReference: {fileID: 11400000, guid: d251f520223d25745bc51fd9dc5fee88, type: 2}
-    - target: {fileID: 4265943311275965768, guid: f488c330cb3a8bd4aa7c3f89c32818c9, type: 3}
-      propertyPath: timeBeforeActivation
-      value: 1.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 4862882007285618986, guid: f488c330cb3a8bd4aa7c3f89c32818c9, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -474,7 +458,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4475205218561174413, guid: bbfb3ec8195d4604aac532f3274c27f2, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4475205218561174413, guid: bbfb3ec8195d4604aac532f3274c27f2, type: 3}
       propertyPath: m_LocalPosition.z
@@ -527,7 +511,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2877985509783029484, guid: f74fa2289c149e949abdd4027f6cd82a, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 2877985509783029484, guid: f74fa2289c149e949abdd4027f6cd82a, type: 3}
       propertyPath: m_LocalPosition.z
@@ -561,29 +545,9 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3927321166608068869, guid: f74fa2289c149e949abdd4027f6cd82a, type: 3}
-      propertyPath: waitTime
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 3927321166608068869, guid: f74fa2289c149e949abdd4027f6cd82a, type: 3}
-      propertyPath: activeTime
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 3927321166608068869, guid: f74fa2289c149e949abdd4027f6cd82a, type: 3}
-      propertyPath: timeBeforeActivation
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3927321166608068869, guid: f74fa2289c149e949abdd4027f6cd82a, type: 3}
-      propertyPath: timeBeforeDeactivation
-      value: 5
-      objectReference: {fileID: 0}
     - target: {fileID: 8854298827173425279, guid: f74fa2289c149e949abdd4027f6cd82a, type: 3}
       propertyPath: m_Name
       value: Spikes
-      objectReference: {fileID: 0}
-    - target: {fileID: 8854298827173425279, guid: f74fa2289c149e949abdd4027f6cd82a, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

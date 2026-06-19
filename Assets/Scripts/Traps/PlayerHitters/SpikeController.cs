@@ -3,9 +3,9 @@ using UnityEngine;
 
 public class SpikeController : MonoBehaviour
 {
-    [SerializeField]  private Sprite _deactivatedSpikeSprite;
-    
     #region VARIABLES - SPIKE
+        [SerializeField] private bool dealsDamageOverTime;
+        
         private float _damage;
         private float _delay;
 
@@ -15,6 +15,8 @@ public class SpikeController : MonoBehaviour
     #endregion
     
     #region VARIABLES - ANIMATION
+        [SerializeField] private Sprite _deactivatedSpikeSprite;
+        
         private Animator _anim;
         
         private string _spikeMoveForwardAnim = "SpikeMovePlayback";
@@ -35,6 +37,7 @@ public class SpikeController : MonoBehaviour
             _canHit = true;
             _col = gameObject.GetComponent<Collider2D>(); 
             _anim = gameObject.GetComponent<Animator>();
+            dealsDamageOverTime = false;
         }
     #endregion
     
@@ -90,6 +93,7 @@ public class SpikeController : MonoBehaviour
         }
         private void OnTriggerStay(Collider other)
         {
+            if (!dealsDamageOverTime) { return; }
             if (!other.CompareTag("Player")) { return; }
             if (!_canHit) { return; } Hit(other.gameObject);
         }
@@ -101,7 +105,7 @@ public class SpikeController : MonoBehaviour
         }
     #endregion
     
-    #region Hit & Coroutines
+    #region Hit Damage
         void Hit(GameObject player)
         {
             _canHit = false;
@@ -109,7 +113,12 @@ public class SpikeController : MonoBehaviour
             Debug.Log($"Spikes hit {player.name} for {_damage} damage");
             StartCoroutine(Delay());
         }
+
+        public void CanDamageOverTime(bool canDamageOverTime) 
+        { dealsDamageOverTime = canDamageOverTime; }
+    #endregion
     
+    #region Coroutines
         private IEnumerator Delay()
         { yield return new WaitForSeconds(_delay); _canHit = true; }
         private void ClearCoroutine()

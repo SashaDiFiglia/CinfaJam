@@ -144,6 +144,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7cd5c9f8dfa00e849ad90bdf0e0d320a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Spikes
+  dealsDamageOverTime: 0
   _deactivatedSpikeSprite: {fileID: -799769799962338997, guid: 0a074bd4d89b7614eaf0f925019b7cd8, type: 3}
 --- !u!61 &6840416198099912413
 BoxCollider2D:
@@ -152,7 +153,7 @@ BoxCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8854298827173425279}
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 3
   m_Density: 1
   m_Material: {fileID: 0}

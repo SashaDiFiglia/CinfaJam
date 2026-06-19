@@ -11,5 +11,5 @@ public abstract class AActivableTrap : ScriptableObject
     #endregion
     
     public abstract void ActivateTrap();
-    public abstract void DeactivateTrap();
+    public virtual void DeactivateTrap() {}
 }
