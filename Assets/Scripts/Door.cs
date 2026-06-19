@@ -16,7 +16,7 @@ public class Door : MonoBehaviour
     
     private Collider2D _col;
     private SpriteRenderer _renderer;
-    private CharacterController _player;
+    private PlayerKeyInventory _playerKeys;
 
     
     
@@ -27,7 +27,7 @@ public class Door : MonoBehaviour
         
         if (_openWithKey)
         {
-            _player = FindFirstObjectByType<CharacterController>();
+            _playerKeys = FindFirstObjectByType<PlayerKeyInventory>();
         }
     }
 
@@ -36,11 +36,11 @@ public class Door : MonoBehaviour
     {
         if (_openWithKey)
         {
-            var distance = Vector3.Distance(transform.position, _player.transform.position);
-            if (distance <= _distanceCheck /* playerhaskey*/)
+            var distance = Vector3.Distance(transform.position, _playerKeys.transform.position);
+            if (distance <= _distanceCheck && _playerKeys.GetComponent<PlayerKeyInventory>().GetHoldKeys() > 0)
             {
                 Open();
-                //Playerhaskey = false;
+                _playerKeys.ReduceKey();
             }
         }
     }
