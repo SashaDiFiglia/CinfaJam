@@ -50,12 +50,12 @@ public class Enemy : MonoBehaviour, IHealth
         BehaviourAgent.Init();
         BehaviourAgent.BlackboardReference.SetVariableValue("AggroRange", _enemyData.AggroRadius);
         BehaviourAgent.BlackboardReference.SetVariableValue("WalkSpeed", _enemyData.WalkSpeed);
-        BehaviourAgent.BlackboardReference.SetVariableValue("CloseRange", _enemyData.Weapon.Range);
+        BehaviourAgent.BlackboardReference.SetVariableValue("CloseRange", _enemyData.Weapon.hitRadius);
         BehaviourAgent.BlackboardReference.SetVariableValue("AttackCooldown", _enemyData.AttackCooldown);
         BehaviourAgent.BlackboardReference.SetVariableValue("Enemy", this);
 
         debugAggroRange.localScale = Vector3.one * _enemyData.AggroRadius * 2;
-        debugCloseRange.localScale = Vector3.one * _enemyData.Weapon.Range * 2;
+        debugCloseRange.localScale = Vector3.one * _enemyData.Weapon.hitRadius * 2;
         BehaviourAgent.Start();
     }
 
