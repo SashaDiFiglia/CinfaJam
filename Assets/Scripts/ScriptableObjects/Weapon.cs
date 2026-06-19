@@ -14,17 +14,17 @@ public class Weapon : ScriptableObject
     public float hitRadius = 0.5f;
     public LayerMask LayerMask;
 
-    public bool Attack(Transform user, out int enemyCount)
+    public bool Attack(Transform user, Vector2 direction, out int hitCount)
     {
-        var attackPoint = user.position + user.forward * attackOffset;
+        var attackPoint = (Vector2)user.position + direction * attackOffset;
 
-        attackPoint += Vector3.up;
+        //attackPoint += Vector3.up;
 
-        var colliders = Physics.OverlapSphere(attackPoint, hitRadius, LayerMask);
+        var colliders = Physics2D.OverlapCircleAll(attackPoint, hitRadius, LayerMask);
 
         if (colliders.Length <= 0)
         {
-            enemyCount = 0;
+            hitCount = 0;
 
             return false;
         }
@@ -38,16 +38,16 @@ public class Weapon : ScriptableObject
             }
         }
 
-        enemyCount = colliders.Length;
+        hitCount = colliders.Length;
 
         return true;
     }
 
-    public void DrawGizmos(Transform user)
+    public void DrawGizmos(Transform user, Vector2 direction)
     {
-        var attackPoint = user.position + user.forward * attackOffset;
+        var attackPoint = (Vector2)user.position + direction * attackOffset;
 
-        attackPoint += Vector3.up;
+        //attackPoint += Vector3.up;
 
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(attackPoint, hitRadius);
