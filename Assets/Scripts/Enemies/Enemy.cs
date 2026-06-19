@@ -17,7 +17,7 @@ public class Enemy : MonoBehaviour, IHealth
     private BehaviorGraphAgent _behaviourAgent;
     private Rigidbody2D _rigidbody2D;
 
-    [ShowInInspector] private float _currentHealth;
+    [ShowInInspector, ReadOnly] private float _currentHealth;
     private bool _isDead;
 
     public event Action OnDeath;
