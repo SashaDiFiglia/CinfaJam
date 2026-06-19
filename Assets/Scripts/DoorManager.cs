@@ -5,7 +5,7 @@ using UnityEngine;
 public class DoorManager : MonoBehaviour
 {
     [SerializeField] private List<BracierInstance> braciers;
-    //[SerializeField] private List<Enemies> enemies; 
+    [SerializeField] private List<Enemy> enemies; 
     [SerializeField] private List<Door> doors;
 
     private bool completed;
