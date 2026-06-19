@@ -80,6 +80,7 @@ public class BracierInstance : MonoBehaviour
         
     }
 
+    /////////////////////// GETTERS
     public BracierData GetInstanceData()
     {
         return _bracierData;

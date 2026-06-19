@@ -1,13 +1,14 @@
 ﻿using System;
 using Sirenix.OdinInspector;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Serialization;
 
 public class Door : MonoBehaviour
 {
-    [FormerlySerializedAs("openWithKey")]
     [Header ("Opens With Key?")]
     [SerializeField] private bool _openWithKey;
+    [SerializeField] private float _distanceCheck = 0.6f;
 
     
     [Header("Open Sprite")]
@@ -15,7 +16,7 @@ public class Door : MonoBehaviour
     
     private Collider2D _col;
     private SpriteRenderer _renderer;
-    private Player _player;
+    private CharacterController _player;
 
     
     
@@ -23,6 +24,11 @@ public class Door : MonoBehaviour
     {
         _col= GetComponent<Collider2D>();
         _renderer = GetComponent<SpriteRenderer>();
+        
+        if (_openWithKey)
+        {
+            _player = FindFirstObjectByType<CharacterController>();
+        }
     }
 
 
@@ -30,7 +36,12 @@ public class Door : MonoBehaviour
     {
         if (_openWithKey)
         {
-            
+            var distance = Vector3.Distance(transform.position, _player.transform.position);
+            if (distance <= _distanceCheck /* playerhaskey*/)
+            {
+                Open();
+                //Playerhaskey = false;
+            }
         }
     }
 
