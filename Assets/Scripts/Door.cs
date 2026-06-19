@@ -16,7 +16,7 @@ public class Door : MonoBehaviour
     
     private Collider2D _col;
     private SpriteRenderer _renderer;
-    private CharacterController _player;
+    private CharacterMovement _player;
 
     
     
@@ -27,7 +27,7 @@ public class Door : MonoBehaviour
         
         if (_openWithKey)
         {
-            _player = FindFirstObjectByType<CharacterController>();
+            _player = FindFirstObjectByType<CharacterMovement>();
         }
     }
 

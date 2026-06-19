@@ -6,7 +6,7 @@ public class CharacterInput : MonoBehaviour
 {
     private PlayerInput _input;
 
-    private CharacterController _controller;
+    private CharacterMovement _movement;
     private CharacterCombat _combat;
 
     private Vector2 _currentDirection;
@@ -14,7 +14,7 @@ public class CharacterInput : MonoBehaviour
 
     private void Awake()
     {
-        _controller = GetComponent<CharacterController>();
+        _movement = GetComponent<CharacterMovement>();
         _combat = GetComponent<CharacterCombat>();
 
         _input = new PlayerInput();
@@ -23,7 +23,7 @@ public class CharacterInput : MonoBehaviour
         _input.Gameplay.Attack.performed += _ => HandleAttack();
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         HandleMovement();
 
@@ -48,7 +48,7 @@ public class CharacterInput : MonoBehaviour
 
         if (input != Vector2.zero)
         {
-            _controller?.Move(input, Time.deltaTime);
+            _movement?.Move(input, Time.fixedDeltaTime);
         }
     }
 
