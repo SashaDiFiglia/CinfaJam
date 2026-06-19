@@ -79,4 +79,9 @@ public class BracierInstance : MonoBehaviour
         _bracierData.hasBeenLit = true;
         
     }
+
+    public BracierData GetInstanceData()
+    {
+        return _bracierData;
+    }
 }
