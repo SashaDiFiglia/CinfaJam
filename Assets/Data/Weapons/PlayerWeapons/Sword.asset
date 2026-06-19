@@ -13,5 +13,9 @@ MonoBehaviour:
   m_Name: Sword
   m_EditorClassIdentifier: Assembly-CSharp::Weapon
   Damage: 20
-  Range: 1
   MaxDurability: 10
+  attackOffset: 1
+  hitRadius: 0.5
+  LayerMask:
+    serializedVersion: 2
+    m_Bits: 64
