@@ -35,6 +35,6 @@ public class CharacterInput : MonoBehaviour
 
     private void HandleAttack()
     {
-        _combat?.Attack();
+        _combat?.TryAttack();
     }
 }
