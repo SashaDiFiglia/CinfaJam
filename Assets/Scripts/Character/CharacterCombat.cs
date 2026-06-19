@@ -53,7 +53,7 @@ public class CharacterCombat : MonoBehaviour
         }
     }
 
-    public void TryAttack()
+    public void TryAttack(Vector2 direction)
     {
         if (Weapon == null)
         {
@@ -64,7 +64,7 @@ public class CharacterCombat : MonoBehaviour
 
         _attackSoundInstance.start();
 
-        if (!Weapon.Attack(transform, out var hitNumber))
+        if (!Weapon.Attack(transform, direction, out var hitNumber))
         {
             return;
         }
@@ -78,14 +78,6 @@ public class CharacterCombat : MonoBehaviour
             OnWeaponBreak?.Invoke();
 
             Weapon = null;
-        }
-    }
-
-    private void OnDrawGizmos()
-    {
-        if (Weapon != null)
-        {
-            Weapon.DrawGizmos(transform);
         }
     }
 }
