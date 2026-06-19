@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 public class BulletController : MonoBehaviour
@@ -9,6 +10,11 @@ public class BulletController : MonoBehaviour
         private float _speed;
         private bool _isMoving;
         private Coroutine _moveC;
+        
+        private Animator _animator;
+        private bool _isPlayingAnimation;
+        private string _animation = "BulletFlicker";
+        private Coroutine _loopAnimationC;
     #endregion
     
     #region Setup
@@ -18,10 +24,13 @@ public class BulletController : MonoBehaviour
             _lifetime = lifetime;
             _speed = speed;
             
+            _animator = gameObject.GetComponent<Animator>();
+            if (_animator == null) { Debug.LogWarning($"No animator on {gameObject.name}, animations will not be played"); }
+            
             StopMoving();
-            _isMoving = true;
+            StopLoopAnimation();
             _moveC = StartCoroutine(Move());
-           
+            _loopAnimationC = StartCoroutine(LoopAnimation());
             StartCoroutine(DestroyAfterLifetime());
         }
     #endregion
@@ -29,6 +38,7 @@ public class BulletController : MonoBehaviour
     #region Movement controller
         private IEnumerator Move()
         {
+            _isMoving = true;
             while (_isMoving)
             {
                 transform.Translate(Vector2.up * (_speed * Time.deltaTime));
@@ -36,6 +46,24 @@ public class BulletController : MonoBehaviour
             }
         }
         public void StopMoving() { _isMoving = false; if (_moveC != null) { StopCoroutine(_moveC); _moveC = null; } }
+    #endregion
+    
+    #region Animator
+        private IEnumerator LoopAnimation()
+        {
+            _isPlayingAnimation = true;
+            while (_isPlayingAnimation)
+            {
+                _animator.Play(_animation, 0, 0.0f);
+                yield return new WaitForSeconds(_animator.GetCurrentAnimatorClipInfo(0)[0].clip.length); 
+            }
+        }
+
+        private void StopLoopAnimation()
+        {
+            _isPlayingAnimation = false;
+            if (_loopAnimationC != null) { StopCoroutine(_loopAnimationC); _loopAnimationC = null; }
+        }
     #endregion
 
     void OnCollisionEnter2D(Collision2D col) { Hit(col.gameObject); }
@@ -52,5 +80,9 @@ public class BulletController : MonoBehaviour
 
         private IEnumerator DestroyAfterLifetime()
         { yield return new WaitForSeconds(_lifetime); DestroySelf(); }
+    #endregion
+    
+    #region Odin Buttons
+        [Button] public void StartFlicker(float speed, float damage, float lifetime) { Setup(speed, damage, lifetime); }
     #endregion
 }

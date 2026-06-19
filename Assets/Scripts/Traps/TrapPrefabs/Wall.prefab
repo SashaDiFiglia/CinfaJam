@@ -84,7 +84,7 @@ SpriteRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 0.62578607, g: 1, b: 0.8995917, a: 1}
+  m_Color: {r: 0.103773475, g: 1, b: 0.7586855, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -152,5 +152,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TrapCycleController
   trap: {fileID: 11400000, guid: 8e81efc3541c6834db56ef6c889921fd, type: 2}
+  isTimeBased: 1
   timeBeforeActivation: 1
   timeBeforeDeactivation: 1

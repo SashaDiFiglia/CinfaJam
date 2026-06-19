@@ -130,6 +130,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TrapCycleController
   trap: {fileID: 11400000, guid: c0027a16646398f4a8920dfb50f5da78, type: 2}
+  isTimeBased: 1
   timeBeforeActivation: 1
   timeBeforeDeactivation: 5
 --- !u!114 &438284157401899427
@@ -144,7 +145,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7cd5c9f8dfa00e849ad90bdf0e0d320a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Spikes
-  dealsDamageOverTime: 0
   _deactivatedSpikeSprite: {fileID: -799769799962338997, guid: 0a074bd4d89b7614eaf0f925019b7cd8, type: 3}
 --- !u!61 &6840416198099912413
 BoxCollider2D:
