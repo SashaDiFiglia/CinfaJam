@@ -37,7 +37,7 @@ public class Door : MonoBehaviour
         if (_openWithKey)
         {
             var distance = Vector3.Distance(transform.position, _playerKeys.transform.position);
-            if (distance <= _distanceCheck && _playerKeys.GetComponent<PlayerKeyInventory>().GetHoldKeys() > 0)
+            if (distance <= _distanceCheck && _playerKeys.GetHoldKeys() > 0)
             {
                 Open();
                 _playerKeys.ReduceKey();
