@@ -54,17 +54,34 @@ public class CharacterInput : MonoBehaviour
 
     private void HandleAttack()
     {
-        _combat?.TryAttack(_prevDirection);
+        var attackDir = GetFourWayDirection(_prevDirection);
+        _combat?.TryAttack(attackDir);
+    }
+
+    private Vector2 GetFourWayDirection(Vector2 inputDirection)
+    {
+        if (inputDirection == Vector2.zero)
+        {
+            return Vector2.down;
+        }
+
+        return Mathf.Abs(inputDirection.x) >= Mathf.Abs(inputDirection.y)
+            ? new Vector2(Mathf.Sign(inputDirection.x), 0)
+            : new Vector2(0, Mathf.Sign(inputDirection.y));
     }
 
 #if UNITY_EDITOR
 
     private void OnDrawGizmos()
     {
-        var point = (Vector2)transform.position + _prevDirection * 1f;
+        var attackPoint = (Vector2)transform.position + GetFourWayDirection(_prevDirection) * 1f;
+        var movePoint = (Vector2)transform.position + _prevDirection * 0.7f;
 
         Handles.color = Color.red;
-        Handles.DrawWireDisc(point, Vector3.forward, 0.5f);
+        Handles.DrawWireDisc(attackPoint, Vector3.forward, 0.3f);
+
+        Handles.color = Color.green;
+        Handles.DrawWireDisc(movePoint, Vector3.forward, 0.1f);
     }
 
 #endif
