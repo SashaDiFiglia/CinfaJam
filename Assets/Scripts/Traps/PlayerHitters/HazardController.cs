@@ -15,8 +15,6 @@ public class HazardController : MonoBehaviour
     #endregion
     
     #region VARIABLES - ANIMATION
-        [SerializeField] private Sprite _deactivatedSpikeSprite;
-        
         private Animator _anim;
         
         private string _forwardAnim = "SpikeMovePlayback";

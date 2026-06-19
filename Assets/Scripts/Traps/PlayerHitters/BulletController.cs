@@ -16,6 +16,8 @@ public class BulletController : MonoBehaviour
         private Animator _animator;
         private bool _isPlayingAnimation;
         private string _animation = "BulletFlicker";
+        private string _explodeAnim = "BulletExplosion";
+        private float _explosionDuration = .1f;
         private Coroutine _loopAnimationC;
     #endregion
     
@@ -68,6 +70,13 @@ public class BulletController : MonoBehaviour
             _isPlayingAnimation = false;
             if (_loopAnimationC != null) { StopCoroutine(_loopAnimationC); _loopAnimationC = null; }
         }
+
+        private void PlayExplodeAnimation()
+        {
+            Debug.Log("Explode");
+            _animator.Play(_explodeAnim, 0, 0.0f);
+            _explosionDuration = _animator.GetCurrentAnimatorClipInfo(0)[0].clip.length;
+        }
     #endregion
 
     void OnCollisionEnter2D(Collision2D col) { Hit(col.gameObject); }
@@ -75,9 +84,17 @@ public class BulletController : MonoBehaviour
     #region Hit/Self-Destruct
         void Hit(GameObject other)
         {
-            if (other.CompareTag("Player")) 
-            { other.GetComponent<CharacterHealth>()?.TakeDamage(_damage); }
-            DestroySelf();
+            if (other.CompareTag("Player"))
+            {
+                other.GetComponent<CharacterHealth>()?.TakeDamage(_damage); 
+                DestroySelf();
+            }
+            else if (_canHitEnemies)
+            {
+                other.GetComponent<Enemy>()?.TakeDamage(_damage);
+                DestroySelf();
+            }
+           
         }
         void Explode() //deals damage in area.
         { 
@@ -86,14 +103,24 @@ public class BulletController : MonoBehaviour
             foreach (Collider2D c in cols)
             {
                 if (c.CompareTag("Player")) { c.GetComponent<CharacterHealth>()?.TakeDamage(_damage); }
-                if (_canHitEnemies) { Debug.Log("Hit");}
+                if (_canHitEnemies) { c.GetComponent<Enemy>()?.TakeDamage(_damage); }
             }
-
+            PlayExplodeAnimation();
+            StartCoroutine(WaitForDestruction());
         }
+
+        private IEnumerator WaitForDestruction()
+        {
+            yield return new WaitForSeconds(_explosionDuration);
+            Destroy(gameObject);
+        }
+
+
 
         void DestroySelf()
         {
-            if (_canExplode) {Explode();}
+            Debug.Log("Destroying bullet");
+            // if (_canExplode) {Explode(); return;}
             Destroy(gameObject);
         }
 
@@ -101,8 +128,4 @@ public class BulletController : MonoBehaviour
         { yield return new WaitForSeconds(_lifetime); DestroySelf(); }
     #endregion
     
-    #region Odin Buttons
-        [Button] public void StartFlicker(float speed, float damage, float lifetime, bool canExplode, bool hitsEnemies) 
-        { Setup(speed, damage, lifetime, canExplode, hitsEnemies); }
-    #endregion
 }
