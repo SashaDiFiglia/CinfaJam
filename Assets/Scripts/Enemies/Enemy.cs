@@ -1,6 +1,7 @@
 using System;
 using Sirenix.OdinInspector;
 using Unity.Behavior;
+using UnityEditor;
 using UnityEngine;
 using Action = System.Action;
 
@@ -16,6 +17,10 @@ public class Enemy : MonoBehaviour, IHealth
 
     private BehaviorGraphAgent _behaviourAgent;
     private Rigidbody2D _rigidbody2D;
+
+    private Vector2 _previousPosition;
+    public Vector2 CurrentDirection { get; private set; }
+    public Vector2 PreviousDirection { get; private set; }
 
     [ShowInInspector, ReadOnly] private float _currentHealth;
     private bool _isDead;
@@ -89,9 +94,19 @@ public class Enemy : MonoBehaviour, IHealth
         _isDead = true;
         OnDeath?.Invoke();
     }
-    
+
     public void Move(Vector2 newPosition)
     {
+        var direction = (newPosition - _previousPosition).normalized;
+
+        if (direction.sqrMagnitude >= 0.1f)
+        {
+            PreviousDirection = direction;
+        }
+
+        CurrentDirection = direction;
+        _previousPosition = newPosition;
+        
         _rigidbody2D.MovePosition(newPosition);
     }
 }
