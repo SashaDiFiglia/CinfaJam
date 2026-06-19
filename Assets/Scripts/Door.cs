@@ -1,11 +1,12 @@
 ﻿using System;
+using Sirenix.OdinInspector;
 using Unity.Burst.Intrinsics;
 using UnityEngine;
 
 public class Door : MonoBehaviour
 {
     
-    private Collider _col;
+    private Collider2D _col;
     private SpriteRenderer _renderer;
     
     [Header("Open Sprite")]
@@ -14,12 +15,13 @@ public class Door : MonoBehaviour
 
     private void Awake()
     {
-        _col= GetComponent<Collider>();
+        _col= GetComponent<Collider2D>();
         _renderer = GetComponent<SpriteRenderer>();
     }
 
 
 
+    [Button]
     public void Open()
     {
         _renderer.sprite = _openSprite;
