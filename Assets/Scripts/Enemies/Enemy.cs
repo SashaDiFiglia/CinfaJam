@@ -1,4 +1,3 @@
-using System;
 using Sirenix.OdinInspector;
 using Unity.Behavior;
 using UnityEngine;
@@ -14,8 +13,12 @@ public class Enemy : MonoBehaviour, IHealth
     public Transform debugAggroRange;
     public Transform debugCloseRange;
 
-    private BehaviorGraphAgent _behaviourAgent;
+    private BehaviorGraphAgent m_behaviourAgent;
     private Rigidbody2D _rigidbody2D;
+
+    private Vector2 _previousPosition;
+    public Vector2 CurrentDirection { get; private set; }
+    public Vector2 PreviousDirection { get; private set; }
 
     [ShowInInspector, ReadOnly] private float _currentHealth;
     private bool _isDead;
@@ -26,7 +29,7 @@ public class Enemy : MonoBehaviour, IHealth
     {
         get
         {
-            return _behaviourAgent ??= TryGetComponent<BehaviorGraphAgent>(out var agent)
+            return m_behaviourAgent ??= TryGetComponent<BehaviorGraphAgent>(out var agent)
                 ? agent
                 : gameObject.AddComponent<BehaviorGraphAgent>();
         }
@@ -48,6 +51,14 @@ public class Enemy : MonoBehaviour, IHealth
         BehaviourAgent.Graph = _enemyData.BehaviorGraph;
 
         BehaviourAgent.Init();
+
+        var controller = FindFirstObjectByType<CharacterController>();
+
+        if (controller)
+        {
+            BehaviourAgent.BlackboardReference.SetVariableValue("Target", controller.transform);
+        }
+
         BehaviourAgent.BlackboardReference.SetVariableValue("AggroRange", _enemyData.AggroRadius);
         BehaviourAgent.BlackboardReference.SetVariableValue("WalkSpeed", _enemyData.WalkSpeed);
         BehaviourAgent.BlackboardReference.SetVariableValue("CloseRange", _enemyData.Weapon.hitRadius);
@@ -89,9 +100,19 @@ public class Enemy : MonoBehaviour, IHealth
         _isDead = true;
         OnDeath?.Invoke();
     }
-    
+
     public void Move(Vector2 newPosition)
     {
+        var direction = (newPosition - _previousPosition).normalized;
+
+        if (direction.sqrMagnitude >= 0.1f)
+        {
+            PreviousDirection = direction;
+        }
+
+        CurrentDirection = direction;
+        _previousPosition = newPosition;
+
         _rigidbody2D.MovePosition(newPosition);
     }
 }
