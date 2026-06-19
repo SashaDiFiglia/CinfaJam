@@ -1,10 +1,10 @@
 using System.Collections;
 using UnityEngine;
 
-public class SpikeController : MonoBehaviour
+public class HazardController : MonoBehaviour
 {
     #region VARIABLES - SPIKE
-        [SerializeField] private bool dealsDamageOverTime;
+        private bool _dealsDamageOverTime;
         
         private float _damage;
         private float _delay;
@@ -19,9 +19,9 @@ public class SpikeController : MonoBehaviour
         
         private Animator _anim;
         
-        private string _spikeMoveForwardAnim = "SpikeMovePlayback";
-        private string _spikeMoveBackwardsAnim = "SpikeMoveBackwards";
-        private string _spikeFlickerAnim = "SpikeFlicker";
+        private string _forwardAnim = "SpikeMovePlayback";
+        private string _backwardsAnim = "SpikeMoveBackwards";
+        private string _upAnim = "SpikeFlicker";
         
         private Coroutine _waitForFlickerC = null;
         private Coroutine _flickerForDurationC = null;
@@ -30,20 +30,23 @@ public class SpikeController : MonoBehaviour
     #endregion  
     
     #region Setup
-        public void Setup(float value, float delayBetweenHits)
+        public void Setup(float value, float delayBetweenHits, bool canDamageOverTime)
         {
             _damage = value;
             _delay = delayBetweenHits;
+            _dealsDamageOverTime = canDamageOverTime;
             _canHit = true;
             _col = gameObject.GetComponent<Collider2D>(); 
+            
             _anim = gameObject.GetComponent<Animator>();
-            dealsDamageOverTime = false;
+            if (_anim == null) 
+            { Debug.LogWarning($"No Animator on hazard {gameObject.name}, animations will not be played"); }
         }
     #endregion
     
     public void ToggleSpikes(bool activating)
     {
-        MoveSpikes(activating);
+        if (_anim != null) { MoveSpikes(activating); }
         _col.enabled = activating;
     }
 
@@ -57,12 +60,12 @@ public class SpikeController : MonoBehaviour
                 
             if (isForward)
             { 
-                _anim.Play(_spikeMoveForwardAnim);
+                _anim.Play(_forwardAnim);
                 _waitForFlickerC = StartCoroutine(WaitForFlicker
                     (_anim.GetCurrentAnimatorClipInfo(0)[0].clip.length)); 
             }
             else 
-            { _anim.Play(_spikeMoveBackwardsAnim); }
+            { _anim.Play(_backwardsAnim); }
         }
     #endregion
     
@@ -71,7 +74,7 @@ public class SpikeController : MonoBehaviour
         {
             while (_isFlickering)
             {
-                _anim.Play(_spikeFlickerAnim, 0, 0.0f);
+                _anim.Play(_upAnim, 0, 0.0f);
                 yield return new WaitForSeconds(_anim.GetCurrentAnimatorClipInfo(0)[0].clip.length);
             }
         }
@@ -93,7 +96,7 @@ public class SpikeController : MonoBehaviour
         }
         private void OnTriggerStay(Collider other)
         {
-            if (!dealsDamageOverTime) { return; }
+            if (!_dealsDamageOverTime) { return; }
             if (!other.CompareTag("Player")) { return; }
             if (!_canHit) { return; } Hit(other.gameObject);
         }
@@ -115,7 +118,7 @@ public class SpikeController : MonoBehaviour
         }
 
         public void CanDamageOverTime(bool canDamageOverTime) 
-        { dealsDamageOverTime = canDamageOverTime; }
+        { _dealsDamageOverTime = canDamageOverTime; }
     #endregion
     
     #region Coroutines

@@ -7,6 +7,7 @@ public class TrapCycleController: MonoBehaviour
     [SerializeField] private AActivableTrap trap;
     
     [Header("Time Settings")]
+    public bool isTimeBased;
     public float timeBeforeActivation;
     public float timeBeforeDeactivation;
     
@@ -14,7 +15,7 @@ public class TrapCycleController: MonoBehaviour
     private Coroutine _c;
 
     #region Start/Destroy
-        void Start()     { trap.Setup(this); Clear(); ToggleTrapCycle();}
+        void Start()     { trap.Setup(this); Clear(); ToggleTrapCycleMaster(); }
         void OnDestroy() { Clear(); trap.Clear(); }
         void OnDisable() { Clear(); trap.Clear(); }
     #endregion
@@ -32,13 +33,26 @@ public class TrapCycleController: MonoBehaviour
         }
         
         [Button]
-        public void ToggleTrapCycle()
+        public void ToggleTrapCycleMaster()
         {
             _isActive = !_isActive;
+       
+            if (!isTimeBased) { TrapCycleToggle(); }
+            else              { TrapCycleTimeBased(); }
+        }
+
+        private void TrapCycleToggle()
+        {
+            if (_isActive) { trap.ActivateTrap(); }
+            else           { trap.DeactivateTrap(); }
+        }
+
+        private void TrapCycleTimeBased()
+        {
             if (_isActive && _c == null) { _c = StartCoroutine(TrapCycle()); }
             else if (_c != null)         { StopCoroutine(_c); _c = null; trap.DeactivateTrap(); }
         }
-        
+  
         void Clear() { _isActive = false; if (_c != null) { StopCoroutine(_c); _c = null;} }
     #endregion
     
