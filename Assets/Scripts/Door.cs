@@ -1,24 +1,38 @@
 ﻿using System;
 using Sirenix.OdinInspector;
-using Unity.Burst.Intrinsics;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class Door : MonoBehaviour
 {
-    
-    private Collider2D _col;
-    private SpriteRenderer _renderer;
+    [FormerlySerializedAs("openWithKey")]
+    [Header ("Opens With Key?")]
+    [SerializeField] private bool _openWithKey;
+
     
     [Header("Open Sprite")]
     [SerializeField] private Sprite _openSprite;
+    
+    private Collider2D _col;
+    private SpriteRenderer _renderer;
+    private Player _player;
 
-
+    
+    
     private void Awake()
     {
         _col= GetComponent<Collider2D>();
         _renderer = GetComponent<SpriteRenderer>();
     }
 
+
+    private void Update()
+    {
+        if (_openWithKey)
+        {
+            
+        }
+    }
 
 
     [Button]
