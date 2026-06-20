@@ -5,27 +5,21 @@ using UnityEditor;
 using UnityEngine;
 using Action = System.Action;
 
-[RequireComponent(typeof(BehaviorGraphAgent))]
+[RequireComponent(typeof(BehaviorGraphAgent), typeof(CharacterAnimation))]
 public class Enemy : MonoBehaviour, IHealth
 {
     private static readonly int AttackKey = Animator.StringToHash("Attack");
 
     [SerializeField] private EnemyData _enemyData;
     [SerializeField] private Animator _animator;
-    [SerializeField] private Vector2 _attackPosition;
 
-    // --- VARIABILI DI POSIZIONE E DIREZIONE CORRETTE ---
-    private Vector2 _lastPosition; // Memorizza la coordinata del frame precedente
+    private Vector2 _lastPosition;
     public Vector2 CurrentDirection { get; private set; }
-
     public Vector2 LastFacingDirection { get; private set; } = Vector2.right;
 
-
     private BehaviorGraphAgent m_behaviourAgent;
+    private CharacterAnimation _characterAnimation;
     private Rigidbody2D _rigidbody2D;
-
-    private Vector2 _previousPosition;
-    public Vector2 PreviousDirection { get; private set; }
 
     [ShowInInspector, ReadOnly] private float _currentHealth;
 
@@ -47,6 +41,7 @@ public class Enemy : MonoBehaviour, IHealth
     private void Awake()
     {
         _rigidbody2D = GetComponent<Rigidbody2D>();
+        _characterAnimation = GetComponent<CharacterAnimation>();
     }
 
     private void Start()
@@ -88,6 +83,7 @@ public class Enemy : MonoBehaviour, IHealth
         if (_enemyData.Weapon.Attack(transform, LastFacingDirection, out var count))
         {
             Debug.Log("Enemy Attacked");
+            _characterAnimation.PlayAttackAnimation();
         }
         else
         {

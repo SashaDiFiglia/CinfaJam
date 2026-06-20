@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 [RequireComponent(typeof(Animator))]
@@ -8,6 +9,8 @@ public class CharacterAnimation : MonoBehaviour
     private Vector2 _previousDirection;
     private Vector2 _previousPosition;
 
+    private bool _canMove = true;
+
     private const string IdleFront = "IdleFront";
     private const string IdleBack = "IdleBack";
     private const string IdleRight = "IdleRight";
@@ -17,6 +20,11 @@ public class CharacterAnimation : MonoBehaviour
     private const string MovementBack = "MoveBack";
     private const string MovementRight = "MoveRight";
     private const string MovementLeft = "MoveLeft";
+
+    private const string AttackFront = "AttackFront";
+    private const string AttackBack = "AttackBack";
+    private const string AttackRight = "AttackRight";
+    private const string AttackLeft = "AttackLeft";
 
     private void Awake()
     {
@@ -97,5 +105,42 @@ public class CharacterAnimation : MonoBehaviour
         };
 
         _animator.Play(animatorKey);
+    }
+
+    public void PlayAttackAnimation()
+    {
+        _canMove = false;
+        float timeToWait = 0f;
+
+        _animator.Play(GetAttackDirectionKey());
+
+        var clipsInfo = _animator.GetCurrentAnimatorClipInfo(0);
+        if (clipsInfo.Length > 0)
+        {
+            timeToWait = clipsInfo[0].clip.length;
+        }
+
+        StopAllCoroutines();
+        StartCoroutine(WaitCoroutine(timeToWait));
+    }
+
+    private string GetAttackDirectionKey()
+    {
+        string animatorKey = _newDirection switch
+        {
+            _ when _newDirection == Vector2.up => AttackBack,
+            _ when _newDirection == Vector2.down => AttackFront,
+            _ when _newDirection == Vector2.right => AttackRight,
+            _ when _newDirection == Vector2.left => AttackLeft,
+            _ => AttackFront
+        };
+
+        return animatorKey;
+    }
+
+    private IEnumerator WaitCoroutine(float time)
+    {
+        yield return new WaitForSeconds(time);
+        _canMove = true;
     }
 }
