@@ -121,7 +121,6 @@ public class BulletController : MonoBehaviour
 
         void DestroySelf()
         {
-            Debug.Log("Destroying bullet");
             if (_canExplode) { StopMoving(); Explode(); return;}
             Destroy(gameObject);
         }
