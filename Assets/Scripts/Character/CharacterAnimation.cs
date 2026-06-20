@@ -1,5 +1,6 @@
 using UnityEngine;
 
+[RequireComponent(typeof(Animator))]
 public class CharacterAnimation : MonoBehaviour
 {
     private Animator _animator;
@@ -25,11 +26,21 @@ public class CharacterAnimation : MonoBehaviour
     private void OnEnable()
     {
         _previousPosition = transform.position;
+        if (_animator == null)
+        {
+            return;
+        }
+
         _animator.Play(IdleFront);
     }
 
     private void FixedUpdate()
     {
+        if (!_animator)
+        {
+            return;
+        }
+
         Vector2 currentDirection = ((Vector2)transform.position - _previousPosition).normalized;
         _previousPosition = transform.position;
 
