@@ -1,5 +1,6 @@
 using Sirenix.OdinInspector;
 using Unity.Behavior;
+using UnityEditor;
 using UnityEngine;
 using Action = System.Action;
 
@@ -10,10 +11,8 @@ public class Enemy : MonoBehaviour, IHealth
 
     [SerializeField] private EnemyData _enemyData;
     [SerializeField] private Animator _animator;
-    public Transform debugAggroRange;
-    public Transform debugCloseRange;
 
-    private BehaviorGraphAgent _behaviourAgent;
+    private BehaviorGraphAgent m_behaviourAgent;
     private Rigidbody2D _rigidbody2D;
 
     private Vector2 _previousPosition;
@@ -29,7 +28,7 @@ public class Enemy : MonoBehaviour, IHealth
     {
         get
         {
-            return _behaviourAgent ??= TryGetComponent<BehaviorGraphAgent>(out var agent)
+            return m_behaviourAgent ??= TryGetComponent<BehaviorGraphAgent>(out var agent)
                 ? agent
                 : gameObject.AddComponent<BehaviorGraphAgent>();
         }
@@ -64,9 +63,7 @@ public class Enemy : MonoBehaviour, IHealth
         BehaviourAgent.BlackboardReference.SetVariableValue("CloseRange", _enemyData.Weapon.hitRadius);
         BehaviourAgent.BlackboardReference.SetVariableValue("AttackCooldown", _enemyData.AttackCooldown);
         BehaviourAgent.BlackboardReference.SetVariableValue("Enemy", this);
-
-        debugAggroRange.localScale = Vector3.one * _enemyData.AggroRadius * 2;
-        debugCloseRange.localScale = Vector3.one * _enemyData.Weapon.hitRadius * 2;
+        
         BehaviourAgent.Start();
     }
 
@@ -114,5 +111,20 @@ public class Enemy : MonoBehaviour, IHealth
         _previousPosition = newPosition;
 
         _rigidbody2D.MovePosition(newPosition);
+    }
+
+    private void OnDrawGizmos()
+    {
+        if (!_enemyData)
+        {
+            return;
+        }
+
+#if UNITY_EDITOR
+        Handles.color = Color.yellow;
+        Handles.DrawWireDisc(transform.position, Vector3.forward, _enemyData.AggroRadius);
+        Handles.color = Color.red;
+        Handles.DrawWireDisc(transform.position, Vector3.forward, _enemyData.Weapon.hitRadius);
+#endif
     }
 }
