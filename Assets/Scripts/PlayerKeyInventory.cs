@@ -25,7 +25,7 @@ public class PlayerKeyInventory : MonoBehaviour
     }
     public int GetHoldKeys()
     {
-        return _heldKeys;
+        return _holdKeys;
     }
 
 }
