@@ -38,7 +38,6 @@ public class BracierInstance : MonoBehaviour
         if(_bracierData.hasBeenLit){return;}
         
         var distance = Vector3.Distance(transform.position, _torch.transform.position);
-        Debug.Log(distance);
         if (distance <= _distanceCheck && _torch.GetTorchState() == TorchData.TorchState.Lit) 
         {
             LightUp();
