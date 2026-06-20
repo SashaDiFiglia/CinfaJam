@@ -119,6 +119,23 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &82207599 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4672092140009014804, guid: 2965214363df8ae45ac356e2f7b4cada, type: 3}
+  m_PrefabInstance: {fileID: 6768006774432263266}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &82207604
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 82207599}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7cd5c9f8dfa00e849ad90bdf0e0d320a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::HazardController
 --- !u!1 &865506377
 GameObject:
   m_ObjectHideFlags: 0
@@ -439,10 +456,17 @@ PrefabInstance:
       propertyPath: m_Name
       value: Acid
       objectReference: {fileID: 0}
+    - target: {fileID: 4672092140009014804, guid: 2965214363df8ae45ac356e2f7b4cada, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4672092140009014804, guid: 2965214363df8ae45ac356e2f7b4cada, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 82207604}
   m_SourcePrefab: {fileID: 100100000, guid: 2965214363df8ae45ac356e2f7b4cada, type: 3}
 --- !u!1001 &7345796823714092759
 PrefabInstance:
@@ -452,6 +476,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1732883886199400962, guid: f488c330cb3a8bd4aa7c3f89c32818c9, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.5864
+      objectReference: {fileID: 0}
     - target: {fileID: 1769040150355153932, guid: f488c330cb3a8bd4aa7c3f89c32818c9, type: 3}
       propertyPath: m_LocalPosition.x
       value: -2.5
@@ -496,6 +524,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: BulletSpawner
       objectReference: {fileID: 0}
+    - target: {fileID: 1787960772296364572, guid: f488c330cb3a8bd4aa7c3f89c32818c9, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4265943311275965768, guid: f488c330cb3a8bd4aa7c3f89c32818c9, type: 3}
+      propertyPath: timeBeforeActivation
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4265943311275965768, guid: f488c330cb3a8bd4aa7c3f89c32818c9, type: 3}
+      propertyPath: timeBeforeDeactivation
+      value: 10
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -512,6 +552,10 @@ PrefabInstance:
     - target: {fileID: 755888111913006319, guid: bbfb3ec8195d4604aac532f3274c27f2, type: 3}
       propertyPath: m_Name
       value: Wall
+      objectReference: {fileID: 0}
+    - target: {fileID: 755888111913006319, guid: bbfb3ec8195d4604aac532f3274c27f2, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4475205218561174413, guid: bbfb3ec8195d4604aac532f3274c27f2, type: 3}
       propertyPath: m_LocalPosition.x
@@ -609,6 +653,10 @@ PrefabInstance:
     - target: {fileID: 8854298827173425279, guid: f74fa2289c149e949abdd4027f6cd82a, type: 3}
       propertyPath: m_Name
       value: Spikes
+      objectReference: {fileID: 0}
+    - target: {fileID: 8854298827173425279, guid: f74fa2289c149e949abdd4027f6cd82a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

@@ -8,6 +8,10 @@ public class ActivableBulletSpawner: AActivableTrap
     [SerializeField] private float bulletSpeed;
 
     [Header("Bullet Properties")]
+    [SerializeField] private bool canExplode;
+
+    [SerializeField] private float explosionRadius;
+    [SerializeField] private bool canHitEnemies;
     [SerializeField] private float bulletDamage;
     [SerializeField] private float bulletLifetime;
     private Transform _spawnPoint;
@@ -20,6 +24,6 @@ public class ActivableBulletSpawner: AActivableTrap
     {
         GameObject bullet = Instantiate(bulletPrefab, _spawnPoint.transform.position, _spawnPoint.transform.rotation);
         bullet.name = $"Bullet_{_spawnPoint.name}";
-        bullet.GetComponent<BulletController>().Setup(bulletSpeed, bulletDamage, bulletLifetime);
+        bullet.GetComponent<BulletController>().Setup(bulletSpeed, bulletDamage, bulletLifetime, canExplode, canHitEnemies, explosionRadius);
     }
 }
