@@ -17,4 +17,4 @@ MonoBehaviour:
   _walkSpeed: 2
   _attackCooldown: 1
   _aggroRadius: 5
-  _weapon: {fileID: 11400000, guid: e9d8fb2e873e3b74c8f098ded99a1471, type: 2}
+  _weapon: {fileID: 11400000, guid: 65d3a06d77461d14493086343aac827a, type: 2}

@@ -1,3 +1,4 @@
+using System;
 using Sirenix.OdinInspector;
 using Unity.Behavior;
 using UnityEditor;
@@ -13,11 +14,17 @@ public class Enemy : MonoBehaviour, IHealth
     [SerializeField] private Animator _animator;
     [SerializeField] private Vector2 _attackPosition;
 
+    // --- VARIABILI DI POSIZIONE E DIREZIONE CORRETTE ---
+    private Vector2 _lastPosition; // Memorizza la coordinata del frame precedente
+    public Vector2 CurrentDirection { get; private set; }
+
+    public Vector2 LastFacingDirection { get; private set; } = Vector2.right;
+
+
     private BehaviorGraphAgent m_behaviourAgent;
     private Rigidbody2D _rigidbody2D;
 
     private Vector2 _previousPosition;
-    public Vector2 CurrentDirection { get; private set; }
     public Vector2 PreviousDirection { get; private set; }
 
     [ShowInInspector, ReadOnly] private float _currentHealth;
@@ -44,6 +51,7 @@ public class Enemy : MonoBehaviour, IHealth
 
     private void Start()
     {
+        _lastPosition = _rigidbody2D.position;
         Initialize();
     }
 
@@ -63,7 +71,7 @@ public class Enemy : MonoBehaviour, IHealth
 
         BehaviourAgent.BlackboardReference.SetVariableValue("AggroRange", _enemyData.AggroRadius);
         BehaviourAgent.BlackboardReference.SetVariableValue("WalkSpeed", _enemyData.WalkSpeed);
-        BehaviourAgent.BlackboardReference.SetVariableValue("CloseRange", _enemyData.Weapon.hitRadius);
+        BehaviourAgent.BlackboardReference.SetVariableValue("CloseRange", _enemyData.Weapon.attackOffset);
         BehaviourAgent.BlackboardReference.SetVariableValue("AttackCooldown", _enemyData.AttackCooldown);
         BehaviourAgent.BlackboardReference.SetVariableValue("Enemy", this);
 
@@ -77,11 +85,24 @@ public class Enemy : MonoBehaviour, IHealth
             _animator.SetTrigger(AttackKey);
         }
 
-        _attackPosition = (Vector2)transform.position + PreviousDirection;
+        if (_enemyData.Weapon.Attack(transform, LastFacingDirection, out var count))
+        {
+            Debug.Log("Enemy Attacked");
+        }
+        else
+        {
+            Debug.Log("Enemy failed to attack");
+        }
+    }
+
+    private void Update()
+    {
+        _canMove = false;
     }
 
     private void FixedUpdate()
     {
+        _canMove = true;
         _rigidbody2D.linearVelocity = Vector2.zero;
         BehaviourAgent.Update();
     }
@@ -111,16 +132,15 @@ public class Enemy : MonoBehaviour, IHealth
             return;
         }
 
-        var direction = (newPosition - PreviousDirection).normalized;
+        var direction = (newPosition - _lastPosition).normalized;
 
-        if (direction.sqrMagnitude >= 0.1f)
+        if (direction.sqrMagnitude >= 0.01f)
         {
-            PreviousDirection = direction;
-            _attackPosition = (Vector2)transform.position + direction;
+            LastFacingDirection = direction;
         }
 
         CurrentDirection = direction;
-        PreviousDirection = newPosition;
+        _lastPosition = newPosition;
 
         _rigidbody2D.MovePosition(newPosition);
     }
@@ -136,9 +156,10 @@ public class Enemy : MonoBehaviour, IHealth
         Handles.color = Color.yellow;
         Handles.DrawWireDisc(transform.position, Vector3.forward, _enemyData.AggroRadius);
         Handles.color = Color.blue;
-        Handles.DrawWireDisc(transform.position, Vector3.forward, _enemyData.Weapon.hitRadius);
+        Handles.DrawWireDisc(transform.position, Vector3.forward, _enemyData.Weapon.attackOffset);
         Handles.color = Color.red;
-        Handles.DrawWireDisc(_attackPosition, Vector3.forward, _enemyData.Weapon.hitRadius);
+        Handles.DrawWireDisc(transform.position + ((Vector3)LastFacingDirection * _enemyData.Weapon.attackOffset),
+            Vector3.forward, _enemyData.Weapon.hitRadius);
 
 #endif
     }
