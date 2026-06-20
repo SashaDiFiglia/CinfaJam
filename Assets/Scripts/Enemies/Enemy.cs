@@ -51,7 +51,7 @@ public class Enemy : MonoBehaviour, IHealth
 
         BehaviourAgent.Init();
 
-        var controller = FindFirstObjectByType<CharacterController>();
+        var controller = FindFirstObjectByType<CharacterMovement>();
 
         if (controller)
         {
