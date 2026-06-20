@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Sirenix.OdinInspector;
+using TorchDatas;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -11,12 +12,16 @@ public class BracierInstance : MonoBehaviour
     [SerializeField] private BracierData _bracierData;
     [SerializeField] private ParticleSystem _bracierFireParticle;
     [SerializeField] private Transform _lightObj;
-
+    
+    [Header("Lighting Distance")]
+    [SerializeField] private float _distanceCheck = 0.3f;
+    
+    private TorchInstance _torch;
 
     private void Awake()
     {
         _bracierData.CopyFrom(_dataSO.dataToInject);
-        
+        _torch = FindFirstObjectByType<TorchInstance>();
         
         
         
@@ -25,6 +30,20 @@ public class BracierInstance : MonoBehaviour
         if(!_bracierData.hasBeenLit){return;}
         LightUp();
 
+    }
+
+
+    private void Update()
+    { 
+        if(_bracierData.hasBeenLit){return;}
+        
+        var distance = Vector3.Distance(transform.position, _torch.transform.position);
+        Debug.Log(distance);
+        if (distance <= _distanceCheck && _torch.GetTorchState() == TorchData.TorchState.Lit) 
+        {
+            LightUp();
+            _torch.RegainTorchDuration(10f);
+        }
     }
 
     private void SetLightRadius()
