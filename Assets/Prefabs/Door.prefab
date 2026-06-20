@@ -46,7 +46,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c2ee67c38c84e3088097085605b8de7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Door
-  _openSprite: {fileID: 2050330044, guid: be7ecf6c645650d4c95e2e5772d20dc8, type: 3}
+  _openWithKey: 0
+  _distanceCheck: 1
+  _openSprite: {fileID: 633392813, guid: be7ecf6c645650d4c95e2e5772d20dc8, type: 3}
 --- !u!212 &4703516422605665111
 SpriteRenderer:
   serializedVersion: 2
