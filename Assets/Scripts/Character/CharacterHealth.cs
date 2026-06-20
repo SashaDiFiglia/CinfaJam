@@ -11,9 +11,10 @@ public class CharacterHealth : MonoBehaviour, IHealth
 
     private void Awake()
     {
-        CurrentHealth = MaxHealth;
+        FillHealth();
     }
 
+    [Button]
     public void TakeDamage(float damage)
     {
         CurrentHealth = Mathf.Clamp(CurrentHealth - damage, 0, MaxHealth);
@@ -22,5 +23,21 @@ public class CharacterHealth : MonoBehaviour, IHealth
         {
             OnDeath?.Invoke();
         }
+    }
+
+    [Button]
+    public void Heal(float amount)
+    {
+        CurrentHealth = Mathf.Clamp(CurrentHealth + amount, 0, MaxHealth);
+    }
+
+    public void Respawn()
+    {
+        FillHealth();
+    }
+
+    private void FillHealth()
+    {
+        CurrentHealth = MaxHealth;
     }
 }
