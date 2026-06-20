@@ -351,7 +351,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 1
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!1 &3725307921959422167
 GameObject:
   m_ObjectHideFlags: 0
@@ -552,6 +552,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 804603216311288278}
     m_Modifications:
+    - target: {fileID: 558357081157757849, guid: 82067963c69724247898940864a3876a, type: 3}
+      propertyPath: m_SortingOrder
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1784903984784409670, guid: 82067963c69724247898940864a3876a, type: 3}
       propertyPath: m_Name
       value: Torch
@@ -559,6 +563,10 @@ PrefabInstance:
     - target: {fileID: 3236679737536296924, guid: 82067963c69724247898940864a3876a, type: 3}
       propertyPath: m_LocalPosition.y
       value: 0.35
+      objectReference: {fileID: 0}
+    - target: {fileID: 6752673350695138247, guid: 82067963c69724247898940864a3876a, type: 3}
+      propertyPath: m_SortingOrder
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8225201198760162082, guid: 82067963c69724247898940864a3876a, type: 3}
       propertyPath: m_LocalPosition.x
