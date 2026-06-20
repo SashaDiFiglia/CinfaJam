@@ -1,4 +1,3 @@
-using System;
 using Sirenix.OdinInspector;
 using Unity.Behavior;
 using UnityEditor;
@@ -8,10 +7,7 @@ using Action = System.Action;
 [RequireComponent(typeof(BehaviorGraphAgent), typeof(CharacterAnimation))]
 public class Enemy : MonoBehaviour, IHealth
 {
-    private static readonly int AttackKey = Animator.StringToHash("Attack");
-
     [SerializeField] private EnemyData _enemyData;
-    [SerializeField] private Animator _animator;
 
     private Vector2 _lastPosition;
     public Vector2 CurrentDirection { get; private set; }
@@ -75,11 +71,6 @@ public class Enemy : MonoBehaviour, IHealth
 
     public void Attack()
     {
-        if (_animator)
-        {
-            _animator.SetTrigger(AttackKey);
-        }
-
         if (_enemyData.Weapon.Attack(transform, LastFacingDirection, out var count))
         {
             Debug.Log("Enemy Attacked");
