@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using Sirenix.OdinInspector;
 using UnityEngine;
 
 public class BulletController : MonoBehaviour
@@ -10,6 +9,7 @@ public class BulletController : MonoBehaviour
         private float _speed;
         private bool _isMoving;
         private bool _canExplode;
+        private float _explosionRadius;
         private bool _canHitEnemies;
         private Coroutine _moveC;
         
@@ -22,13 +22,14 @@ public class BulletController : MonoBehaviour
     #endregion
     
     #region Setup
-        public void Setup(float speed, float damage, float lifetime, bool canExplode, bool hitsEnemies)
+        public void Setup(float speed, float damage, float lifetime, bool canExplode, bool hitsEnemies, float explosionRadius)
         {
             _damage = damage;
             _lifetime = lifetime;
             _speed = speed;
             _canExplode = canExplode;
             _canHitEnemies = hitsEnemies;
+            _explosionRadius = explosionRadius;
             
             _animator = gameObject.GetComponent<Animator>();
             if (_animator == null) { Debug.LogWarning($"No animator on {gameObject.name}, animations will not be played"); }
@@ -68,12 +69,12 @@ public class BulletController : MonoBehaviour
         private void StopLoopAnimation()
         {
             _isPlayingAnimation = false;
+            _animator.StopPlayback();
             if (_loopAnimationC != null) { StopCoroutine(_loopAnimationC); _loopAnimationC = null; }
         }
 
         private void PlayExplodeAnimation()
         {
-            Debug.Log("Explode");
             _animator.Play(_explodeAnim, 0, 0.0f);
             _explosionDuration = _animator.GetCurrentAnimatorClipInfo(0)[0].clip.length;
         }
@@ -99,12 +100,13 @@ public class BulletController : MonoBehaviour
         void Explode() //deals damage in area.
         { 
             Collider2D col = gameObject.GetComponent<Collider2D>();
-            Collider2D[] cols = Physics2D.OverlapCircleAll(col.bounds.center, col.bounds.extents.x);
+            Collider2D[] cols = Physics2D.OverlapCircleAll(col.bounds.center, _explosionRadius);
             foreach (Collider2D c in cols)
             {
                 if (c.CompareTag("Player")) { c.GetComponent<CharacterHealth>()?.TakeDamage(_damage); }
                 if (_canHitEnemies) { c.GetComponent<Enemy>()?.TakeDamage(_damage); }
             }
+            StopLoopAnimation();
             PlayExplodeAnimation();
             StartCoroutine(WaitForDestruction());
         }
@@ -120,7 +122,7 @@ public class BulletController : MonoBehaviour
         void DestroySelf()
         {
             Debug.Log("Destroying bullet");
-            // if (_canExplode) {Explode(); return;}
+            if (_canExplode) { StopMoving(); Explode(); return;}
             Destroy(gameObject);
         }
 
