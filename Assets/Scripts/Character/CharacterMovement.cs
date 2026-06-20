@@ -18,5 +18,6 @@ public class CharacterMovement : MonoBehaviour
         var targetPos = transform.position + moveDir * (deltaTime * _moveSpeed);
 
         _rb.MovePosition(targetPos);
+        _rb.linearVelocity = Vector3.zero;
     }
 }

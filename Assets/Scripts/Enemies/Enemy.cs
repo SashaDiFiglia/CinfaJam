@@ -11,6 +11,7 @@ public class Enemy : MonoBehaviour, IHealth
 
     [SerializeField] private EnemyData _enemyData;
     [SerializeField] private Animator _animator;
+    [SerializeField] private Vector2 _attackPosition;
 
     private BehaviorGraphAgent m_behaviourAgent;
     private Rigidbody2D _rigidbody2D;
@@ -20,7 +21,9 @@ public class Enemy : MonoBehaviour, IHealth
     public Vector2 PreviousDirection { get; private set; }
 
     [ShowInInspector, ReadOnly] private float _currentHealth;
+
     private bool _isDead;
+    private bool _canMove = true;
 
     public event Action OnDeath;
 
@@ -51,7 +54,7 @@ public class Enemy : MonoBehaviour, IHealth
 
         BehaviourAgent.Init();
 
-        var controller = FindFirstObjectByType<CharacterController>();
+        var controller = FindFirstObjectByType<CharacterMovement>();
 
         if (controller)
         {
@@ -63,7 +66,7 @@ public class Enemy : MonoBehaviour, IHealth
         BehaviourAgent.BlackboardReference.SetVariableValue("CloseRange", _enemyData.Weapon.hitRadius);
         BehaviourAgent.BlackboardReference.SetVariableValue("AttackCooldown", _enemyData.AttackCooldown);
         BehaviourAgent.BlackboardReference.SetVariableValue("Enemy", this);
-        
+
         BehaviourAgent.Start();
     }
 
@@ -73,10 +76,13 @@ public class Enemy : MonoBehaviour, IHealth
         {
             _animator.SetTrigger(AttackKey);
         }
+
+        _attackPosition = (Vector2)transform.position + PreviousDirection;
     }
 
     private void FixedUpdate()
     {
+        _rigidbody2D.linearVelocity = Vector2.zero;
         BehaviourAgent.Update();
     }
 
@@ -100,15 +106,21 @@ public class Enemy : MonoBehaviour, IHealth
 
     public void Move(Vector2 newPosition)
     {
-        var direction = (newPosition - _previousPosition).normalized;
+        if (!_canMove)
+        {
+            return;
+        }
+
+        var direction = (newPosition - PreviousDirection).normalized;
 
         if (direction.sqrMagnitude >= 0.1f)
         {
             PreviousDirection = direction;
+            _attackPosition = (Vector2)transform.position + direction;
         }
 
         CurrentDirection = direction;
-        _previousPosition = newPosition;
+        PreviousDirection = newPosition;
 
         _rigidbody2D.MovePosition(newPosition);
     }
@@ -123,8 +135,11 @@ public class Enemy : MonoBehaviour, IHealth
 #if UNITY_EDITOR
         Handles.color = Color.yellow;
         Handles.DrawWireDisc(transform.position, Vector3.forward, _enemyData.AggroRadius);
-        Handles.color = Color.red;
+        Handles.color = Color.blue;
         Handles.DrawWireDisc(transform.position, Vector3.forward, _enemyData.Weapon.hitRadius);
+        Handles.color = Color.red;
+        Handles.DrawWireDisc(_attackPosition, Vector3.forward, _enemyData.Weapon.hitRadius);
+
 #endif
     }
 }

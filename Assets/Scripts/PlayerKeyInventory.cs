@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+﻿using System;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -6,16 +6,22 @@ using UnityEngine.Serialization;
 
 
 public class PlayerKeyInventory : MonoBehaviour
-{ 
-    [SerializeField] private int _heldKeys;
+{
+    [SerializeField] private int _holdKeys;
+    
+    public event Action<int> OnKeyAmountChange;
 
     public void ReduceKey()
     {
-        _heldKeys--;
+        _holdKeys--;
+        
+        OnKeyAmountChange?.Invoke(_holdKeys);
     }
     public void AddKey()
     {
-        _heldKeys++;
+        _holdKeys++;
+        
+        OnKeyAmountChange?.Invoke(_holdKeys);
     }
     public int GetHoldKeys()
     {
