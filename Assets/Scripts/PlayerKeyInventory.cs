@@ -1,23 +1,25 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
+
 //Da Mettere sul Player
 
 
 public class PlayerKeyInventory : MonoBehaviour
-{
-    [SerializeField] private int _holdKeys;
+{ 
+    [SerializeField] private int _heldKeys;
 
     public void ReduceKey()
     {
-        _holdKeys--;
+        _heldKeys--;
     }
     public void AddKey()
     {
-        _holdKeys++;
+        _heldKeys++;
     }
     public int GetHoldKeys()
     {
-        return _holdKeys;
+        return _heldKeys;
     }
 
 }

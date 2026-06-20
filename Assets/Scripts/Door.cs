@@ -8,7 +8,7 @@ public class Door : MonoBehaviour
 {
     [Header ("Opens With Key?")]
     [SerializeField] private bool _openWithKey;
-    [SerializeField] private float _distanceCheck = 0.6f;
+    [SerializeField] private float _distanceCheck = 2f;
 
     
     [Header("Open Sprite")]
