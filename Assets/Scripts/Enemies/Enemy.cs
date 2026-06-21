@@ -38,6 +38,7 @@ public class Enemy : MonoBehaviour, IHealth
         _characterMovement = GetComponent<CharacterMovement>();
         _characterAnimation = GetComponent<CharacterAnimation>();
         _collider2D = GetComponent<Collider2D>();
+        _rigidbody2D = GetComponent<Rigidbody2D>();
     }
 
     private void Start()
@@ -73,14 +74,16 @@ public class Enemy : MonoBehaviour, IHealth
     [Button]
     private void Deactivate()
     {
-        _collider2D.enabled = false;
         BehaviourAgent.End();
+        _rigidbody2D.linearVelocity = Vector2.zero;
+        _collider2D.enabled = false;
     }
 
     [Button]
     public void Activate()
     {
         Initialize();
+        _rigidbody2D.linearVelocity = Vector2.zero;
         _characterAnimation.ResetAnimations();
     }
 
