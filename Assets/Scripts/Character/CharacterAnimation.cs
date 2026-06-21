@@ -13,20 +13,17 @@ public class CharacterAnimation : MonoBehaviour
 
     private bool _canTransition = true;
 
-    private const string IdleFront = "IdleFront";
-    private const string IdleBack = "IdleBack";
-    private const string IdleRight = "IdleRight";
-    private const string IdleLeft = "IdleLeft";
+    private const string IdlePrefix = "Idle";
+    private const string MovingPrefix = "Move";
+    private const string AttackPrefix = "Attack";
+    private const string TakeDamage = "TakeDamage";
+    private const string Death = "Death";
 
-    private const string MovementFront = "MoveFront";
-    private const string MovementBack = "MoveBack";
-    private const string MovementRight = "MoveRight";
-    private const string MovementLeft = "MoveLeft";
+    private const string FrontSuffix = "Front";
+    private const string BackSuffix = "Back";
+    private const string RightSuffix = "Right";
+    private const string LeftSuffix = "Left";
 
-    private const string AttackFront = "AttackFront";
-    private const string AttackBack = "AttackBack";
-    private const string AttackRight = "AttackRight";
-    private const string AttackLeft = "AttackLeft";
 
     private void Awake()
     {
@@ -40,12 +37,26 @@ public class CharacterAnimation : MonoBehaviour
             return;
         }
 
-        _animator.Play(IdleFront);
+        _animator.Play(IdlePrefix + FrontSuffix);
+    }
+
+    public void ResetAnimations()
+    {
+        StopAllCoroutines();
+        _coroutine = null;
+        _canTransition = true;
+        _characterState = CharacterState.Idle;
+        _animator.Play(IdlePrefix + FrontSuffix);
     }
 
     public void ChangeState(CharacterState newState, bool canTransitionToNextState = true, float lockDuration = 0.5f)
     {
-        if (!_canTransition)
+        if (_characterState == CharacterState.Dying)
+        {
+            return;
+        }
+
+        if (!_canTransition && newState != CharacterState.Dying)
         {
             return;
         }
@@ -83,6 +94,13 @@ public class CharacterAnimation : MonoBehaviour
                 snapState = true;
                 break;
 
+            case CharacterState.TakingDamage:
+                snapState = true;
+                break;
+
+            case CharacterState.Dying:
+                _canTransition = false;
+                break;
             default:
                 break;
         }
@@ -115,23 +133,38 @@ public class CharacterAnimation : MonoBehaviour
 
     private string GetDirectionalAnimationKey(Vector2 direction, CharacterState characterState)
     {
-        string statePrefix = characterState switch
+        string statePrefix;
+        switch (characterState)
         {
-            CharacterState.Idle => "Idle",
-            CharacterState.Moving => "Move",
-            CharacterState.Attacking => "Attack",
-            CharacterState.TakingDamage => "TakingDamage",
-            CharacterState.Dying => "Dying",
-            _ => "Idle"
-        };
+            case CharacterState.Idle:
+                statePrefix = IdlePrefix;
+                break;
+            case CharacterState.Moving:
+                statePrefix = MovingPrefix;
+                break;
+            case CharacterState.Attacking:
+                statePrefix = AttackPrefix;
+                break;
+            case CharacterState.TakingDamage:
+                statePrefix = TakeDamage;
+                return statePrefix;
+
+            case CharacterState.Dying:
+                statePrefix = Death;
+                return statePrefix;
+
+            default:
+                statePrefix = IdlePrefix;
+                break;
+        }
 
         string directionSuffix = (direction.x, direction.y) switch
         {
-            (> 0.1f, _) => "Right",
-            (< -0.1f, _) => "Left",
-            (_, > 0.1f) => "Back",
-            (_, < -0.1f) => "Front",
-            _ => "Front"
+            (> 0.1f, _) => RightSuffix,
+            (< -0.1f, _) => LeftSuffix,
+            (_, > 0.1f) => BackSuffix,
+            (_, < -0.1f) => FrontSuffix,
+            _ => FrontSuffix
         };
 
         return statePrefix + directionSuffix;

@@ -13,6 +13,7 @@ public class Enemy : MonoBehaviour, IHealth
     private CharacterAnimation _characterAnimation;
     private CharacterMovement _characterMovement;
     private Rigidbody2D _rigidbody2D;
+    private Collider2D _collider2D;
 
     [ShowInInspector, ReadOnly] private float _currentHealth;
 
@@ -36,6 +37,7 @@ public class Enemy : MonoBehaviour, IHealth
     {
         _characterMovement = GetComponent<CharacterMovement>();
         _characterAnimation = GetComponent<CharacterAnimation>();
+        _collider2D = GetComponent<Collider2D>();
     }
 
     private void Start()
@@ -45,6 +47,8 @@ public class Enemy : MonoBehaviour, IHealth
 
     private void Initialize()
     {
+        _isDead = false;
+        _collider2D.enabled = true;
         _currentHealth = _enemyData.MaxHealth;
         BehaviourAgent.Graph = _enemyData.BehaviorGraph;
 
@@ -66,9 +70,23 @@ public class Enemy : MonoBehaviour, IHealth
         BehaviourAgent.Start();
     }
 
+    [Button]
+    private void Deactivate()
+    {
+        _collider2D.enabled = false;
+        BehaviourAgent.End();
+    }
+
+    [Button]
+    public void Activate()
+    {
+        Initialize();
+        _characterAnimation.ResetAnimations();
+    }
+
     public void Attack()
     {
-        _characterAnimation.ChangeState(CharacterState.Attacking, false);
+        _characterAnimation.ChangeState(CharacterState.Attacking, false, 1f);
         _enemyData.Weapon.Attack(transform, _lastFacingDirection, out var count);
     }
 
@@ -101,11 +119,18 @@ public class Enemy : MonoBehaviour, IHealth
 
         _isDead = true;
         OnDeath?.Invoke();
+        Die();
+    }
+
+    private void Die()
+    {
+        _characterAnimation.ChangeState(CharacterState.Dying);
+        Deactivate();
     }
 
     public void Move(Vector2 movementVector)
     {
-        if (!_canMove)
+        if (!_canMove || _isDead)
         {
             return;
         }
