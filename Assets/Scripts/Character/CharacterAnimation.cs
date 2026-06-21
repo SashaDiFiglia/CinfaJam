@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using UnityEngine;
 
@@ -55,57 +54,29 @@ public class CharacterAnimation : MonoBehaviour
         {
             return;
         }
-
-        if (!_canTransition && newState != CharacterState.Dying)
+        
+        if (!_canTransition && newState != CharacterState.Dying && newState != CharacterState.TakingDamage)
         {
             return;
         }
 
-        _canTransition = canTransitionToNextState;
-
-        if (_animator == null)
+        string newKey = GetDirectionalAnimationKey(_previousDirection, newState);
+    
+        if ((newState == CharacterState.Idle || newState == CharacterState.Moving) && newKey == _currentAnimationKey)
         {
             return;
         }
 
         _characterState = newState;
-
-        string newKey = GetDirectionalAnimationKey(_previousDirection, _characterState);
-        bool snapState = false;
-
-        switch (_characterState)
-        {
-            case CharacterState.Idle:
-                if (newKey == _currentAnimationKey)
-                {
-                    return;
-                }
-
-                break;
-            case CharacterState.Moving:
-                if (newKey == _currentAnimationKey)
-                {
-                    return;
-                }
-
-                break;
-
-            case CharacterState.Attacking:
-                snapState = true;
-                break;
-
-            case CharacterState.TakingDamage:
-                snapState = true;
-                break;
-
-            case CharacterState.Dying:
-                _canTransition = false;
-                break;
-            default:
-                break;
-        }
-
         _currentAnimationKey = newKey;
+        _canTransition = canTransitionToNextState;
+
+        if (_animator == null) return;
+        
+        bool snapState = newState == CharacterState.Attacking || 
+                         newState == CharacterState.TakingDamage || 
+                         newState == CharacterState.Dying;
+
         if (snapState)
         {
             _animator.Play(newKey, 0, 0f);
@@ -115,7 +86,11 @@ public class CharacterAnimation : MonoBehaviour
             _animator.Play(newKey);
         }
 
-        if (!canTransitionToNextState)
+        if (newState == CharacterState.Dying)
+        {
+            _canTransition = false;
+        }
+        else if (!canTransitionToNextState)
         {
             LockTransitionForSeconds(lockDuration);
         }

@@ -15,7 +15,7 @@ public class CharacterMovement : MonoBehaviour
 
     public void Move(Vector2 direction, float deltaTime)
     {
-        CharacterState state = direction.sqrMagnitude < 0.01f ? CharacterState.Idle : CharacterState.Moving;
+        CharacterState state = direction.sqrMagnitude < 0.1f ? CharacterState.Idle : CharacterState.Moving;
         _characterAnimation.ChangeState(state);
         _characterAnimation.UpdateMovement(direction);
         

@@ -108,7 +108,7 @@ public class Enemy : MonoBehaviour, IHealth
             return;
         }
 
-        _characterAnimation.ChangeState(CharacterState.TakingDamage);
+        _characterAnimation.ChangeState(CharacterState.TakingDamage, false);
 
         _currentHealth -= damage;
 
