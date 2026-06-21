@@ -66,7 +66,7 @@ public class CharacterCombat : MonoBehaviour
         }
 
         _attackSoundInstance.start();
-        _characterAnimation.ChangeState(CharacterState.Attacking, false);
+        _characterAnimation.ChangeState(CharacterState.Attacking, false, 0.1f);
 
         if (!Weapon.Attack(transform, direction, out var hitNumber))
         {

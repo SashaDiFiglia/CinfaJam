@@ -60,6 +60,7 @@ public class CharacterAnimation : MonoBehaviour
         _characterState = newState;
 
         string newKey = GetDirectionalAnimationKey(_previousDirection, _characterState);
+        bool snapState = false;
 
         switch (_characterState)
         {
@@ -77,13 +78,24 @@ public class CharacterAnimation : MonoBehaviour
                 }
 
                 break;
-           
+
+            case CharacterState.Attacking:
+                snapState = true;
+                break;
+
             default:
                 break;
         }
 
         _currentAnimationKey = newKey;
-        _animator.Play(newKey);
+        if (snapState)
+        {
+            _animator.Play(newKey, 0, 0f);
+        }
+        else
+        {
+            _animator.Play(newKey);
+        }
 
         if (!canTransitionToNextState)
         {
