@@ -4,23 +4,21 @@ using UnityEditor;
 using UnityEngine;
 using Action = System.Action;
 
-[RequireComponent(typeof(BehaviorGraphAgent), typeof(CharacterAnimation))]
+[RequireComponent(typeof(BehaviorGraphAgent), typeof(CharacterAnimation), typeof(CharacterMovement))]
 public class Enemy : MonoBehaviour, IHealth
 {
     [SerializeField] private EnemyData _enemyData;
 
-    private Vector2 _lastPosition;
-    public Vector2 CurrentDirection { get; private set; }
-    public Vector2 LastFacingDirection { get; private set; } = Vector2.right;
-
     private BehaviorGraphAgent m_behaviourAgent;
     private CharacterAnimation _characterAnimation;
+    private CharacterMovement _characterMovement;
     private Rigidbody2D _rigidbody2D;
 
     [ShowInInspector, ReadOnly] private float _currentHealth;
 
     private bool _isDead;
     private bool _canMove = true;
+    private Vector2 _lastFacingDirection;
 
     public event Action OnDeath;
 
@@ -36,13 +34,12 @@ public class Enemy : MonoBehaviour, IHealth
 
     private void Awake()
     {
-        _rigidbody2D = GetComponent<Rigidbody2D>();
+        _characterMovement = GetComponent<CharacterMovement>();
         _characterAnimation = GetComponent<CharacterAnimation>();
     }
 
     private void Start()
     {
-        _lastPosition = _rigidbody2D.position;
         Initialize();
     }
 
@@ -53,7 +50,7 @@ public class Enemy : MonoBehaviour, IHealth
 
         BehaviourAgent.Init();
 
-        var controller = FindFirstObjectByType<CharacterMovement>();
+        var controller = FindFirstObjectByType<CharacterInput>();
 
         if (controller)
         {
@@ -71,15 +68,8 @@ public class Enemy : MonoBehaviour, IHealth
 
     public void Attack()
     {
-        if (_enemyData.Weapon.Attack(transform, LastFacingDirection, out var count))
-        {
-            Debug.Log("Enemy Attacked");
-            _characterAnimation.PlayAttackAnimation();
-        }
-        else
-        {
-            Debug.Log("Enemy failed to attack");
-        }
+        _characterAnimation.ChangeState(CharacterState.Attacking, false);
+        _enemyData.Weapon.Attack(transform, _lastFacingDirection, out var count);
     }
 
     private void Update()
@@ -90,7 +80,6 @@ public class Enemy : MonoBehaviour, IHealth
     private void FixedUpdate()
     {
         _canMove = true;
-        _rigidbody2D.linearVelocity = Vector2.zero;
         BehaviourAgent.Update();
     }
 
@@ -100,6 +89,8 @@ public class Enemy : MonoBehaviour, IHealth
         {
             return;
         }
+
+        _characterAnimation.ChangeState(CharacterState.TakingDamage);
 
         _currentHealth -= damage;
 
@@ -112,24 +103,19 @@ public class Enemy : MonoBehaviour, IHealth
         OnDeath?.Invoke();
     }
 
-    public void Move(Vector2 newPosition)
+    public void Move(Vector2 movementVector)
     {
         if (!_canMove)
         {
             return;
         }
 
-        var direction = (newPosition - _lastPosition).normalized;
-
-        if (direction.sqrMagnitude >= 0.01f)
+        if (movementVector.sqrMagnitude > 0.1f)
         {
-            LastFacingDirection = direction;
+            _lastFacingDirection = DirectionUtils.EvaluateDirection(movementVector.normalized, _lastFacingDirection);
         }
 
-        CurrentDirection = direction;
-        _lastPosition = newPosition;
-
-        _rigidbody2D.MovePosition(newPosition);
+        _characterMovement.Move(movementVector, Time.fixedDeltaTime);
     }
 
     private void OnDrawGizmos()
@@ -145,7 +131,7 @@ public class Enemy : MonoBehaviour, IHealth
         Handles.color = Color.blue;
         Handles.DrawWireDisc(transform.position, Vector3.forward, _enemyData.Weapon.attackOffset);
         Handles.color = Color.red;
-        Handles.DrawWireDisc(transform.position + ((Vector3)LastFacingDirection * _enemyData.Weapon.attackOffset),
+        Handles.DrawWireDisc(transform.position + ((Vector3)_lastFacingDirection * _enemyData.Weapon.attackOffset),
             Vector3.forward, _enemyData.Weapon.hitRadius);
 
 #endif

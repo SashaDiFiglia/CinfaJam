@@ -24,6 +24,8 @@ public class CharacterCombat : MonoBehaviour
         }
     }
 
+    private CharacterAnimation _characterAnimation;
+
     [Header("Sound")]
     public EventReference _attackSoundReference;
 
@@ -43,6 +45,7 @@ public class CharacterCombat : MonoBehaviour
     {
         _attackSoundInstance = RuntimeManager.CreateInstance(_attackSoundReference);
         _weaponBreakInstance = RuntimeManager.CreateInstance(_weaponBreakReference);
+        _characterAnimation = GetComponent<CharacterAnimation>();
     }
 
     private void Start()
@@ -63,6 +66,7 @@ public class CharacterCombat : MonoBehaviour
         }
 
         _attackSoundInstance.start();
+        _characterAnimation.ChangeState(CharacterState.Attacking, false);
 
         if (!Weapon.Attack(transform, direction, out var hitNumber))
         {
