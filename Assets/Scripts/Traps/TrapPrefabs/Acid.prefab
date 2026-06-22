@@ -124,7 +124,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
@@ -155,7 +155,7 @@ MonoBehaviour:
   trap: {fileID: 11400000, guid: 638870634e3a3fd42a0e2077510c2ae1, type: 2}
   isTimeBased: 0
   timeBeforeActivation: 1
-  timeBeforeDeactivation: 1
+  timeBeforeDeactivation: 1e+9
 --- !u!114 &6398938437494509622
 MonoBehaviour:
   m_ObjectHideFlags: 0
