@@ -17,10 +17,10 @@ public partial class MoveTowardsAction : Action
     protected override Status OnStart()
     {
         var distance = Target.Value.position - Agent.Value.position;
-        var magnitude = Mathf.Min(Time.deltaTime * UnitPerSecond.Value, distance.magnitude);
-        // Agent.Value.position += magnitude * distance.normalized;
-        Component.Value.Move(Agent.Value.position + magnitude * distance.normalized);
-        
+        var magnitude = Mathf.Min(UnitPerSecond.Value, distance.magnitude);
+        // var newPos = Agent.Value.position + magnitude * distance.normalized;
+        Component.Value.Move(distance);
+
         return Status.Success;
     }
 

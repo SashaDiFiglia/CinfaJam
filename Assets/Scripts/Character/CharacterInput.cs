@@ -45,11 +45,7 @@ public class CharacterInput : MonoBehaviour
     private void HandleMovement()
     {
         var input = _input.Gameplay.Move.ReadValue<Vector2>();
-
-        if (input != Vector2.zero)
-        {
-            _movement?.Move(input, Time.fixedDeltaTime);
-        }
+        _movement?.Move(input, Time.fixedDeltaTime);
     }
 
     private void HandleAttack()

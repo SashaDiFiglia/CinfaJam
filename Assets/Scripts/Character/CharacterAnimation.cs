@@ -1,22 +1,28 @@
+using System.Collections;
 using UnityEngine;
 
 [RequireComponent(typeof(Animator))]
 public class CharacterAnimation : MonoBehaviour
 {
     private Animator _animator;
-    private Vector2 _newDirection;
     private Vector2 _previousDirection;
-    private Vector2 _previousPosition;
 
-    private const string IdleFront = "IdleFront";
-    private const string IdleBack = "IdleBack";
-    private const string IdleRight = "IdleRight";
-    private const string IdleLeft = "IdleLeft";
+    private CharacterState _characterState;
+    private string _currentAnimationKey = " ";
 
-    private const string MovementFront = "MoveFront";
-    private const string MovementBack = "MoveBack";
-    private const string MovementRight = "MoveRight";
-    private const string MovementLeft = "MoveLeft";
+    private bool _canTransition = true;
+
+    private const string IdlePrefix = "Idle";
+    private const string MovingPrefix = "Move";
+    private const string AttackPrefix = "Attack";
+    private const string TakeDamage = "TakeDamage";
+    private const string Death = "Death";
+
+    private const string FrontSuffix = "Front";
+    private const string BackSuffix = "Back";
+    private const string RightSuffix = "Right";
+    private const string LeftSuffix = "Left";
+
 
     private void Awake()
     {
@@ -25,77 +31,140 @@ public class CharacterAnimation : MonoBehaviour
 
     private void OnEnable()
     {
-        _previousPosition = transform.position;
         if (_animator == null)
         {
             return;
         }
 
-        _animator.Play(IdleFront);
+        _animator.Play(IdlePrefix + FrontSuffix);
     }
 
-    private void FixedUpdate()
+    public void ResetAnimations()
     {
-        if (!_animator)
+        StopAllCoroutines();
+        _coroutine = null;
+        _canTransition = true;
+        _characterState = CharacterState.Idle;
+        _animator.Play(IdlePrefix + FrontSuffix);
+    }
+
+    public void ChangeState(CharacterState newState, bool canTransitionToNextState = true, float lockDuration = 0.5f)
+    {
+        if (_characterState == CharacterState.Dying)
+        {
+            return;
+        }
+        
+        if (!_canTransition && newState != CharacterState.Dying && newState != CharacterState.TakingDamage)
         {
             return;
         }
 
-        Vector2 currentDirection = ((Vector2)transform.position - _previousPosition).normalized;
-        _previousPosition = transform.position;
-
-        _newDirection = EvaluateDirection(currentDirection);
-
-        if (_newDirection == _previousDirection)
+        string newKey = GetDirectionalAnimationKey(_previousDirection, newState);
+    
+        if ((newState == CharacterState.Idle || newState == CharacterState.Moving) && newKey == _currentAnimationKey)
         {
             return;
         }
 
-        UpdateAnimation(_newDirection);
+        _characterState = newState;
+        _currentAnimationKey = newKey;
+        _canTransition = canTransitionToNextState;
 
-        _previousDirection = _newDirection;
+        if (_animator == null) return;
+        
+        bool snapState = newState == CharacterState.Attacking || 
+                         newState == CharacterState.TakingDamage || 
+                         newState == CharacterState.Dying;
+
+        if (snapState)
+        {
+            _animator.Play(newKey, 0, 0f);
+        }
+        else
+        {
+            _animator.Play(newKey);
+        }
+
+        if (newState == CharacterState.Dying)
+        {
+            _canTransition = false;
+        }
+        else if (!canTransitionToNextState)
+        {
+            LockTransitionForSeconds(lockDuration);
+        }
     }
 
-    private const float HysteresisBuffer = 0.1f;
-
-    private Vector2 EvaluateDirection(Vector2 currentDirection)
+    public void UpdateMovement(Vector2 movementVector)
     {
-        if (currentDirection == Vector2.zero)
+        if (movementVector.sqrMagnitude < 0.1f)
         {
-            return Vector2.zero;
+            return;
         }
 
-        float absX = Mathf.Abs(currentDirection.x);
-        float absY = Mathf.Abs(currentDirection.y);
-
-        if (_previousDirection == Vector2.right || _previousDirection == Vector2.left)
-        {
-            absY -= HysteresisBuffer;
-        }
-        else if (_previousDirection == Vector2.up || _previousDirection == Vector2.down)
-        {
-            absX -= HysteresisBuffer;
-        }
-
-        if (absX >= absY)
-        {
-            return currentDirection.x > 0 ? Vector2.right : Vector2.left;
-        }
-
-        return currentDirection.y > 0 ? Vector2.up : Vector2.down;
+        _previousDirection = DirectionUtils.EvaluateDirection(movementVector, _previousDirection);
     }
 
-    private void UpdateAnimation(Vector2 direction)
+    private string GetDirectionalAnimationKey(Vector2 direction, CharacterState characterState)
     {
-        string animatorKey = direction switch
+        string statePrefix;
+        switch (characterState)
         {
-            _ when direction == Vector2.up => MovementBack,
-            _ when direction == Vector2.down => MovementFront,
-            _ when direction == Vector2.right => MovementRight,
-            _ when direction == Vector2.left => MovementLeft,
-            _ => IdleFront
+            case CharacterState.Idle:
+                statePrefix = IdlePrefix;
+                break;
+            case CharacterState.Moving:
+                statePrefix = MovingPrefix;
+                break;
+            case CharacterState.Attacking:
+                statePrefix = AttackPrefix;
+                break;
+            case CharacterState.TakingDamage:
+                statePrefix = TakeDamage;
+                return statePrefix;
+
+            case CharacterState.Dying:
+                statePrefix = Death;
+                return statePrefix;
+
+            default:
+                statePrefix = IdlePrefix;
+                break;
+        }
+
+        string directionSuffix = (direction.x, direction.y) switch
+        {
+            (> 0.1f, _) => RightSuffix,
+            (< -0.1f, _) => LeftSuffix,
+            (_, > 0.1f) => BackSuffix,
+            (_, < -0.1f) => FrontSuffix,
+            _ => FrontSuffix
         };
 
-        _animator.Play(animatorKey);
+        return statePrefix + directionSuffix;
     }
+
+    private Coroutine _coroutine;
+
+    private void LockTransitionForSeconds(float duration)
+    {
+        _coroutine ??= StartCoroutine(WaitCoroutine(duration));
+    }
+
+    private IEnumerator WaitCoroutine(float time)
+    {
+        yield return new WaitForSeconds(time);
+        _canTransition = true;
+        _coroutine = null;
+    }
+}
+
+public enum CharacterState
+{
+    Idle,
+    Moving,
+    Attacking,
+    TakingDamage,
+    Dying
 }
