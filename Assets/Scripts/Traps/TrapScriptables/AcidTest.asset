@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 42722b53d8d840d3a256c692fe7df6ed, type: 3}
   m_Name: AcidTest
   m_EditorClassIdentifier: Assembly-CSharp::ActivableFloorSpikesTrap
-  damage: 4
+  damage: 1
   delayBetweenHits: 2
   dealsDamageOverTime: 1
+  _hazardController: {fileID: 0}
