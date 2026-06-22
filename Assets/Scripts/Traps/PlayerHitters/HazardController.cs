@@ -89,19 +89,19 @@ public class HazardController : MonoBehaviour
     #region Hit Detection
         void OnTriggerEnter2D(Collider2D other)
         {
-            if (!other.CompareTag("Player")) { return; }
+            if (other.GetComponent<CharacterHealth>() == null) { return; }
             ClearCoroutine(); Hit(other.gameObject);
         }
         private void OnTriggerStay(Collider other)
         {
             if (!_dealsDamageOverTime) { return; }
-            if (!other.CompareTag("Player")) { return; }
+            if (other.GetComponent<CharacterHealth>() == null) { return; }
             if (!_canHit) { return; } Hit(other.gameObject);
         }
     
         private void OnTriggerExit2D(Collider2D other)
         {
-            if (!other.CompareTag("Player")) { return; } 
+            if (other.GetComponent<CharacterHealth>() == null) { return; } 
             ClearCoroutine(); 
         }
     #endregion
