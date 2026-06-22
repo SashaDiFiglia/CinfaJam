@@ -3,8 +3,8 @@
 public abstract class AActivableTrap : ScriptableObject
 {
     #region Setup/Clear
-    protected TrapCycleController trapController;
-    public void Setup(TrapCycleController trapCycleController) { trapController = trapCycleController; OnSetup(); }
+    public TrapCycleController trapController;
+    public void Setup(TrapCycleController trapCycleController) { OnSetup(); }
     public void Clear() { OnClear(); trapController = null; }
     protected virtual void OnSetup() {}
     protected virtual void OnClear() {}
