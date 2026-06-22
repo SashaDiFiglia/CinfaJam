@@ -15,8 +15,17 @@ public class BulletController : MonoBehaviour
         
         private Animator _animator;
         private bool _isPlayingAnimation;
-        private string _animation = "BulletFlicker";
-        private string _explodeAnim = "BulletExplosion";
+        // private string _animation = "BulletFlicker";
+        // private string _explodeAnim = "BulletExplosion";
+
+        [SerializeField] private Sprite[] flickerSprites;
+        [SerializeField] private Sprite[] explosionSprites;
+        [SerializeField] private float timeBetweenSpritesFlicker = 0.1f;
+        [SerializeField] private float timeBetweenSpritesExplosion = 0.1f;
+        [SerializeField] private float explosionScaleMultiplier = 1f;
+        private SpriteRenderer _rend;
+        private Vector3 _spriteScaleOg;
+        
         private float _explosionDuration = .1f;
         private Coroutine _loopAnimationC;
     #endregion
@@ -30,14 +39,17 @@ public class BulletController : MonoBehaviour
             _canExplode = canExplode;
             _canHitEnemies = hitsEnemies;
             _explosionRadius = explosionRadius;
+            _spriteScaleOg = transform.localScale;
             
-            _animator = gameObject.GetComponent<Animator>();
-            if (_animator == null) { Debug.LogWarning($"No animator on {gameObject.name}, animations will not be played"); }
+            _rend = GetComponent<SpriteRenderer>();
+            // _animator = gameObject.GetComponent<Animator>();
+            // if (_animator == null) { Debug.LogWarning($"No animator on {gameObject.name}, animations will not be played"); }
             
             StopMoving();
             StopLoopAnimation();
             _moveC = StartCoroutine(Move());
-            _loopAnimationC = StartCoroutine(LoopAnimation());
+            // _loopAnimationC = StartCoroutine(LoopAnimation());
+            _loopAnimationC = StartCoroutine(FlickerAnimation());
             StartCoroutine(DestroyAfterLifetime());
         }
     #endregion
@@ -56,27 +68,59 @@ public class BulletController : MonoBehaviour
     #endregion
     
     #region Animator
-        private IEnumerator LoopAnimation()
+        // private IEnumerator LoopAnimation()
+        // {
+        //     _isPlayingAnimation = true;
+        //     while (_isPlayingAnimation)
+        //     {
+        //         _animator.Play(_animation, 0, 0.0f);
+        //         yield return new WaitForSeconds(_animator.GetCurrentAnimatorClipInfo(0)[0].clip.length); 
+        //     }
+        // }
+
+        private IEnumerator FlickerAnimation()
         {
+            transform.localScale = _spriteScaleOg;
             _isPlayingAnimation = true;
+            int currentSprite = 0;
+
             while (_isPlayingAnimation)
             {
-                _animator.Play(_animation, 0, 0.0f);
-                yield return new WaitForSeconds(_animator.GetCurrentAnimatorClipInfo(0)[0].clip.length); 
+                _rend.sprite = flickerSprites[currentSprite];
+                currentSprite ++;
+                yield return new WaitForSeconds(timeBetweenSpritesFlicker);
+                if (currentSprite >= flickerSprites.Length) { currentSprite = 0; }
             }
         }
+
+        private IEnumerator ExplodeAnimation()
+        {
+            transform.localScale = _spriteScaleOg * explosionScaleMultiplier;
+            int currentSprite = 0;
+            while (currentSprite <= explosionSprites.Length)
+            {
+                _rend.sprite = explosionSprites[currentSprite];
+                currentSprite ++;
+                yield return new WaitForSeconds(timeBetweenSpritesExplosion);
+            }
+        }
+        
+        
+        
 
         private void StopLoopAnimation()
         {
             _isPlayingAnimation = false;
-            _animator.StopPlayback();
+            // _animator.StopPlayback();
             if (_loopAnimationC != null) { StopCoroutine(_loopAnimationC); _loopAnimationC = null; }
         }
 
         private void PlayExplodeAnimation()
         {
-            _animator.Play(_explodeAnim, 0, 0.0f);
-            _explosionDuration = _animator.GetCurrentAnimatorClipInfo(0)[0].clip.length;
+            StartCoroutine(ExplodeAnimation());
+            // _animator.Play(_explodeAnim, 0, 0.0f);
+            // _explosionDuration = _animator.GetCurrentAnimatorClipInfo(0)[0].clip.length;
+            _explosionDuration = timeBetweenSpritesExplosion * explosionSprites.Length;
         }
     #endregion
 
@@ -85,7 +129,7 @@ public class BulletController : MonoBehaviour
     #region Hit/Self-Destruct
         void Hit(GameObject other)
         {
-            if (other.CompareTag("Player"))
+            if (other.GetComponent<CharacterHealth>() != null)
             {
                 other.GetComponent<CharacterHealth>()?.TakeDamage(_damage); 
                 DestroySelf();

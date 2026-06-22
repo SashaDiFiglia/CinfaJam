@@ -119,6 +119,63 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1001 &3012864
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 804603216311288278, guid: 588af69055c2059498b700d8ca734b5f, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -2.472952
+      objectReference: {fileID: 0}
+    - target: {fileID: 804603216311288278, guid: 588af69055c2059498b700d8ca734b5f, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.0370419
+      objectReference: {fileID: 0}
+    - target: {fileID: 804603216311288278, guid: 588af69055c2059498b700d8ca734b5f, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 804603216311288278, guid: 588af69055c2059498b700d8ca734b5f, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 804603216311288278, guid: 588af69055c2059498b700d8ca734b5f, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 804603216311288278, guid: 588af69055c2059498b700d8ca734b5f, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 804603216311288278, guid: 588af69055c2059498b700d8ca734b5f, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 804603216311288278, guid: 588af69055c2059498b700d8ca734b5f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 804603216311288278, guid: 588af69055c2059498b700d8ca734b5f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 804603216311288278, guid: 588af69055c2059498b700d8ca734b5f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3168049461113239524, guid: 588af69055c2059498b700d8ca734b5f, type: 3}
+      propertyPath: m_Name
+      value: Player
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 588af69055c2059498b700d8ca734b5f, type: 3}
 --- !u!1 &865506377
 GameObject:
   m_ObjectHideFlags: 0
@@ -383,7 +440,7 @@ MonoBehaviour:
   m_ShadowLayerMask: 1
   m_RenderingLayers: 1
   m_ShadowRenderingLayers: 1
---- !u!1001 &6768006774432263266
+--- !u!1001 &1734917875230528423
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -431,9 +488,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2921081870412002847, guid: 2965214363df8ae45ac356e2f7b4cada, type: 3}
+      propertyPath: m_SortingOrder
+      value: -1
+      objectReference: {fileID: 0}
     - target: {fileID: 4672092140009014804, guid: 2965214363df8ae45ac356e2f7b4cada, type: 3}
       propertyPath: m_Name
-      value: Acid
+      value: 'Acid '
+      objectReference: {fileID: 0}
+    - target: {fileID: 4672092140009014804, guid: 2965214363df8ae45ac356e2f7b4cada, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -498,7 +563,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1787960772296364572, guid: f488c330cb3a8bd4aa7c3f89c32818c9, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4265943311275965768, guid: f488c330cb3a8bd4aa7c3f89c32818c9, type: 3}
       propertyPath: timeBeforeActivation
@@ -506,7 +571,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4265943311275965768, guid: f488c330cb3a8bd4aa7c3f89c32818c9, type: 3}
       propertyPath: timeBeforeDeactivation
-      value: 10
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -642,6 +707,7 @@ SceneRoots:
   - {fileID: 865506380}
   - {fileID: 1783488791}
   - {fileID: 8326506353920037858}
-  - {fileID: 6768006774432263266}
+  - {fileID: 1734917875230528423}
   - {fileID: 8708547870290886848}
   - {fileID: 7345796823714092759}
+  - {fileID: 3012864}

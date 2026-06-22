@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class RespawnManager : MonoBehaviour
@@ -6,8 +7,16 @@ public class RespawnManager : MonoBehaviour
 
     private CharacterHealth _character;
 
+    private List<Enemy> _enemies;
+
+    private List<WeaponPickUp> _weapons;
+
     private void Start()
     {
+        _enemies.AddRange(FindObjectsByType<Enemy>(default));
+
+        _weapons.AddRange(FindObjectsByType<WeaponPickUp>(default));
+
         _checkPointManager = FindFirstObjectByType<CheckpointManager>();
 
         _character = FindFirstObjectByType<CharacterHealth>();
@@ -20,5 +29,15 @@ public class RespawnManager : MonoBehaviour
         _character.transform.position = _checkPointManager.LastCheckPoint.transform.position;
 
         _character.Respawn();
+
+        foreach (var enemy in _enemies)
+        {
+            enemy.Activate();
+        }
+
+        foreach (var weapon in _weapons)
+        {
+            weapon.Reset();
+        }
     }
 }

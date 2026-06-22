@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: BulletSpawnerTest
   m_EditorClassIdentifier: Assembly-CSharp::ActivableBulletSpawner
   bulletPrefab: {fileID: 8032753051448514959, guid: b6cb97b5cb1f90a439f3d4fdc5ec32e8, type: 3}
-  bulletSpeed: 0.1
+  bulletSpeed: 1
   canExplode: 1
   explosionRadius: 3
   canHitEnemies: 0

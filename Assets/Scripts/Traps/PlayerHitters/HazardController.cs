@@ -47,7 +47,7 @@ public class HazardController : MonoBehaviour
         if (_anim != null) { MoveSpikes(activating); }
         _col.enabled = activating;
     }
-
+    
     #region Animator - Move Spikes
         private void MoveSpikes(bool isForward)
         {
@@ -89,19 +89,19 @@ public class HazardController : MonoBehaviour
     #region Hit Detection
         void OnTriggerEnter2D(Collider2D other)
         {
-            if (!other.CompareTag("Player")) { return; }
+            if (other.GetComponent<CharacterHealth>() == null) { return; }
             ClearCoroutine(); Hit(other.gameObject);
         }
-        private void OnTriggerStay(Collider other)
+        private void OnTriggerStay2D(Collider2D other)
         {
             if (!_dealsDamageOverTime) { return; }
-            if (!other.CompareTag("Player")) { return; }
+            if (other.GetComponent<CharacterHealth>() == null) { return; }
             if (!_canHit) { return; } Hit(other.gameObject);
         }
     
         private void OnTriggerExit2D(Collider2D other)
         {
-            if (!other.CompareTag("Player")) { return; } 
+            if (other.GetComponent<CharacterHealth>() == null) { return; } 
             ClearCoroutine(); 
         }
     #endregion
@@ -111,7 +111,7 @@ public class HazardController : MonoBehaviour
         {
             _canHit = false;
             player.GetComponent<CharacterHealth>()?.TakeDamage(_damage);
-            Debug.Log($"Spikes hit {player.name} for {_damage} damage");
+            // Debug.Log($"Hit {player.name} for {_damage} damage");
             StartCoroutine(Delay());
         }
 
@@ -123,7 +123,10 @@ public class HazardController : MonoBehaviour
         private IEnumerator Delay()
         { yield return new WaitForSeconds(_delay); _canHit = true; }
         private void ClearCoroutine()
-        { if (_hitDelayC != null) { StopCoroutine(_hitDelayC); _hitDelayC = null; _canHit = true; } }
+        {
+            if (_hitDelayC != null) { StopCoroutine(_hitDelayC); _hitDelayC = null; }
+            _canHit = true; 
+        } 
     #endregion
     
 }
