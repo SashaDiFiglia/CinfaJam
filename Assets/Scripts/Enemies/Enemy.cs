@@ -17,6 +17,7 @@ public class Enemy : MonoBehaviour, IHealth
 
     [ShowInInspector, ReadOnly] private float _currentHealth;
 
+    private Vector2 _spawnPosition;
     private bool _isDead;
     private bool _canMove = true;
     private Vector2 _lastFacingDirection;
@@ -39,6 +40,7 @@ public class Enemy : MonoBehaviour, IHealth
         _characterAnimation = GetComponent<CharacterAnimation>();
         _collider2D = GetComponent<Collider2D>();
         _rigidbody2D = GetComponent<Rigidbody2D>();
+        _spawnPosition = transform.position;
     }
 
     private void Start()
@@ -83,6 +85,7 @@ public class Enemy : MonoBehaviour, IHealth
     public void Activate()
     {
         Initialize();
+        _rigidbody2D.MovePosition(_spawnPosition);
         _rigidbody2D.linearVelocity = Vector2.zero;
         _characterAnimation.ResetAnimations();
     }
