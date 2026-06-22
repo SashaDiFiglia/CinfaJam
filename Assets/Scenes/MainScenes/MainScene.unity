@@ -1409,7 +1409,7 @@ GameObject:
   - component: {fileID: 197531080}
   - component: {fileID: 197531079}
   m_Layer: 0
-  m_Name: E dGame
+  m_Name: End Game
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -54897,13 +54897,17 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 661210664828729859, guid: 588af69055c2059498b700d8ca734b5f, type: 3}
+      propertyPath: m_Radius
+      value: 0.38
+      objectReference: {fileID: 0}
     - target: {fileID: 804603216311288278, guid: 588af69055c2059498b700d8ca734b5f, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 39.559998
+      value: -1.4400003
       objectReference: {fileID: 0}
     - target: {fileID: 804603216311288278, guid: 588af69055c2059498b700d8ca734b5f, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 32.05
+      value: 1.3000002
       objectReference: {fileID: 0}
     - target: {fileID: 804603216311288278, guid: 588af69055c2059498b700d8ca734b5f, type: 3}
       propertyPath: m_LocalPosition.z
