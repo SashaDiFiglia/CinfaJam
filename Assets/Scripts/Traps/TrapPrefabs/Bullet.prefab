@@ -82,7 +82,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: -1
+  m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Sprite: {fileID: 755751936460811872, guid: 24f7660f98be5254886ed2e83bade47f, type: 3}
   m_Color: {r: 0.51572317, g: 0.51572317, b: 0.51572317, a: 1}
@@ -180,4 +180,3 @@ MonoBehaviour:
   - {fileID: 523952660, guid: 6664c56d239f6c1498dff1e14647137d, type: 3}
   timeBetweenSpritesFlicker: 0.1
   timeBetweenSpritesExplosion: 0.1
-  explosionScaleMultiplier: 1

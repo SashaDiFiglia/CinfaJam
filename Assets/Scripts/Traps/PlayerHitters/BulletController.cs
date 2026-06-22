@@ -111,7 +111,7 @@ public class BulletController : MonoBehaviour
         { return new Vector3(_explosionRadius * 2, _explosionRadius * 2, _explosionRadius * 2) ; }
     #endregion
 
-    void OnCollisionEnter2D(Collision2D col) { Hit(col.gameObject); }
+    void OnTriggerEnter2D(Collider2D col) { Hit(col.gameObject); }
 
     #region Hit/Self-Destruct
         void Hit(GameObject other)
