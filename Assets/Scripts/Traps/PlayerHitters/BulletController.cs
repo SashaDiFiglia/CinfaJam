@@ -22,7 +22,7 @@ public class BulletController : MonoBehaviour
         [SerializeField] private Sprite[] explosionSprites;
         [SerializeField] private float timeBetweenSpritesFlicker = 0.1f;
         [SerializeField] private float timeBetweenSpritesExplosion = 0.1f;
-        [SerializeField] private float explosionScaleMultiplier = 1f;
+        // [SerializeField] private float explosionScaleMultiplier = 1f;
         private SpriteRenderer _rend;
         private Vector3 _spriteScaleOg;
         
@@ -68,16 +68,6 @@ public class BulletController : MonoBehaviour
     #endregion
     
     #region Animator
-        // private IEnumerator LoopAnimation()
-        // {
-        //     _isPlayingAnimation = true;
-        //     while (_isPlayingAnimation)
-        //     {
-        //         _animator.Play(_animation, 0, 0.0f);
-        //         yield return new WaitForSeconds(_animator.GetCurrentAnimatorClipInfo(0)[0].clip.length); 
-        //     }
-        // }
-
         private IEnumerator FlickerAnimation()
         {
             transform.localScale = _spriteScaleOg;
@@ -95,7 +85,7 @@ public class BulletController : MonoBehaviour
 
         private IEnumerator ExplodeAnimation()
         {
-            transform.localScale = _spriteScaleOg * explosionScaleMultiplier;
+            transform.localScale = ExplosionSpriteScale();
             int currentSprite = 0;
             while (currentSprite <= explosionSprites.Length)
             {
@@ -105,23 +95,20 @@ public class BulletController : MonoBehaviour
             }
         }
         
-        
-        
-
         private void StopLoopAnimation()
         {
             _isPlayingAnimation = false;
-            // _animator.StopPlayback();
             if (_loopAnimationC != null) { StopCoroutine(_loopAnimationC); _loopAnimationC = null; }
         }
 
         private void PlayExplodeAnimation()
         {
-            StartCoroutine(ExplodeAnimation());
-            // _animator.Play(_explodeAnim, 0, 0.0f);
-            // _explosionDuration = _animator.GetCurrentAnimatorClipInfo(0)[0].clip.length;
+            StartCoroutine(ExplodeAnimation()); 
             _explosionDuration = timeBetweenSpritesExplosion * explosionSprites.Length;
         }
+        
+        private Vector3 ExplosionSpriteScale() 
+        { return new Vector3(_explosionRadius * 2, _explosionRadius * 2, _explosionRadius * 2) ; }
     #endregion
 
     void OnCollisionEnter2D(Collision2D col) { Hit(col.gameObject); }
@@ -139,7 +126,6 @@ public class BulletController : MonoBehaviour
                 other.GetComponent<Enemy>()?.TakeDamage(_damage);
                 DestroySelf();
             }
-           
         }
         void Explode() //deals damage in area.
         { 
@@ -160,9 +146,7 @@ public class BulletController : MonoBehaviour
             yield return new WaitForSeconds(_explosionDuration);
             Destroy(gameObject);
         }
-
-
-
+        
         void DestroySelf()
         {
             if (_canExplode) { StopMoving(); Explode(); return;}
@@ -173,4 +157,14 @@ public class BulletController : MonoBehaviour
         { yield return new WaitForSeconds(_lifetime); DestroySelf(); }
     #endregion
     
+    
+    // #region Debug gizmos
+    //     private void OnDrawGizmos()
+    //     {
+    //         Collider2D col = GetComponent<Collider2D>();
+    //         //draw circle for explosion radius
+    //         Gizmos.color = Color.yellow;
+    //         Gizmos.DrawWireSphere(col.bounds.center, _explosionRadius); //explosion radius
+    //     }
+    // #endregion
 }
