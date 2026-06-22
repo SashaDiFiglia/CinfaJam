@@ -42,7 +42,7 @@ public class HazardController : MonoBehaviour
         }
     #endregion
     
-    public void ToggleSpikes(bool activating)
+    public void ToggleHazard(bool activating)
     {
         if (_anim != null) { MoveSpikes(activating); }
         _col.enabled = activating;

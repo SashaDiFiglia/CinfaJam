@@ -1,10 +1,6 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.Numerics;
 using Sirenix.OdinInspector;
 using UnityEngine;
-using UnityEngine.Serialization;
 using TorchDatas;
 using Vector3 = UnityEngine.Vector3;
 
@@ -148,9 +144,11 @@ public class TorchInstance : MonoBehaviour
     public void RegainTorchDuration(float value)
     {
         _torchData.duration += value;
+        _torchData.duration = Mathf.Clamp(_torchData.duration, 0, _torchData.maxDuration);
+        _lightObj.localScale = Vector3.ClampMagnitude(_lightObj.transform.localScale,_torchData.maxDuration);
+        
         SetLightRadius(_torchData.duration);
         SetTorchParticleEmission(_torchData.duration);
-
         _time = 0;
 
     }
