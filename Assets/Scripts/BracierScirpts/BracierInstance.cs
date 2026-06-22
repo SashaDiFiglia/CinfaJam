@@ -34,14 +34,14 @@ public class BracierInstance : MonoBehaviour
 
 
     private void Update()
-    { 
-        if(_bracierData.hasBeenLit){return;}
-        
+    {
         var distance = Vector3.Distance(transform.position, _torch.transform.position);
         if (distance <= _distanceCheck && _torch.GetTorchState() == TorchData.TorchState.Lit) 
         {
-            LightUp();
             _torch.RegainTorchDuration(10f);
+            
+            if(_bracierData.hasBeenLit){return;}
+            LightUp();
         }
     }
 
