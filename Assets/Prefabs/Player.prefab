@@ -272,6 +272,13 @@ MonoBehaviour:
       Data3: 159378612
       Data4: -1443626061
     Path: event:/Playerdeath
+  _hitSound:
+    Guid:
+      Data1: 1586190921
+      Data2: 1266092286
+      Data3: 970713006
+      Data4: -1515788552
+    Path: event:/PlayerHit
   MaxHealth: 5
   CurrentHealth: 0
 --- !u!114 &5006740557635786792
