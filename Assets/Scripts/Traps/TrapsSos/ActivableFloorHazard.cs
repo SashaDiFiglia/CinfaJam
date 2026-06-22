@@ -18,6 +18,6 @@ public class ActivableFloorHazard: AActivableTrap
     protected override void OnClear()
     { if (_hazardController != null) { Destroy(_hazardController);} }
 
-    public override void ActivateTrap() { _hazardController.ToggleSpikes(true); }
-    public override void DeactivateTrap() {  _hazardController.ToggleSpikes(false); }
+    public override void ActivateTrap() { _hazardController.ToggleHazard(true); }
+    public override void DeactivateTrap() {  _hazardController.ToggleHazard(false); }
 }
