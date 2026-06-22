@@ -7,11 +7,11 @@ public class RespawnManager : MonoBehaviour
 
     private CharacterHealth _character;
 
-    private List<Enemy> _enemies;
+    private List<Enemy> _enemies = new List<Enemy>();
 
-    private List<WeaponPickUp> _weapons;
+    private List<WeaponPickUp> _weapons = new List<WeaponPickUp>();
 
-    private List<HealthPickUp> _potions;
+    private List<HealthPickUp> _potions = new List<HealthPickUp>();
 
     private void Start()
     {
