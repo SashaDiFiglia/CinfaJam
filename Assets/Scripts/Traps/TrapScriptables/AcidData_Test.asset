@@ -9,10 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 42722b53d8d840d3a256c692fe7df6ed, type: 3}
-  m_Name: SpikesTest
-  m_EditorClassIdentifier: Assembly-CSharp::ActivableFloorSpikesTrap
-  trapController: {fileID: 0}
+  m_Script: {fileID: 11500000, guid: b04d9f1afaf504c40830d68d85caa53d, type: 3}
+  m_Name: AcidData_Test
+  m_EditorClassIdentifier: Assembly-CSharp::FloorHazardDataSO
   damage: 1
   delayBetweenHits: 2
   dealsDamageOverTime: 1

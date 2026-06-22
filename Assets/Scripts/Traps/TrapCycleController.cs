@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class TrapCycleController: MonoBehaviour
 {
-    [SerializeField] private AActivableTrap trap;
+    private ITrap _trap;
+    
     
     [Header("Time Settings")]
     public bool isTimeBased;
@@ -15,9 +16,13 @@ public class TrapCycleController: MonoBehaviour
     private Coroutine _c;
 
     #region Start/Destroy
-        void Start()     { trap.Setup(this); Clear(); ToggleTrapCycleMaster(); }
-        void OnDestroy() { Clear(); trap.Clear(); }
-        void OnDisable() { Clear(); trap.Clear(); }
+        void Start()
+        {
+            _trap = GetComponent<ITrap>();
+            Clear(); ToggleTrapCycleMaster(); 
+        }
+        void OnDestroy() { Clear(); }
+        void OnDisable() { Clear();  }
     #endregion
     
     #region Trap Cycle
@@ -32,14 +37,14 @@ public class TrapCycleController: MonoBehaviour
 
         private void TrapCycleToggle()
         {
-            if (_isActive) { trap.ActivateTrap(); }
-            else           { trap.DeactivateTrap(); }
+            if (_isActive) { _trap.ActivateTrap(); }
+            else           { _trap.DeactivateTrap(); }
         }
 
         private void TrapCycleTimeBased()
         {
             if (_isActive && _c == null) { _c = StartCoroutine(TrapCycle()); }
-            else if (_c != null)         { StopCoroutine(_c); _c = null; trap.DeactivateTrap(); }
+            else if (_c != null)         { StopCoroutine(_c); _c = null; _trap.DeactivateTrap(); }
         }
   
         private IEnumerator TrapCycle()
@@ -47,9 +52,9 @@ public class TrapCycleController: MonoBehaviour
             while (_isActive)
             {
                 yield return new WaitForSeconds(timeBeforeActivation);
-                trap.ActivateTrap();
+                _trap.ActivateTrap();
                 yield return new WaitForSeconds(timeBeforeDeactivation);
-                trap.DeactivateTrap();
+                _trap.DeactivateTrap();
             }
         }
         
@@ -57,8 +62,7 @@ public class TrapCycleController: MonoBehaviour
     #endregion
     
     #region Odin Buttons
-        [Button] public void Setup()          { Clear(); trap.Setup(this); }
-        [Button] public void ActivateTrap()   { trap.ActivateTrap(); }
-        [Button] public void DeactivateTrap() { trap.DeactivateTrap(); }
+        [Button] public void ActivateTrap()   { _trap.ActivateTrap(); }
+        [Button] public void DeactivateTrap() { _trap.DeactivateTrap(); }
     #endregion
 }

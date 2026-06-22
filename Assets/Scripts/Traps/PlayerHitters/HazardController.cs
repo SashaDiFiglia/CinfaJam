@@ -1,8 +1,11 @@
 using System.Collections;
 using UnityEngine;
 
-public class HazardController : MonoBehaviour
+public class HazardController : MonoBehaviour, ITrap
 {
+     [SerializeField] private FloorHazardDataSO floorHazardData;
+         
+    
     #region VARIABLES - HAZARD
         private bool _dealsDamageOverTime;
         
@@ -26,6 +29,8 @@ public class HazardController : MonoBehaviour
         
         private bool _isFlickering;
     #endregion  
+    
+    void Start() { Setup(floorHazardData.damage, floorHazardData.delayBetweenHits, floorHazardData.dealsDamageOverTime); }
     
     #region Setup
         public void Setup(float value, float delayBetweenHits, bool canDamageOverTime)
@@ -127,5 +132,8 @@ public class HazardController : MonoBehaviour
             _canHit = true; 
         } 
     #endregion
-    
+
+    public void ActivateTrap() { ToggleHazard(true); }
+    public void DeactivateTrap() {  ToggleHazard(false); }
+
 }

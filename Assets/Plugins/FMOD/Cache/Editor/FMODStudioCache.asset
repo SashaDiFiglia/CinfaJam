@@ -27,6 +27,87 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 0
+--- !u!114 &-7362548977226705452
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/enemyHit
+  m_EditorClassIdentifier: FMODUnityEditor::FMODUnity.EditorEventRef
+  Path: event:/enemyHit
+  Guid:
+    Data1: -435649322
+    Data2: 1294651702
+    Data3: -1294282588
+    Data4: 1057267837
+  Banks:
+  - {fileID: 5056144996197592920}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &-3721376436362829430
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/PlayerHit
+  m_EditorClassIdentifier: FMODUnityEditor::FMODUnity.EditorEventRef
+  Path: event:/PlayerHit
+  Guid:
+    Data1: 1586190921
+    Data2: 1266092286
+    Data3: 970713006
+    Data4: -1515788552
+  Banks:
+  - {fileID: 5056144996197592920}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &-393388823466461636
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/enemydeath
+  m_EditorClassIdentifier: FMODUnityEditor::FMODUnity.EditorEventRef
+  Path: event:/enemydeath
+  Guid:
+    Data1: 1354470339
+    Data2: 1174738119
+    Data3: 1238355868
+    Data4: -694629048
+  Banks:
+  - {fileID: 5056144996197592920}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -47,18 +128,39 @@ MonoBehaviour:
   EditorEvents:
   - {fileID: 3047822350932607347}
   - {fileID: -8460945625425662520}
+  - {fileID: 3858897899807008981}
+  - {fileID: -3721376436362829430}
+  - {fileID: 8331552151894168056}
+  - {fileID: 5870158162583440488}
+  - {fileID: 2023152854767793261}
+  - {fileID: -393388823466461636}
+  - {fileID: -7362548977226705452}
   EditorParameters: []
   MasterBanks:
   - {fileID: 3563369651920667728}
   StringsBanks:
   - {fileID: 268868991924784217}
   cacheVersion: 131859
-  cacheTime: 639174588270789211
+  cacheTime: 639177294221343893
   SerializableEventsDict:
   - key: event:/ah-yuch
     index: 0
   - key: event:/CharacterAttacks
     index: 1
+  - key: event:/Pickup
+    index: 2
+  - key: event:/PlayerHit
+    index: 3
+  - key: event:/Heal
+    index: 4
+  - key: event:/LoseSword
+    index: 5
+  - key: event:/Playerdeath
+    index: 6
+  - key: event:/enemydeath
+    index: 7
+  - key: event:/enemyHit
+    index: 8
 --- !u!114 &268868991924784217
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -74,10 +176,10 @@ MonoBehaviour:
   Path: FMod_Project/Build/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 639174588270768139
+  lastModified: 639177294221328853
   FileSizes:
   - Name: Desktop
-    Value: 980
+    Value: 1278
   Exists: 1
 --- !u!114 &685248144689334141
 MonoBehaviour:
@@ -94,11 +196,38 @@ MonoBehaviour:
   Path: FMod_Project/Build/Desktop/UI.bank
   Name: UI
   StudioPath: bank:/UI
-  lastModified: 639174588270789211
+  lastModified: 639174632429389557
   FileSizes:
   - Name: Desktop
     Value: 506
   Exists: 1
+--- !u!114 &2023152854767793261
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Playerdeath
+  m_EditorClassIdentifier: FMODUnityEditor::FMODUnity.EditorEventRef
+  Path: event:/Playerdeath
+  Guid:
+    Data1: -1223942998
+    Data2: 1076972803
+    Data3: 159378612
+    Data4: -1443626061
+  Banks:
+  - {fileID: 5056144996197592920}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
 --- !u!114 &3047822350932607347
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -141,11 +270,38 @@ MonoBehaviour:
   Path: FMod_Project/Build/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 639174588270768139
+  lastModified: 639174632429379568
   FileSizes:
   - Name: Desktop
     Value: 9120
   Exists: 1
+--- !u!114 &3858897899807008981
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Pickup
+  m_EditorClassIdentifier: FMODUnityEditor::FMODUnity.EditorEventRef
+  Path: event:/Pickup
+  Guid:
+    Data1: -1875502530
+    Data2: 1315054052
+    Data3: 736622241
+    Data4: -1227384831
+  Banks:
+  - {fileID: 5056144996197592920}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
 --- !u!114 &5056144996197592920
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -161,8 +317,62 @@ MonoBehaviour:
   Path: FMod_Project/Build/Desktop/SFX.bank
   Name: SFX
   StudioPath: bank:/SFX
-  lastModified: 639174588270779162
+  lastModified: 639177294221343893
   FileSizes:
   - Name: Desktop
-    Value: 14336
+    Value: 44928
   Exists: 1
+--- !u!114 &5870158162583440488
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/LoseSword
+  m_EditorClassIdentifier: FMODUnityEditor::FMODUnity.EditorEventRef
+  Path: event:/LoseSword
+  Guid:
+    Data1: 1759739763
+    Data2: 1226347335
+    Data3: 2041402815
+    Data4: -900986884
+  Banks:
+  - {fileID: 5056144996197592920}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &8331552151894168056
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Heal
+  m_EditorClassIdentifier: FMODUnityEditor::FMODUnity.EditorEventRef
+  Path: event:/Heal
+  Guid:
+    Data1: 740463965
+    Data2: 1141450176
+    Data3: -1414330213
+    Data4: 649178802
+  Banks:
+  - {fileID: 5056144996197592920}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0

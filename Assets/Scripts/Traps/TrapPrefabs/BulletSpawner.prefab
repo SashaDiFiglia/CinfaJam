@@ -101,7 +101,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1769040150355153932}
   - component: {fileID: 4265943311275965768}
-  - component: {fileID: 346923345856264559}
+  - component: {fileID: 4519280028920859275}
   m_Layer: 0
   m_Name: BulletSpawner
   m_TagString: Untagged
@@ -141,11 +141,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f746faa7147b80742a651757116b86c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TrapCycleController
-  trap: {fileID: 11400000, guid: d251f520223d25745bc51fd9dc5fee88, type: 2}
   isTimeBased: 1
   timeBeforeActivation: 3
   timeBeforeDeactivation: 0
---- !u!114 &346923345856264559
+--- !u!114 &4519280028920859275
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -154,9 +153,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1787960772296364572}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: db96c7935079d4f4fab5eb336d8787c5, type: 3}
+  m_Script: {fileID: 11500000, guid: ea770eb8d7bea6549bd32ae0f63be093, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::BulletSpawnerController
+  m_EditorClassIdentifier: Assembly-CSharp::BulletSpawnerTrap
+  bulletData: {fileID: 11400000, guid: cb857bdceb98bf240a0e61309c291896, type: 2}
 --- !u!1 &3546510411437245781
 GameObject:
   m_ObjectHideFlags: 0

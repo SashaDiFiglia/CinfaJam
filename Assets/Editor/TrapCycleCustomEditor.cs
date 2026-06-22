@@ -5,7 +5,6 @@ using UnityEngine;
 public class TrapCycleCustomEditor : Editor
 {
     #region PROPERTIES
-        private SerializedProperty trapProperty;
         private SerializedProperty isTimeBasedProperty;
         private SerializedProperty timeBeforeActivationProperty;
         private SerializedProperty timeBeforeDeactivationProperty;
@@ -14,7 +13,6 @@ public class TrapCycleCustomEditor : Editor
     #region FIND PROPERTIES
         void OnEnable()
         {
-            trapProperty = serializedObject.FindProperty("trap");
             isTimeBasedProperty = serializedObject.FindProperty("isTimeBased");
             timeBeforeActivationProperty = serializedObject.FindProperty("timeBeforeActivation");
             timeBeforeDeactivationProperty = serializedObject.FindProperty("timeBeforeDeactivation");
@@ -31,11 +29,6 @@ public class TrapCycleCustomEditor : Editor
             EditorGUILayout.PropertyField(scriptReference);
             GUI.enabled = true;
         #endregion
-        
-        EditorGUILayout.BeginHorizontal();
-        GUILayout.Label("Trap Data", GUILayout.Width(Screen.width/5f));
-        trapProperty.objectReferenceValue = EditorGUILayout.ObjectField(trapProperty.objectReferenceValue, typeof(AActivableTrap), false, GUILayout.Width(Screen.width/3f));
-        EditorGUILayout.EndHorizontal();
         
         EditorGUILayout.Space();
         
