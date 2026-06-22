@@ -506,7 +506,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4265943311275965768, guid: f488c330cb3a8bd4aa7c3f89c32818c9, type: 3}
       propertyPath: timeBeforeDeactivation
-      value: 10
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

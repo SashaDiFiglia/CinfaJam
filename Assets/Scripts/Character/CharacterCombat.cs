@@ -58,6 +58,8 @@ public class CharacterCombat : MonoBehaviour
         {
             _currentDurability = Weapon.MaxDurability;
         }
+
+        _weaponHolder.SetActive(false);
     }
 
     public void TryAttack(Vector2 direction)
@@ -97,7 +99,7 @@ public class CharacterCombat : MonoBehaviour
     private void DecreaseDurability(float amount)
     {
         _currentDurability -= amount;
-        
+
         if (_currentDurability <= 0)
         {
             _weaponBreakInstance.start();
