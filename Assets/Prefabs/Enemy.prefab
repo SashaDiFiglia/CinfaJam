@@ -4962,6 +4962,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Enemy
   _enemyData: {fileID: 11400000, guid: c409a493c82d01449954c90d1b63c3b4, type: 2}
+  _deathSound:
+    Guid:
+      Data1: 1354470339
+      Data2: 1174738119
+      Data3: 1238355868
+      Data4: -694629048
+    Path: event:/enemydeath
 --- !u!114 &4997170360271696133
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5170,7 +5177,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3667580035208347229}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Sprites
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5203,7 +5210,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6665981963624519457}
   - component: {fileID: 6360611988857874719}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Character
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -265,6 +265,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea8272ee2d674c108ef5dca7ea2043b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CharacterHealth
+  _deathSound:
+    Guid:
+      Data1: -1223942998
+      Data2: 1076972803
+      Data3: 159378612
+      Data4: -1443626061
+    Path: event:/Playerdeath
   MaxHealth: 5
   CurrentHealth: 0
 --- !u!114 &5006740557635786792

@@ -17,5 +17,5 @@ MonoBehaviour:
   canExplode: 1
   explosionRadius: 1
   canHitEnemies: 0
-  bulletDamage: 6
+  bulletDamage: 1
   bulletLifetime: 5
