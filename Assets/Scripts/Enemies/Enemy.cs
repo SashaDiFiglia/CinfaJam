@@ -29,7 +29,10 @@ public class Enemy : MonoBehaviour, IHealth
     [Header("Sound")]
     [SerializeField] private EventReference _deathSound;
 
+    [SerializeField] private EventReference _hurtSound;
+
     private EventInstance _deathSoundInstance;
+    private EventInstance _hurtSoundInstance;
 
     public BehaviorGraphAgent BehaviourAgent
     {
@@ -50,6 +53,7 @@ public class Enemy : MonoBehaviour, IHealth
         _spawnPosition = transform.position;
 
         _deathSoundInstance = RuntimeManager.CreateInstance(_deathSound);
+        _hurtSoundInstance = RuntimeManager.CreateInstance(_hurtSound);
     }
 
     private void Start()
@@ -122,6 +126,8 @@ public class Enemy : MonoBehaviour, IHealth
         {
             return;
         }
+        
+        _hurtSoundInstance.start();
 
         _characterAnimation.ChangeState(CharacterState.TakingDamage, false);
 

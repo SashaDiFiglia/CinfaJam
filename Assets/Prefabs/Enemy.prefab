@@ -4969,6 +4969,13 @@ MonoBehaviour:
       Data3: 1238355868
       Data4: -694629048
     Path: event:/enemydeath
+  _hurtSound:
+    Guid:
+      Data1: -435649322
+      Data2: 1294651702
+      Data3: -1294282588
+      Data4: 1057267837
+    Path: event:/enemyHit
 --- !u!114 &4997170360271696133
 MonoBehaviour:
   m_ObjectHideFlags: 0
