@@ -47,6 +47,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Checkpoint
   IsFirst: 0
+  _activeSprite: {fileID: -1336997626, guid: ee6c3f1b818c62f4abeff55a13e2b9e4, type: 3}
+  _inactiveSprite: {fileID: -566115705, guid: ee6c3f1b818c62f4abeff55a13e2b9e4, type: 3}
 --- !u!61 &3329178217510066540
 BoxCollider2D:
   m_ObjectHideFlags: 0

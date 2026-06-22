@@ -7,6 +7,12 @@ public class Checkpoint : MonoBehaviour
 {
     public bool IsFirst;
 
+    [SerializeField] private GameObject _light;
+    [SerializeField] private Sprite _activeSprite;
+    [SerializeField] private Sprite _inactiveSprite;
+
+    private SpriteRenderer _renderer;
+
     public event Action<Checkpoint> OnPlayerEntered;
 
     private void Awake()
@@ -14,6 +20,21 @@ public class Checkpoint : MonoBehaviour
         if (TryGetComponent<BoxCollider2D>(out var c))
         {
             c.isTrigger = true;
+        }
+
+        if (TryGetComponent<SpriteRenderer>(out var renderer))
+        {
+            _renderer = renderer;
+
+            if (IsFirst)
+            {
+                _renderer.sprite = _activeSprite;
+                _light.SetActive(true);
+                return;
+            }
+
+            _renderer.sprite = _inactiveSprite;
+            _light.SetActive(false);
         }
     }
 
@@ -24,6 +45,20 @@ public class Checkpoint : MonoBehaviour
             Debug.Log("entratp");
 
             OnPlayerEntered?.Invoke(this);
+        }
+    }
+
+    public void SetActive(bool state)
+    {
+        if (state)
+        {
+            _renderer.sprite = _activeSprite;
+            _light.SetActive(true);
+        }
+        else
+        {
+            _renderer.sprite = _inactiveSprite;
+            _light.SetActive(false);
         }
     }
 

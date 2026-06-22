@@ -11,11 +11,15 @@ public class RespawnManager : MonoBehaviour
 
     private List<WeaponPickUp> _weapons;
 
+    private List<HealthPickUp> _potions;
+
     private void Start()
     {
         _enemies.AddRange(FindObjectsByType<Enemy>(default));
 
         _weapons.AddRange(FindObjectsByType<WeaponPickUp>(default));
+
+        _potions.AddRange(FindObjectsByType<HealthPickUp>(default));
 
         _checkPointManager = FindFirstObjectByType<CheckpointManager>();
 
@@ -38,6 +42,11 @@ public class RespawnManager : MonoBehaviour
         foreach (var weapon in _weapons)
         {
             weapon.Reset();
+        }
+
+        foreach (var potion in _potions)
+        {
+            potion.Reset();
         }
     }
 }

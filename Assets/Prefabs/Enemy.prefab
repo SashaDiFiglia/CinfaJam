@@ -4962,6 +4962,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Enemy
   _enemyData: {fileID: 11400000, guid: c409a493c82d01449954c90d1b63c3b4, type: 2}
+  _deathSound:
+    Guid:
+      Data1: 1354470339
+      Data2: 1174738119
+      Data3: 1238355868
+      Data4: -694629048
+    Path: event:/enemydeath
+  _hurtSound:
+    Guid:
+      Data1: -435649322
+      Data2: 1294651702
+      Data3: -1294282588
+      Data4: 1057267837
+    Path: event:/enemyHit
 --- !u!114 &4997170360271696133
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -30,5 +30,17 @@ public class CheckpointManager : MonoBehaviour
     private void SetLastCheckPoint(Checkpoint checkPoint)
     {
         LastCheckPoint = checkPoint;
+
+        foreach (var point in _checkPoints)
+        {
+            if (point == LastCheckPoint)
+            {
+                point.SetActive(true);
+
+                continue;
+            }
+
+            point.SetActive(false);
+        }
     }
 }
