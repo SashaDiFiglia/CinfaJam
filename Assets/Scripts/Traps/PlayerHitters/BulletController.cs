@@ -87,7 +87,7 @@ public class BulletController : MonoBehaviour
         {
             transform.localScale = ExplosionSpriteScale();
             int currentSprite = 0;
-            while (currentSprite <= explosionSprites.Length)
+            while (currentSprite < explosionSprites.Length)
             {
                 _rend.sprite = explosionSprites[currentSprite];
                 currentSprite ++;
