@@ -14,10 +14,11 @@ public partial class MoveTowardsAction : Action
     [SerializeReference] public BlackboardVariable<float> UnitPerSecond;
     [SerializeReference] public BlackboardVariable<Enemy> Component;
 
-    private const float Angle = 10f;
+    private const float Angle = 15f;
     private const float Distance = 1f;
     private const float Offset = 0.5f;
-    private const int HalfRays = 3;
+    private const int HalfRays = 6;
+    private float _lastTargetAngle;
 
 
     protected override Status OnStart()
@@ -30,7 +31,7 @@ public partial class MoveTowardsAction : Action
         {
             Quaternion rotation = Quaternion.AngleAxis(Angle * i, Vector3.forward);
             Vector2 rotatedVector = (rotation * targetDirection).normalized;
-            
+
             Vector2 origin = (Vector2)Agent.Value.position + (rotatedVector * Offset);
 
             var hit = Physics2D.Raycast(origin, rotatedVector, Distance);
@@ -51,9 +52,21 @@ public partial class MoveTowardsAction : Action
             obstaclesHit++;
         }
 
-        Vector2 finalDirection = targetDirection + avoidanceDirection;
+        Vector2 combinedDirection = targetDirection + avoidanceDirection;
+        
+        float targetAngle = Mathf.Atan2(combinedDirection.y, combinedDirection.x) * Mathf.Rad2Deg;
+        
+        float finalAngle = Mathf.LerpAngle(_lastTargetAngle, targetAngle, .01f);
+        _lastTargetAngle = finalAngle;
+        
+        float radians = finalAngle * Mathf.Deg2Rad;
+        Vector2 finalDirection = new Vector2(Mathf.Cos(radians), Mathf.Sin(radians)).normalized;
 
+        // Vector2 finalDirection = targetDirection + avoidanceDirection;
+        
         Component.Value.Move(finalDirection);
+        
+        Debug.DrawRay(Agent.Value.position, finalDirection, Color.yellow);
 
         return Status.Success;
     }
