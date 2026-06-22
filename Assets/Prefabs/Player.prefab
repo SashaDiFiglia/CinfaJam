@@ -290,11 +290,11 @@ MonoBehaviour:
     Path: event:/CharacterAttacks
   _weaponBreakReference:
     Guid:
-      Data1: 1980141442
-      Data2: 1111399605
-      Data3: 587038863
-      Data4: 687746975
-    Path: event:/ah-yuch
+      Data1: 1759739763
+      Data2: 1226347335
+      Data3: 2041402815
+      Data4: -900986884
+    Path: event:/LoseSword
 --- !u!95 &7538388407046748285
 Animator:
   serializedVersion: 7
