@@ -1,7 +1,7 @@
 ﻿using UnityEditor;
 using UnityEngine;
 
-[CustomEditor(typeof(ActivableBulletSpawner))]
+[CustomEditor(typeof(BulletSO))]
 
 public class ActivableBulletSpawnerCustomInspector : Editor
 {

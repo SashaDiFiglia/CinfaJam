@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class DisappearingSurfaceTrap : MonoBehaviour, ITrap
+public class Trap_DisappearingSurface : MonoBehaviour, ITrap
 {
     [SerializeField] private Sprite noWallSprite;
     private Sprite _wallSprite;

@@ -1,7 +1,7 @@
 ﻿using UnityEditor;
 using UnityEngine;
 
-[CustomEditor(typeof(ActivableFloorHazard))]
+[CustomEditor(typeof(FloorHazardSO))]
 
 public class ActivableFloorHazardCustomEditor : Editor
 {

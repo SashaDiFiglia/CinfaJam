@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "New Bullet", menuName = "Traps/Data/Bullet")]
-public class BulletDataSO : ScriptableObject
+public class BulletSO : ScriptableObject
 {
     [Header("Spawner Properties")]
     public GameObject bulletPrefab;

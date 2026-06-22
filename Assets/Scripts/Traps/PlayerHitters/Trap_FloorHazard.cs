@@ -1,9 +1,9 @@
 using System.Collections;
 using UnityEngine;
 
-public class HazardController : MonoBehaviour, ITrap
+public class Trap_FloorHazard : MonoBehaviour, ITrap
 {
-     [SerializeField] private FloorHazardDataSO floorHazardData;
+     [SerializeField] private FloorHazardSO floorHazard;
          
     
     #region VARIABLES - HAZARD
@@ -30,7 +30,7 @@ public class HazardController : MonoBehaviour, ITrap
         private bool _isFlickering;
     #endregion  
     
-    void Start() { Setup(floorHazardData.damage, floorHazardData.delayBetweenHits, floorHazardData.dealsDamageOverTime); }
+    void Start() { Setup(floorHazard.damage, floorHazard.delayBetweenHits, floorHazard.dealsDamageOverTime); }
     
     #region Setup
         public void Setup(float value, float delayBetweenHits, bool canDamageOverTime)
@@ -47,6 +47,11 @@ public class HazardController : MonoBehaviour, ITrap
         }
     #endregion
     
+    #region ITrap
+        public void ActivateTrap() { ToggleHazard(true); }
+        public void DeactivateTrap() {  ToggleHazard(false); }
+    #endregion
+
     public void ToggleHazard(bool activating)
     {
         if (_anim != null) { MoveSpikes(activating); }
@@ -133,7 +138,5 @@ public class HazardController : MonoBehaviour, ITrap
         } 
     #endregion
 
-    public void ActivateTrap() { ToggleHazard(true); }
-    public void DeactivateTrap() {  ToggleHazard(false); }
 
 }

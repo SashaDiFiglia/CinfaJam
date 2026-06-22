@@ -142,8 +142,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TrapCycleController
   isTimeBased: 1
-  timeBeforeActivation: 3
-  timeBeforeDeactivation: 0
+  timeBeforeActivation: 1
+  timeBeforeDeactivation: 3
 --- !u!114 &4519280028920859275
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -456,7 +456,7 @@ Transform:
   m_GameObject: {fileID: 6105053187746512563}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: -0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: 0.40999997, y: 0, z: 0}
+  m_LocalPosition: {x: 0.5864, y: 0, z: 0}
   m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
   m_ConstrainProportionsScale: 1
   m_Children:
