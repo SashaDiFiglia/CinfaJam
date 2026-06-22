@@ -9,6 +9,8 @@ public class CharacterCombat : MonoBehaviour
     [Header("Weapon")]
     [SerializeField] private Weapon m_weapon;
 
+    [SerializeField] private GameObject _weaponHolder;
+
     public Weapon Weapon
     {
         get => m_weapon;
@@ -20,6 +22,8 @@ public class CharacterCombat : MonoBehaviour
             if (value != null)
             {
                 _currentDurability = value.MaxDurability;
+
+                _weaponHolder.SetActive(true);
             }
         }
     }
@@ -73,8 +77,6 @@ public class CharacterCombat : MonoBehaviour
             return;
         }
 
-        Debug.Log("Emico copito.");
-
         _currentDurability -= hitNumber;
 
         if (_currentDurability <= 0)
@@ -83,7 +85,36 @@ public class CharacterCombat : MonoBehaviour
 
             OnWeaponBreak?.Invoke();
 
+            _weaponHolder.SetActive(false);
+
             Weapon = null;
         }
     }
+
+    #region DEBUG
+
+    [Button]
+    private void DecreaseDurability(float amount)
+    {
+        _currentDurability -= amount;
+        
+        if (_currentDurability <= 0)
+        {
+            _weaponBreakInstance.start();
+
+            OnWeaponBreak?.Invoke();
+
+            _weaponHolder.SetActive(false);
+
+            Weapon = null;
+        }
+    }
+
+    [Button]
+    private void IncreaseDurability(float amount)
+    {
+        _currentDurability += amount;
+    }
+
+    #endregion
 }
