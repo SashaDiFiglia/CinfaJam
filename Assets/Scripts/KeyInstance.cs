@@ -6,18 +6,27 @@ public class KeyInstance : MonoBehaviour
 {
     private PlayerKeyInventory _playerInventory;
 
+    [SerializeField] private float _checkDistance;
+
     private void Awake()
     {
         _playerInventory = FindFirstObjectByType<PlayerKeyInventory>();
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
+    private void Update()
     {
-        if (other.GetComponent<PlayerKeyInventory>())
+        var distance = Vector3.Distance(_playerInventory.transform.position, transform.position);
+        if (distance <= _checkDistance)
         {
-            _playerInventory.AddKey();
+            PickUpKey();
         }
-        
+    }
+
+
+
+    private void PickUpKey()
+    {
+        _playerInventory.AddKey();
         Destroy(this.gameObject);
     }
 }

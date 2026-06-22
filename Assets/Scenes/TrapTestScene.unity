@@ -431,10 +431,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1763704489351888829, guid: 2965214363df8ae45ac356e2f7b4cada, type: 3}
-      propertyPath: isTimeBased
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 4672092140009014804, guid: 2965214363df8ae45ac356e2f7b4cada, type: 3}
       propertyPath: m_Name
       value: Acid
@@ -452,6 +448,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1732883886199400962, guid: f488c330cb3a8bd4aa7c3f89c32818c9, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.5864
+      objectReference: {fileID: 0}
     - target: {fileID: 1769040150355153932, guid: f488c330cb3a8bd4aa7c3f89c32818c9, type: 3}
       propertyPath: m_LocalPosition.x
       value: -2.5
@@ -496,6 +496,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: BulletSpawner
       objectReference: {fileID: 0}
+    - target: {fileID: 1787960772296364572, guid: f488c330cb3a8bd4aa7c3f89c32818c9, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4265943311275965768, guid: f488c330cb3a8bd4aa7c3f89c32818c9, type: 3}
+      propertyPath: timeBeforeActivation
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4265943311275965768, guid: f488c330cb3a8bd4aa7c3f89c32818c9, type: 3}
+      propertyPath: timeBeforeDeactivation
+      value: 10
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -512,6 +524,10 @@ PrefabInstance:
     - target: {fileID: 755888111913006319, guid: bbfb3ec8195d4604aac532f3274c27f2, type: 3}
       propertyPath: m_Name
       value: Wall
+      objectReference: {fileID: 0}
+    - target: {fileID: 755888111913006319, guid: bbfb3ec8195d4604aac532f3274c27f2, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4475205218561174413, guid: bbfb3ec8195d4604aac532f3274c27f2, type: 3}
       propertyPath: m_LocalPosition.x
@@ -609,6 +625,10 @@ PrefabInstance:
     - target: {fileID: 8854298827173425279, guid: f74fa2289c149e949abdd4027f6cd82a, type: 3}
       propertyPath: m_Name
       value: Spikes
+      objectReference: {fileID: 0}
+    - target: {fileID: 8854298827173425279, guid: f74fa2289c149e949abdd4027f6cd82a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

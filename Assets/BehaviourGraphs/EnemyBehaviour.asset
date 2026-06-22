@@ -1505,7 +1505,7 @@ MonoBehaviour:
   - rid: 4749600361792405776
   - rid: 4749600377304514842
   - rid: 4749600382213161593
-  m_VersionTimestamp: 639174708287156961
+  m_VersionTimestamp: 639175741465880328
   m_CommandBuffer:
     m_Commands: []
   m_RuntimeBlackboardAsset: {fileID: 176221685971528315}
@@ -1529,7 +1529,7 @@ MonoBehaviour:
           m_Value0: 18297888490517767808
           m_Value1: 5211676640311593314
         Name: Target
-        IsExposed: 1
+        IsExposed: 0
         m_IsShared: 0
         m_Value: {fileID: 0}
     - rid: 4749600359444643998
@@ -1539,7 +1539,7 @@ MonoBehaviour:
           m_Value0: 77489407235110140
           m_Value1: 620004474717623683
         Name: WalkSpeed
-        IsExposed: 1
+        IsExposed: 0
         m_IsShared: 0
         m_Value: 0
     - rid: 4749600361792405660
@@ -1549,7 +1549,7 @@ MonoBehaviour:
           m_Value0: 16306174595852764218
           m_Value1: 3747697249619624316
         Name: AggroRange
-        IsExposed: 1
+        IsExposed: 0
         m_IsShared: 0
         m_Value: 0
     - rid: 4749600361792405776
@@ -1559,7 +1559,7 @@ MonoBehaviour:
           m_Value0: 1683500971263039503
           m_Value1: 6834865949935488023
         Name: CloseRange
-        IsExposed: 1
+        IsExposed: 0
         m_IsShared: 0
         m_Value: 0
     - rid: 4749600377304514842
@@ -1569,7 +1569,7 @@ MonoBehaviour:
           m_Value0: 1362267274404695560
           m_Value1: 15457131001901052624
         Name: AttackCooldown
-        IsExposed: 1
+        IsExposed: 0
         m_IsShared: 0
         m_Value: 0
     - rid: 4749600382213161593
@@ -1579,7 +1579,7 @@ MonoBehaviour:
           m_Value0: 11975584077383154894
           m_Value1: 17287154755375118327
         Name: Enemy
-        IsExposed: 1
+        IsExposed: 0
         m_IsShared: 0
         m_Value: {fileID: 0}
 --- !u!114 &8045278400074223621

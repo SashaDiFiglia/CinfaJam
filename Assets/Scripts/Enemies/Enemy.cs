@@ -4,23 +4,22 @@ using UnityEditor;
 using UnityEngine;
 using Action = System.Action;
 
-[RequireComponent(typeof(BehaviorGraphAgent))]
+[RequireComponent(typeof(BehaviorGraphAgent), typeof(CharacterAnimation), typeof(CharacterMovement))]
 public class Enemy : MonoBehaviour, IHealth
 {
-    private static readonly int AttackKey = Animator.StringToHash("Attack");
-
     [SerializeField] private EnemyData _enemyData;
-    [SerializeField] private Animator _animator;
 
     private BehaviorGraphAgent m_behaviourAgent;
+    private CharacterAnimation _characterAnimation;
+    private CharacterMovement _characterMovement;
     private Rigidbody2D _rigidbody2D;
-
-    private Vector2 _previousPosition;
-    public Vector2 CurrentDirection { get; private set; }
-    public Vector2 PreviousDirection { get; private set; }
+    private Collider2D _collider2D;
 
     [ShowInInspector, ReadOnly] private float _currentHealth;
+
     private bool _isDead;
+    private bool _canMove = true;
+    private Vector2 _lastFacingDirection;
 
     public event Action OnDeath;
 
@@ -36,6 +35,9 @@ public class Enemy : MonoBehaviour, IHealth
 
     private void Awake()
     {
+        _characterMovement = GetComponent<CharacterMovement>();
+        _characterAnimation = GetComponent<CharacterAnimation>();
+        _collider2D = GetComponent<Collider2D>();
         _rigidbody2D = GetComponent<Rigidbody2D>();
     }
 
@@ -46,12 +48,14 @@ public class Enemy : MonoBehaviour, IHealth
 
     private void Initialize()
     {
+        _isDead = false;
+        _collider2D.enabled = true;
         _currentHealth = _enemyData.MaxHealth;
         BehaviourAgent.Graph = _enemyData.BehaviorGraph;
 
         BehaviourAgent.Init();
 
-        var controller = FindFirstObjectByType<CharacterController>();
+        var controller = FindFirstObjectByType<CharacterInput>();
 
         if (controller)
         {
@@ -60,23 +64,43 @@ public class Enemy : MonoBehaviour, IHealth
 
         BehaviourAgent.BlackboardReference.SetVariableValue("AggroRange", _enemyData.AggroRadius);
         BehaviourAgent.BlackboardReference.SetVariableValue("WalkSpeed", _enemyData.WalkSpeed);
-        BehaviourAgent.BlackboardReference.SetVariableValue("CloseRange", _enemyData.Weapon.hitRadius);
+        BehaviourAgent.BlackboardReference.SetVariableValue("CloseRange", _enemyData.Weapon.attackOffset);
         BehaviourAgent.BlackboardReference.SetVariableValue("AttackCooldown", _enemyData.AttackCooldown);
         BehaviourAgent.BlackboardReference.SetVariableValue("Enemy", this);
-        
+
         BehaviourAgent.Start();
+    }
+
+    [Button]
+    private void Deactivate()
+    {
+        BehaviourAgent.End();
+        _rigidbody2D.linearVelocity = Vector2.zero;
+        _collider2D.enabled = false;
+    }
+
+    [Button]
+    public void Activate()
+    {
+        Initialize();
+        _rigidbody2D.linearVelocity = Vector2.zero;
+        _characterAnimation.ResetAnimations();
     }
 
     public void Attack()
     {
-        if (_animator)
-        {
-            _animator.SetTrigger(AttackKey);
-        }
+        _characterAnimation.ChangeState(CharacterState.Attacking, false, 1f);
+        _enemyData.Weapon.Attack(transform, _lastFacingDirection, out var count);
+    }
+
+    private void Update()
+    {
+        _canMove = false;
     }
 
     private void FixedUpdate()
     {
+        _canMove = true;
         BehaviourAgent.Update();
     }
 
@@ -87,6 +111,8 @@ public class Enemy : MonoBehaviour, IHealth
             return;
         }
 
+        _characterAnimation.ChangeState(CharacterState.TakingDamage, false);
+
         _currentHealth -= damage;
 
         if (_currentHealth > 0)
@@ -96,21 +122,28 @@ public class Enemy : MonoBehaviour, IHealth
 
         _isDead = true;
         OnDeath?.Invoke();
+        Die();
     }
 
-    public void Move(Vector2 newPosition)
+    private void Die()
     {
-        var direction = (newPosition - _previousPosition).normalized;
+        _characterAnimation.ChangeState(CharacterState.Dying);
+        Deactivate();
+    }
 
-        if (direction.sqrMagnitude >= 0.1f)
+    public void Move(Vector2 movementVector)
+    {
+        if (!_canMove || _isDead)
         {
-            PreviousDirection = direction;
+            return;
         }
 
-        CurrentDirection = direction;
-        _previousPosition = newPosition;
+        if (movementVector.sqrMagnitude > 0.1f)
+        {
+            _lastFacingDirection = DirectionUtils.EvaluateDirection(movementVector.normalized, _lastFacingDirection);
+        }
 
-        _rigidbody2D.MovePosition(newPosition);
+        _characterMovement.Move(movementVector, Time.fixedDeltaTime);
     }
 
     private void OnDrawGizmos()
@@ -123,8 +156,12 @@ public class Enemy : MonoBehaviour, IHealth
 #if UNITY_EDITOR
         Handles.color = Color.yellow;
         Handles.DrawWireDisc(transform.position, Vector3.forward, _enemyData.AggroRadius);
+        Handles.color = Color.blue;
+        Handles.DrawWireDisc(transform.position, Vector3.forward, _enemyData.Weapon.attackOffset);
         Handles.color = Color.red;
-        Handles.DrawWireDisc(transform.position, Vector3.forward, _enemyData.Weapon.hitRadius);
+        Handles.DrawWireDisc(transform.position + ((Vector3)_lastFacingDirection * _enemyData.Weapon.attackOffset),
+            Vector3.forward, _enemyData.Weapon.hitRadius);
+
 #endif
     }
 }
