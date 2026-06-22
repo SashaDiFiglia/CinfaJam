@@ -1,3 +1,5 @@
+using FMOD.Studio;
+using FMODUnity;
 using Sirenix.OdinInspector;
 using Unity.Behavior;
 using UnityEditor;
@@ -24,6 +26,11 @@ public class Enemy : MonoBehaviour, IHealth
 
     public event Action OnDeath;
 
+    [Header("Sound")]
+    [SerializeField] private EventReference _deathSound;
+
+    private EventInstance _deathSoundInstance;
+
     public BehaviorGraphAgent BehaviourAgent
     {
         get
@@ -41,6 +48,8 @@ public class Enemy : MonoBehaviour, IHealth
         _collider2D = GetComponent<Collider2D>();
         _rigidbody2D = GetComponent<Rigidbody2D>();
         _spawnPosition = transform.position;
+
+        _deathSoundInstance = RuntimeManager.CreateInstance(_deathSound);
     }
 
     private void Start()
@@ -130,6 +139,7 @@ public class Enemy : MonoBehaviour, IHealth
 
     private void Die()
     {
+        _deathSoundInstance.start();
         _characterAnimation.ChangeState(CharacterState.Dying);
         Deactivate();
     }
