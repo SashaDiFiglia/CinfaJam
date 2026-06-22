@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 2318850139933322050}
   - component: {fileID: 5153918834928819535}
   - component: {fileID: 212236749739739095}
-  - component: {fileID: -6719674379173894401}
   m_Layer: 0
   m_Name: Bullet
   m_TagString: Untagged
@@ -170,25 +169,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1b40af27eaa445fa1ea6b3c26cb8074, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Bullet
---- !u!95 &-6719674379173894401
-Animator:
-  serializedVersion: 7
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8032753051448514959}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 4ba9dd8e7ef8de94d9305ceb0250d73a, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_AnimatePhysics: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
+  flickerSprites:
+  - {fileID: -1401786809, guid: 3056fd41349b6924abd4d1f8b8190a44, type: 3}
+  - {fileID: -342347808, guid: 3056fd41349b6924abd4d1f8b8190a44, type: 3}
+  explosionSprites:
+  - {fileID: 2085639875, guid: 6664c56d239f6c1498dff1e14647137d, type: 3}
+  - {fileID: 1694986832, guid: 6664c56d239f6c1498dff1e14647137d, type: 3}
+  - {fileID: 1300909159, guid: 6664c56d239f6c1498dff1e14647137d, type: 3}
+  - {fileID: 1537358837, guid: 6664c56d239f6c1498dff1e14647137d, type: 3}
+  - {fileID: 523952660, guid: 6664c56d239f6c1498dff1e14647137d, type: 3}
+  timeBetweenSpritesFlicker: 0.1
+  timeBetweenSpritesExplosion: 0.1
+  explosionScaleMultiplier: 1
