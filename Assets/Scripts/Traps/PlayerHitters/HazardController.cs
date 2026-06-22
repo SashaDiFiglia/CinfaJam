@@ -37,8 +37,8 @@ public class HazardController : MonoBehaviour
             _col = gameObject.GetComponent<Collider2D>(); 
             
             _anim = gameObject.GetComponent<Animator>();
-            if (_anim == null) 
-            { Debug.LogWarning($"No animator on {gameObject.name}, animations will not be played"); }
+            // if (_anim == null) 
+            // { Debug.LogWarning($"No animator on {gameObject.name}, animations will not be played"); }
         }
     #endregion
     
@@ -52,7 +52,6 @@ public class HazardController : MonoBehaviour
         private void MoveSpikes(bool isForward)
         {
             _isFlickering = false;
-                
             if (_waitForFlickerC != null)     { StopCoroutine(_waitForFlickerC);     _waitForFlickerC     = null; }
             if (_flickerForDurationC != null) { StopCoroutine(_flickerForDurationC); _flickerForDurationC = null; }
                 
