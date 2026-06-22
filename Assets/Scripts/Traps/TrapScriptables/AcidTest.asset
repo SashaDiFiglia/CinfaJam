@@ -15,3 +15,4 @@ MonoBehaviour:
   damage: 1
   delayBetweenHits: 2
   dealsDamageOverTime: 1
+  _hazardController: {fileID: 0}
