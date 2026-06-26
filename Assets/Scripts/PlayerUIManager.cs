@@ -1,51 +1,48 @@
+using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PlayerUIManager : MonoBehaviour
-{
-    [Header("PlayerComponents")]
-    [SerializeField] private CharacterHealth _playerHealth;
+public class PlayerUIManager : MonoBehaviour {
+	[Header("PlayerComponents")] [SerializeField]
+	private CharacterHealth _playerHealth;
 
-    [SerializeField] private PlayerKeyInventory _playerKeyInventory;
+	[SerializeField] private PlayerKeyInventory _playerKeyInventory;
 
-    [Header("Sprites")]
-    [SerializeField] private Sprite _fullHeart;
+	[Header("UI")] [SerializeField] private List<Image> _hearts = new List<Image>();
 
-    [SerializeField] private Sprite _emptyHeart;
+	[SerializeField] private TextMeshProUGUI _keyNumber;
 
-    [Header("UI")]
-    [SerializeField] private List<Image> _hearts = new List<Image>();
+	private IEnumerator Start() {
+		yield return null;
+		_playerHealth = FindFirstObjectByType<CharacterHealth>();
+		_playerKeyInventory = FindFirstObjectByType<PlayerKeyInventory>();
+		yield return null;
+		_playerHealth.OnHealthChange += UpdateHealthUI;
+		_playerKeyInventory.OnKeyAmountChange += UpdateKeyUI;
+	}
 
-    [SerializeField] private TextMeshProUGUI _keyNumber;
+	private void OnDestroy() {
+		_playerHealth.OnHealthChange -= UpdateHealthUI;
+		_playerKeyInventory.OnKeyAmountChange -= UpdateKeyUI;
+	}
 
-    private void Awake()
-    {
-        _playerHealth.OnHealthChange += UpdateHealthUI;
+	private void UpdateHealthUI(float hp) {
+		var maxHealth = _playerHealth.MaxHealth;
+		var currentHealth = _playerHealth.CurrentHealth;
 
-        _playerKeyInventory.OnKeyAmountChange += UpdateKeyUI;
-    }
+		for (var i = 0; i < maxHealth; i++) {
+			if (i < currentHealth) {
+				_hearts[i].enabled = true;
+				continue;
+			}
 
-    private void UpdateHealthUI(float hp)
-    {
-        var maxHealth = _playerHealth.MaxHealth;
-        var currentHealth = _playerHealth.CurrentHealth;
+			_hearts[i].enabled = false;
+		}
+	}
 
-        for (var i = 0; i < maxHealth; i++)
-        {
-            if (i < currentHealth)
-            {
-                _hearts[i].sprite = _fullHeart;
-                continue;
-            }
-
-            _hearts[i].sprite = _emptyHeart;
-        }
-    }
-
-    private void UpdateKeyUI(int amount)
-    {
-        _keyNumber.text = amount.ToString();
-    }
+	private void UpdateKeyUI(int amount) {
+		_keyNumber.text = amount.ToString();
+	}
 }
