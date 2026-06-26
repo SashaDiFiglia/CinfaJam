@@ -20,7 +20,6 @@ public class TorchInstance : MonoBehaviour
     [SerializeField] private float _reductionMultiplier;
     [SerializeField] private float _time;
 
-    // [Header("Events,Action ecc")] private Action _onTorchCheck;//nome temporaneo
     public TorchData TorchData
     {
         get { return _torchData; }
