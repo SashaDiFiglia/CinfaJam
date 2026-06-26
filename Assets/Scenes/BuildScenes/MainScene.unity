@@ -24232,7 +24232,7 @@ Tilemap:
     second:
       serializedVersion: 2
       m_TileIndex: 7
-      m_TileSpriteIndex: 0
+      m_TileSpriteIndex: 5
       m_TileMatrixIndex: 2
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -51127,8 +51127,8 @@ Tilemap:
   - m_RefCount: 1
     m_Data: {fileID: 11400000, guid: fa23a6d2a434a2e4597f34189198dada, type: 2}
   m_TileSpriteArray:
-  - m_RefCount: 1
-    m_Data: {fileID: 2050330044, guid: be7ecf6c645650d4c95e2e5772d20dc8, type: 3}
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
   - m_RefCount: 0
     m_Data: {fileID: 0}
   - m_RefCount: 9
@@ -51137,8 +51137,8 @@ Tilemap:
     m_Data: {fileID: 0}
   - m_RefCount: 0
     m_Data: {fileID: 0}
-  - m_RefCount: 0
-    m_Data: {fileID: 0}
+  - m_RefCount: 1
+    m_Data: {fileID: 2050330044, guid: be7ecf6c645650d4c95e2e5772d20dc8, type: 3}
   - m_RefCount: 2663
     m_Data: {fileID: -2058430453, guid: be7ecf6c645650d4c95e2e5772d20dc8, type: 3}
   - m_RefCount: 17
@@ -59521,7 +59521,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7594315260416615506, guid: 588af69055c2059498b700d8ca734b5f, type: 3}
       propertyPath: orthographic size
-      value: 5.28125
+      value: 5.625
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
